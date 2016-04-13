@@ -169,9 +169,7 @@ He likes {\LARGE large and
 \footnote{Linux 下的 \TeX\ Live 为了支持系统安装的字体，需要额外的配置。详见附录 \ref{app:install}。}。相比于上一小节，我们有了更多修改字体的余地。
 
 \pkgindex{fontspec}
-\cmdindex[fontspec]{setmainfont}
-\cmdindex[fontspec]{setsansfont}
-\cmdindex[fontspec]{setmonofont}
+\cmdindex[fontspec]{setmainfont,setsansfont,setmonofont}
 \texttt{xelatex} 命令下支持用户调用字体的宏包是 \pkg{fontspec}。宏包提供了几个设置全局字体的命令，设置 \cmd{rmfamily} 等对应命令的默认字体%
 \footnote{新版本 \pkg{fontspec} 的命令支持把必选参数 \Arg{font name} 放在可选参数 \Arg{font features} 的前面。}：
 \begin{command}
@@ -193,9 +191,7 @@ He likes {\LARGE large and
 \subsection{使用 \pkg{xeCJK} 宏包更改中文字体}\label{subsec:CJKfont}
 
 \pkgindex{xeCJK}
-\cmdindex[xeCJK]{setCJKmainfont}
-\cmdindex[xeCJK]{setCJKsansfont}
-\cmdindex[xeCJK]{setCJKmonofont}
+\cmdindex[xeCJK]{setCJKmainfont,setCJKsansfont,setCJKmonofont}
 前文已经介绍过的 \pkg{xeCJK} 宏包使用了和 \pkg{fontspec} 宏包非常类似的语法设置中文字体：
 \begin{command}
 \cmd{setCJKmainfont}\oarg{font features}\marg{font name} \\
@@ -237,6 +233,7 @@ He likes {\LARGE large and
 
 长度的数值还可以用长度变量的倍数来表达，如 \texttt{2.5}\cmd{parindent} 等。
 
+\cmdindex{newlength,setlength,addtolength}
 \LaTeX\ 预定义了大量的长度变量用于控制版面格式。如页面宽度和高度、首行缩进、段落间距等。
 如果需要自定义长度变量，需使用如下命令：
 \begin{command}
@@ -270,7 +267,7 @@ He likes {\LARGE large and
 {\linespread{1.67}\selectfont
 The baseline skip is set to twice
 the font size ($1.67\times 1.2=2$). 
-Note the \verb|\par|
+Pay attention to the \verb|\par|
 command at the end. \par}
 
 In comparison, after the
@@ -304,8 +301,7 @@ But remember I am a liar.}\par
 
 它们和设置字号的命令一样，在分段时生效。
 
-\cmdindex{indent}
-\cmdindex{noindent}
+\cmdindex{indent,noindent}
 \LaTeX\ 默认在段落开始时缩进，长度为你用上述命令设置的 \cmd{parindent}。如果你在某一段不想使用缩进，可使用某一段开头使用
 \begin{command}
 \cmd{noindent}
@@ -347,10 +343,10 @@ of 1.5 cm.
 \cmd{hspace} 命令生成的间距如果位于一行的开头或末尾，则有可能被“吞掉”。这时可以使用 \cmd{hspace*} 代替 \cmd{hspace} 命令
 得到不会因断行而消失的水平间距。
 
-\cmdindex{stretch}
-\cmdindex{fill}
-命令 \cmd{stretch} 生成一个特殊弹性长度，参数为权重。它的基础长度为零，但可以一直延伸，直到一行内可用的空间都被填满。如果同一行内出现多个 
-\cmd{stretch}\marg{n}，这一行的所有可用空间将以每个 \cmd{stretch} 设置的权重 \Arg{n} 进行分配。命令 \cmd{fill} 相当于 \cmd{stretch}\marg*{1}。
+\cmdindex{stretch,fill}
+命令 \cmd{stretch}\marg{n} 生成一个特殊弹性长度，参数 \Arg{n} 为权重。它的基础长度为零，但可以一直延伸，直到一行内可用的空间都被填满。
+如果同一行内出现多个 \cmd{stretch}\marg{n}，这一行的所有可用空间将以每个 \cmd{stretch} 设置的权重 \Arg{n} 进行分配。
+命令 \cmd{fill} 相当于 \cmd{stretch}\marg*{1}。
 
 \begin{example}
 x\hspace{\stretch{1}}
@@ -379,14 +375,10 @@ x\hspace{\fill}x
 \cmd{vspace} 的间距在一页的顶端或底端可能被“吞掉”，类似 \cmd{hspace} 在一行的开头和末尾那样。
 对应地，\cmd{vspace*} 命令产生不会因断页而消失的垂直间距。\cmd{vspace} 也可用 \cmd{stretch} 设置无限延伸的垂直长度。
 
-在段落内部的某两行之间增加垂直间距，一般通过给换行命令 \cmd{\char`\\} 加上可选参数，和表格的用法相同：
-\begin{command}
-\cmd{\char`\\}\oarg{length}
-\end{command}
+\index{\@\crcmd\ (\textit{换行})}
+在段落内的两行之间增加垂直间距，一般通过给换行命令 \crcmd\ 加可选参数，如 \crcmd \texttt{[6pt]}。
 
-\cmdindex{bigskip}
-\cmdindex{medskip}
-\cmdindex{smallskip}
+\cmdindex{bigskip,medskip,smallskip}
 另外 \LaTeX\ 还提供了\cmd{bigskip}, \cmd{medskip}, \cmd{smallskip} 来增加预定义长度的垂直间距。
 \begin{example}
 \parbox[t]{3em}{%
@@ -404,8 +396,7 @@ x\hspace{\fill}x
 我们不妨回顾一下第一章介绍的文档类属性。\LaTeX\ 允许你通过文档类选项控制纸张的大小（见表 \ref{tbl:ltx-options}），
 包括 \texttt{a4paper}、\texttt{letterpaper}等等，并配合字号设置了适合的页边距。
 
-\cmdindex{textheight}
-\cmdindex{textwidth}
+\cmdindex{textheight,textwidth}
 \currentpage
 控制页边距的参数由图 \ref{fig:layouts} 里给出的各种长度变量控制（水平和垂直虚线显示的纸张宽度和高度对应的变量为，
 \cmd{paper\-height} 和 \cmd{paper\-width}）。
@@ -497,8 +488,7 @@ x\hspace{\fill}x
 
 \subsection{分栏}\label{subsec:columns}
 
-\cmdindex{onecolumn}
-\cmdindex{twocolumn}
+\cmdindex{onecolumn,twocolumn}
 \LaTeX\ 支持简单的单栏或双栏排版。标准文档类的全局选项 \texttt{onecolumn}、\texttt{twocolumn} 
 可控制全文分单栏或双栏排版。\LaTeX\ 也提供了切换单/双栏排版的命令：
 \begin{command}
@@ -506,8 +496,7 @@ x\hspace{\fill}x
 \cmd{twocolumn}\oarg{one-column top material}
 \end{command}
 
-\cmdindex{newpage}
-\cmdindex{clearpage}
+\cmdindex{newpage,clearpage}
 以上命令总是会另起一页（\cmd{clearpage}）。\cmd{twocolumn} 支持带一个可选参数，用于排版双栏之上的一部分单栏内容。
 在双栏模式下使用 \cmd{newpage} 会换栏而不是直接换页；\cmd{clearpage} 则能够换页。
 
@@ -522,8 +511,7 @@ x\hspace{\fill}x
 \end{verbatim}
 
 \pinyinindex{fudongti}{浮动体}
-\envindex{table}
-\envindex{figure}
+\envindex{table,figure}
 \pkgindex{float}
 \pkg{multicol} 宏包能够在一页之中切换单栏/多栏，也能处理跨页的分栏，且各栏的高度分布平衡。但代价是%
 \textbf{在 \env{multicols} 环境中无法正常使用 \env{table} 和 \env{figure} 等浮动体环境}，它会直接让浮动体丢失。
@@ -537,8 +525,7 @@ x\hspace{\fill}x
 
 \subsection{基本的页眉页脚样式}\label{subsec:basic-pagesyle}
 
-\cmdindex{pagestyle}
-\cmdindex{thispagestyle}
+\cmdindex{pagestyle,thispagestyle}
 \pinyinindex{yemei}{页眉}
 \pinyinindex{yejiao}{页脚}
 \LaTeX\ 中提供了命令 \cmd{pagestyle} 来修改页眉页脚的样式：
@@ -566,9 +553,7 @@ x\hspace{\fill}x
 \end{tabular}
 \end{table}
 
-\clsindex{article}
-\clsindex{report}
-\clsindex{book}
+\clsindex{article,report,book}
 其中 \texttt{headings} 的情况较为复杂：
 \begin{itemize}
   \item \texttt{twoside} 选项的 \cls{article} 文档类，偶数页页眉为页码和节标题，奇数页页眉为小节标题和页码；
@@ -579,8 +564,7 @@ x\hspace{\fill}x
 
 \subsection{手动更改页眉页脚的内容}\label{subsec:marks}
 
-\cmdindex{markright}
-\cmdindex{markboth}
+\cmdindex{markright,markboth}
 对于 headings 或者 myheadings 样式，\LaTeX\ 允许用户使用命令手动修改页眉上面的内容，
 特别是因为使用了 \cmd{chapter*} 等命令而无法自动生成页眉页脚的情况：
 \begin{command}

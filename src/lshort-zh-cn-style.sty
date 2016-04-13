@@ -7,13 +7,12 @@
 %
 % 基本工具宏包
 % 
-\RequirePackage{colortbl,xcolor,tabularx,multirow}
+\RequirePackage{colortbl,xcolor,tabularx,multirow,booktabs}
 \RequirePackage{graphicx,float}
 \RequirePackage{hologo,verbatim,fancyvrb,layouts,multicol}
 \RequirePackage{makeidx}
 \RequirePackage{amsmath,amsthm}
 \RequirePackage[inner=1in,outer=1.5in,vmargin=1in,marginparwidth=1in]{geometry}
-%\RequirePackage[all]{xy}
 %\RequirePackage{tikz}
 %\usetikzlibrary{%
 %  arrows,%
@@ -173,6 +172,7 @@
 % 命令和环境的写法
 %
 \DeclareRobustCommand*\cmd[1]{\texttt{\char`\\#1}}
+\def\crcmd{\cmd{\char`\\}}
 \DeclareRobustCommand*\env[1]{\texttt{#1}}
 \DeclareRobustCommand*\pkg[1]{\textsf{#1}}
 \DeclareRobustCommand*\cls[1]{\textsf{#1}}
@@ -188,21 +188,22 @@
 %
 % 命令和环境的索引
 %
-\def\pkgindex#1{\index{#1@\pkg{#1} 宏包}}
-\def\clsindex#1{\index{#1@\cls{#1} 文档类}}
+\def\pkgindex#1{\@for\pkgname:=#1\do{\index{\pkgname @\pkg{\pkgname} 宏包}}}
+\def\clsindex#1{\@for\clsname:=#1\do{\index{\clsname @\cls{\clsname} 文档类}}}
 \def\cmdindex{\@ifnextchar[{\pkgcmdindex}{\ltxcmdindex}}
 \def\envindex{\@ifnextchar[{\pkgenvindex}{\ltxenvindex}}
-\def\ltxcmdindex#1{\index{#1@\cmd{#1}}}
-\def\ltxenvindex#1{\index{#1@\env{#1} 环境}}
-\def\pkgcmdindex[#1]#2{\index{#2@\cmd{#2} (\pkg{#1})}}
-\def\pkgenvindex[#1]#2{\index{#2@\env{#2} 环境 (\pkg{#1})}}
-\def\symindex#1{\index{#1@\cmd{#1} (\expandafter\protect\csname #1\endcsname)}}
-\def\accindex#1{\index{#1@\cmd{#1} (\textit{重音符号} \expandafter\protect\csname #1\endcsname{a})}}
-% 数学符号索引
-\def\mathindex#1{\index{#1@\cmd{#1} (\textit{数学命令})}}
-\def\msymindex#1{\index{#1@\cmd{#1} (\textit{数学符号}$\expandafter\protect\csname #1\endcsname$)}}
-\def\maccindex#1{\index{#1@\cmd{#1} (\textit{数学重音}$\expandafter\protect\csname #1\endcsname{a}$)}}
-\def\waccindex#1{\index{#1@\cmd{#1} (\textit{数学重音}$\expandafter\protect\csname #1\endcsname{AB}$)}}
+\def\ltxcmdindex#1{\@for\@ltxcmd:=#1\do{\index{\@ltxcmd @\cmd{\@ltxcmd}}}}
+\def\ltxenvindex#1{\@for\@ltxenv:=#1\do{\index{\@ltxenv @\env{\@ltxenv} 环境}}}
+\def\pkgcmdindex[#1]#2{\@for\@pkgcmd:=#2\do{\index{\@pkgcmd @\cmd{\@pkgcmd} (\pkg{#1})}}}
+\def\pkgenvindex[#1]#2{\@for\@pkgcmd:=#2\do{\index{\@pkgcmd @\env{\@pkgcmd} 环境 (\pkg{#1})}}}
+% 文本和数学符号索引
+\def\symindex#1{\@for\symcmd:=#1\do{\index{\symcmd @\cmd{\symcmd} (\expandafter\protect\csname \symcmd\endcsname)}}}
+\def\accindex#1{\@for\acccmd:=#1\do{\index{\acccmd @\cmd{\acccmd} (\textit{重音符号} \expandafter\protect\csname \acccmd\endcsname{a})}}}
+\def\mathindex#1{\@for\m@thcmd:=#1\do{\index{\m@thcmd @\cmd{\m@thcmd} (\textit{数学命令})}}}
+\def\msymindex#1{\@for\m@thsym:=#1\do{\index{\m@thsym @\cmd{\m@thsym} (\textit{数学符号}$\expandafter\protect\csname \m@thsym\endcsname$)}}}
+\def\maccindex#1{\@for\m@thacc:=#1\do{\index{\m@thacc @\cmd{\m@thacc} (\textit{数学重音}$\expandafter\protect\csname \m@thacc\endcsname{a}$)}}}
+\def\waccindex#1{\@for\wideacc:=#1\do{\index{\wideacc @\cmd{\wideacc} (\textit{数学重音}$\expandafter\protect\csname \wideacc\endcsname{AB}$)}}}
+% 拼音索引
 \def\pinyinindex#1#2{\index{#1@#2}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -236,9 +237,10 @@
 \newwrite\example@out
 \newlength\savefboxrule
 \newlength\savefboxsep
+\def\example@name{lshort-example.aux}
 \newenvironment{example}%
 {\begingroup\@bsphack
-  \immediate\openout\example@out lshort-example.tex
+  \immediate\openout\example@out \example@name
   \let\do\@makeother\dospecials\catcode`\^^M\active
   \def\verbatim@processline{\immediate\write\example@out{\the\verbatim@line}}%
   \verbatim@start}%
@@ -252,7 +254,7 @@
     \begin{minipage}[c]{0.45\textwidth}%
       \setlength{\fboxrule}{\savefboxrule}%
       \setlength{\fboxsep}{\savefboxsep}%
-      \small\verbatiminput{lshort-example.tex}%
+      \small\verbatiminput{\example@name}%
     \end{minipage}%
   }%
   \hfill%
@@ -261,7 +263,7 @@
       \setlength{\fboxrule}{\savefboxrule}%
       \setlength{\fboxsep}{\savefboxsep}%
       \setlength{\parskip}{1ex plus 0.4ex minus 0.2ex}%
-      \normalsize\input{lshort-example.tex}%
+      \normalsize\input{\example@name}%
     \end{minipage}%
   }%
   \endtrivlist

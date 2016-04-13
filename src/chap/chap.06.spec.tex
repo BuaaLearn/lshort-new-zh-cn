@@ -117,8 +117,7 @@ Partl~\cite{pa} has proposed that \ldots
 其中 \Arg{bst-name} 为格式文件的名称。\hologo{BibTeX} 提供了几个预定义的格式，如 plain, unsrt, alpha 等。
 一些学术论文的模板会提供自有的格式文件，以 \texttt{.bst} 作为扩展名，同样和 \LaTeX\ 源代码\textbf{放在同一个目录下}。
 
-\cmdindex{cite}
-\cmdindex{nocite}
+\cmdindex{cite,nocite}
 其次就是在正文中引用参考文献了。\hologo{BibTeX} 程序在生成参考文献列表的时候，通常只列出你用 \cmd{cite} 命令引用的那些。
 如果需要列出没有被引用的文献，则需要 \cmd{nocite}\marg{citation} 命令；而 \cmd{nocite}\marg*{*} 则让所有未引用的参考文献都列出。
 
@@ -172,9 +171,8 @@ pdflatex demo
 时下许多学术期刊比较喜欢使用人名——年份的引用方式，形如(\emph{Alice et~al.}, 2005)。
 \pkg{natbib} 宏包提供了对这种“自然”引用方式的处理。
 
-\cmdindex[natbib]{citep}
-\cmdindex[natbib]{citet}
-\pkg{natbib} 宏包在正文中支持两种引用方式：
+\cmdindex[natbib]{citep,citet}
+除了 \cmd{cite} 之外，\pkg{natbib} 宏包在正文中支持两种引用方式：
 \begin{command}
 \cmd{citep}\marg{citation} \\
 \cmd{citet}\marg{citation}
@@ -418,15 +416,14 @@ PDF 文档格式是现今最流行的电子文档格式，而电子文档最实�
 
 \subsection{超链接}\label{subsec:url-href}
 
-\cmdindex[hyperref]{url}
-\cmdindex[hyperref]{nolinkurl}
+\cmdindex[hyperref]{url,nolinkurl}
 \pkg{hyperref} 宏包提供了直接书写超链接的命令，用于在 PDF 中生成 URL：
 \begin{command}
 \cmd{url}\marg{url} \\
 \cmd{nolinkurl}\marg{url}
 \end{command}
 
-其中 \cmd{url} 生成可以点击的 URL，而 \cmd{nolinkurl} 只生成文本。在 \cmd{url} 命令中作为参数的 URL 里，
+\cmd{url} 和 \cmd{nolinkurl} 都生成可以点击的 URL，区别是前者有彩色，后者没有。在 \cmd{url} 命令中作为参数的 URL 里，
 \textbf{可直接输入如 \texttt\%、\texttt\& 这样的特殊符号}。
 
 \cmdindex[hyperref]{href}

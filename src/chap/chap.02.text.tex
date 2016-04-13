@@ -89,9 +89,7 @@ Unicode 是一个多国字符的集合，覆盖了几乎全球范围内的语言
 \subsection{\pkg{ctex} 宏包和文档类}\label{subsec:ctex}
 
 \pkgindex{ctex}
-\clsindex{ctexart}
-\clsindex{ctexbook}
-\clsindex{ctexrep}
+\clsindex{ctexart,ctexbook,ctexrep}
 \pkg{ctex} 宏包和文档类是对 \pkg{CJK} 和 \pkg{xeCJK} 等宏包的进一步封装。\pkg{ctex} 文档类包括
 \cls{ctexart} / \cls{ctexrep} / \cls{ctexbook}，是对 \LaTeX\ 的三个标准文档类的封装，对 \LaTeX\ 的排版样式做了许多调整，
 以切合中文排版风格。最新版本的 \pkg{ctex} 宏包/文档类甚至支持自动配置字体。比如上述例子可进一步简化为：
@@ -158,7 +156,11 @@ ak a word.
 
 事实上这些带反斜线的形式就是 \LaTeX\ 命令。\cmd{\textasciicircum} 和 \cmd{\textasciitilde} 
 两个命令是需要带参数的，如果不加一对花括号（空参数），就将后面的字符作为参数，形成重音效果（详见某节）。
-\cmd{\char`\\} 被直接定义成了手动换行的命令，输入反斜杠就只好用 \cmd{text\-back\-slash}。
+\crcmd\ 被直接定义成了手动换行的命令，输入反斜杠就只好用 \cmd{text\-back\-slash}。
+
+\section{文字强调}
+
+\leavevmode\nobreakspace
 
 \section{段落}
 

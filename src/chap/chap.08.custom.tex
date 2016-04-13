@@ -40,7 +40,7 @@
 
 接下来的两个例子有助你的理解。第一个例子定义了一个新的命令：\cmd{tnss}。
 这个命令是本手册英文名称 ``The Not So Short Introduction to \LaTeXe'' 的简写。
-如果你需要在文档中多次使用本手册的名称，那么定义这个命令将是非常方便的。
+如果你需要在文档中多次使用本手册的名称，那么使用这个命令是一个非常方便的办法。
 
 \begin{example}
 \newcommand{\tnss}{The not
@@ -50,9 +50,8 @@ This is ``\tnss'' \ldots{}
 ``\tnss''
 \end{example}
 
-下一个例子演示了如何定义一个接受一个参数的命令。在命令的定义中，标记 \verb|#1| 
-将被你指定的参数所代替。如果你想使用多个参数，那么可以依次使用 \verb|#2|、……、
-\verb|#9| 等标记。
+第二个例子演示了如何定义一个带参数的命令。在命令的定义中，标记 \verb|#1| 
+代表指定的参数。如果想使用多个参数，可以依次使用 \verb|#2|、……、\verb|#9| 等标记。
 
 \begin{example}
 \newcommand{\txsit}[1]
@@ -66,10 +65,10 @@ This is ``\tnss'' \ldots{}
 \end{example}
 
 \cmdindex{renewcommand}
-\LaTeX\ 不允许你新建一个与现有命令重名的命令。如果需要修改的话，使用 \cmd{re\-new\-comm\-and} 命令。它使用与命令 \cmd{new\-comm\-and}
+\LaTeX\ 不允许你定义一个与现有命令重名的命令。如果需要修改命令定义的话，使用 \cmd{re\-new\-comm\-and} 命令。它使用与命令 \cmd{new\-comm\-and}
 相同的语法。
 
-\cmd{providecommand}
+\cmdindex{providecommand}
 在某些情况之下，你可能会希望使用 \cmd{pro\-vide\-comm\-and} 命令。在命令不存在时，它相当于 \cmd{new\-comm\-and} 
 ；在命令已经存在时，仍沿用存在的定义。
 
@@ -180,9 +179,7 @@ My humble subjects \ldots
 
 \Arg{counter name} 为计数器的名称，可选参数 \Arg{parent counter name} 定义为 \Arg{counter name} 的父一级计数器。
 
-\cmdindex{setcounter}
-\cmdindex{addtocounter}
-\cmdindex{stepcounter}
+\cmdindex{setcounter,addtocounter,stepcounter}
 以下命令修改计数器的数值，\cmd{set\-counter} 将数值设为 \Arg{number}；\cmd{add\-to\-counter} 将数值加上 \Arg{number}；
 \cmd{step\-counter} 将数值加一，并\textbf{将所有子级计数器归零}。
 \begin{command}
@@ -199,6 +196,7 @@ My humble subjects \ldots
 \cmd{renewcommand}\marg*{\cmd{the\Arg{counter}}}\marg*{\cmd{Alph}\marg{counter}}
 \end{command}
 
+\cmdindex{arabic,alph,Alph,roman,Roman,fnsymbol}
 命令 \cmd{Alph} 控制计数器 \Arg{counter} 的值以大写字母形式显示。下表列出所有可用于修改计数器格式的命令。
 注意：这些命令\textbf{只能用于计数器，不能直接用于数字}，如 \cmd{roman}\marg*{1} 这样的命令会出错。
 \begin{center}
@@ -214,7 +212,7 @@ My humble subjects \ldots
 \end{tabular}
 \end{center}
 
-子级计数器还可以利用父级计数器的值与之组合。如 \cls{article} 文档类里 \cmd{sub\-section} 相关的计数器的定义相当于：
+计数器还可以利用其它字符，甚至其它计数器的值与之组合。如 \cls{article} 文档类里 \cmd{sub\-section} 相关的计数器的定义相当于：
 \begin{verbatim}
 \renewcommand\thesubsection {\thesection.\arabic{subsection}}
 \end{verbatim}
@@ -229,6 +227,7 @@ My humble subjects \ldots
   \item 公式、页码、脚注的计数器分别是 equation、footnote 和 page。
 \end{itemize}
 
+\cmdindex{pagenumbering}
 我们可以利用前面介绍过的命令，修改计数器的样式以达到想要的效果，比如把页码修改成大写罗马字母，或是给脚注加上方括号。
 修改页码的样式有个更方便的命令 \cmd{page\-number\-ing}：
 \begin{verbatim}

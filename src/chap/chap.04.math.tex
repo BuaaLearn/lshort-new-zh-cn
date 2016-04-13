@@ -8,10 +8,7 @@
 
 \section{\AmS\ 宏集}\label{sec:ams-bundle}
 
-\pkgindex{amsmath}
-\pkgindex{amsfonts}
-\pkgindex{amssymb}
-\pkgindex{amsthm}
+\pkgindex{amsmath,amsfonts,amssymb,amsthm}
 在介绍数学公式排版之前，简单介绍一下 \AmS\ 宏集。\AmS\ 宏集合是美国数学学会(American Mathematical Society)提供的对
 \LaTeX\ 原生的数学公式排版的扩展，其核心是 \pkg{amsmath} 宏包，对多行公式的排版提供了有力的支持。
 此外，\pkg{amsfonts} 宏包以及基于它的 \pkg{amssymb} 宏包提供了丰富的数学符号；\pkg{amsthm} 宏包扩展了 \LaTeX\ 定理证明格式。
@@ -33,15 +30,12 @@ $a^2 + b^2 = c^2$
 \end{example}
 
 \envindex{equation}
-\cmdindex{label}
-\cmdindex{ref}
-\cmdindex[amsmath]{eqref}
-\cmdindex[amsmath]{tag}
-\cmdindex[amsmath]{notag}
+\cmdindex{label,ref,nonumber}
+\cmdindex[amsmath]{eqref,tag,notag}
 单独成行的\textbf{行间公式}在 \LaTeX\ 里由 \env{equation} 环境包裹。
 \env{equation} 环境为公式自动生成一个编号，这个编号可以用 \cmd{label} 和 \cmd{ref} 生成交叉引用，
 \pkg{amsmath} 的 \amscmd{eqref} 命令甚至为引用自动加上括号；你还可以用 \amscmd{tag} 命令手动修改公式的编号，
-或者用 \amscmd{notag} 命令取消为公式编号。
+或者用 \amscmd{notag} 命令取消为公式编号（\LaTeX\ 提供了与之基本等效的命令 \cmd{nonumber}）。
 
 \begin{example}
 Add $a$ squared and $b$ squared
@@ -68,8 +62,7 @@ or
 \end{equation}
 \end{example}
 
-\cmdindex{[}
-\cmdindex{]}
+\cmdindex{[,]}
 \envindex{displaymath}
 \envindex[amsmath]{equation*}
 当然你不会愿意为每个公式都手动取消编号。\LaTeX\ 提供了一对命令 \cmd{[} 和 \cmd{]} 用于生成不带编号的行间公式%
@@ -121,13 +114,15 @@ In display:
   需要人为引入空隙时，使用 \cmd{quad} 和 \cmd{qquad} 等命令。详见 \ref{sec:math-space} 节。
   \item \textbf{不允许有空行（分段）。}每个公式（每组多行公式）自成一个段落。
   \item 所有的字母被当作数学公式中的变量处理，字母间距与文本模式不一致，也无法生成单词之间的空格。
-  如果想在数学公式中输入正体的文本，简单情况下可用 \ref{subsec:math-alpha} 小节中提供的 \cmd{mathrm} 命令。\pkg{amsmath} 提供的更方便的 \amscmd{text} 命令%
+  如果想在数学公式中输入正体的文本，简单情况下可用 \ref{subsec:math-alpha} 小节中提供的 \cmd{mathrm} 命令。
+  \pkg{amsmath} 提供了更加方便的 \amscmd{text} 命令%
   \footnote{\amscmd{text} 命令仅适合在公式中穿插少量文字。如果你的情况正好相反，需要在许多文字中穿插使用公式，
   则应该像正常的行内公式那样，而不是滥用 \amscmd{text} 命令。}。
 \end{enumerate}
 \begin{example}
 $x^{2} \geq 0 \qquad
-\text{for all }x\in\mathbb{R}$
+\text{for \textbf{all} }
+x\in\mathbb{R}$
 \end{example}
 
 \section{数学符号}\label{sec:math-symbols}
@@ -146,8 +141,7 @@ $x^{2} \geq 0 \qquad
 大写的希腊字母为首字母大写的命令，如 \msym{Gamma}、\msym{Delta} 等等。
 无穷大符号为 \msym{infty} 。
 
-\msymindex{dots}
-\msymindex{cdots}
+\msymindex{dots,cdots}
 省略号有 \msym{dots} 和 \msym{cdots} 两种形式。它们有各自合适的用途：
 \begin{example}
 $a_1, a_2, \dots, a_n$ \\
@@ -164,7 +158,7 @@ $a_1 + a_2 + \cdots + a_n$
 否则上下标只对后面的一个符号起作用。
 \begin{example}
 $p^3_{ij} \qquad
-m_\text{Knuth}\qquad
+m_\mathrm{Knuth}\qquad
 \sum_{k=1}^3 k $\\[5pt]
 $a^x+y \neq a^{x+y}\qquad
 e^{x^2} \neq {e^x}^2$
@@ -180,8 +174,7 @@ $f(x) = x^2 \quad f'(x)
 \subsection{分式和根式}\label{subsec:frac-sqrt}
 
 \mathindex{frac}
-\cmdindex[amsmath]{dfrac}
-\cmdindex[amsmath]{tfrac}
+\cmdindex[amsmath]{dfrac,tfrac}
 分式使用 \cmd{frac}\marg*{分子}\marg*{分母} 来书写。分式的大小在行间公式中是正常大小，而在行内被极度压缩。
 \pkg{amsmath} 提供了方便的命令 \amscmd{dfrac} 和 \amscmd{tfrac}，令用户能够在行内使用正常大小的行间公式，或是反过来。
 \begin{example}
@@ -217,13 +210,7 @@ Pascal’s rule is
 
 \subsection{关系符}\label{subsec:math-rel}
 
-\msymindex{ne}
-\msymindex{ge}
-\msymindex{le}
-\msymindex{approx}
-\msymindex{equiv}
-\msymindex{propto}
-\msymindex{sim}
+\msymindex{ne,ge,le,approx,equiv,propto,sim}
 \LaTeX\ 常见的关系符号除了可以直接输入的 $=$，$>$，$<$，其它符号用命令输入，常用的有不等号 \msym{ne}、
 大于等于号 \msym{ge}、小于等于号 \msym{le}、
 约等号 \msym{approx}、等价 \msym{equiv}、正比 \msym{propto}、相似 \msym{sim}%
@@ -240,17 +227,12 @@ f_n(x) \stackrel{*}{\approx} 1
 
 \subsection{算符}\label{subsec:math-op}
 
-\msymindex{times}
-\msymindex{div}
-\msymindex{cdot}
-\msymindex{pm}
-\msymindex{mp}
+\msymindex{times,div,cdot,pm,mp}
 \LaTeX\ 中的算符大多数是二元算符，除了直接用键盘可以输入的 $+$、$-$、$*$、$/$，其它符号用命令输入，
 常用的有乘号 \msym{times}、 除号 \msym{div}、点乘 \msym{cdot}、加减号 \msym{pm} / \msym{mp} 等等。
 更多符号命令可参考表 \ref{tbl:math-op} 以及表 \ref{tbl:ams-op}。
 
-\msymindex{nabla}
-\msymindex{partial}
+\msymindex{nabla,partial}
 \msym{nabla} 和 \msym{partial} 也是常用的算符，虽然它们不属于二元算符。
 
 \pinyinindex{shuxuehanshu}{数学函数}
@@ -285,8 +267,7 @@ f_n(x) \stackrel{*}{\approx} 1
 \]
 \end{example}
 
-\mathindex{pmod}
-\mathindex{bmod}
+\mathindex{pmod,bmod}
 对于求模表达式，\LaTeX\ 提供了 \cmd{pmod} 和 \cmd{bmod} 命令，前者相当于一个二元运算符，后者作为同余表达式的后缀：
 \begin{example}
 $a\bmod b \\
@@ -307,10 +288,7 @@ $a\bmod b \\
 
 \subsection{巨算符}
 
-\msymindex{int}
-\msymindex{oint}
-\msymindex{sum}
-\msymindex{prod}
+\msymindex{int,oint,sum,prod}
 积分号 \msym{int}、求和号 \msym{sum} 等符号称为\textbf{巨算符}。巨算符在行内公式和行间公式的大小和形状有区别。
 \begin{example}
 In text: 
@@ -325,8 +303,7 @@ In display:
 \prod_\epsilon \]
 \end{example}
 
-\mathindex{limits}
-\mathindex{nolimits}
+\mathindex{limits,nolimits}
 巨算符的上下标用作其上下限。行间公式中，积分号默认将上下限放在右上角和右下角，求和号默认在上下方；行内公式一律默认在右上角和右下角。
 可以在巨算符后使用 \cmd{limits} 手动令上下限显示在上下方，\cmd{nolimits} 则相反。
 \begin{example}
@@ -361,10 +338,7 @@ P(i,j) = Q(n)
 
 \subsection{数学重音和上下括号}
 
-\maccindex{dot}
-\maccindex{ddot}
-\maccindex{vec}
-\maccindex{hat}
+\maccindex{dot,ddot,vec,hat}
 数学符号可以像文字一样加重音，比如对时间求导的符号 $\dot{r}$ (\cmd{dot}\marg*{r})、 $\ddot{r}$ (\cmd{ddot}\marg*{r})
 、表示向量的箭头 $\vec{r}$ (\cmd{vec}\marg*{r}) 、表示欧式空间单位向量的 $\hat{\mathbf{e}}$ (\cmd{hat}\marg*{\cmd{mathbf}\marg*{e}}) 等，
 详见表 \ref{tbl:math-accents}。使用时要注意重音符号的作用区域，一般应当对某个符号而不是“符号加下标”使用重音：
@@ -375,10 +349,8 @@ $\hat{\mathbf{e}_x} \quad
  \hat{\mathbf{e}}_x$
 \end{example}
 
-\waccindex{overline}
-\waccindex{underline}
-\waccindex{widehat}
-\waccindex{overrightarrow}
+\waccindex{overline,underline}
+\waccindex{widehat,overrightarrow}
 \LaTeX\ 也能为多个字符加重音，包括直接画线的 \cmd{overline} 和 \cmd{underline} 命令（可叠加使用）、宽重音符号 \cmd{widehat}、
 表示向量的箭头 \cmd{overrightarrow} 等。后两者详见表 \ref{tbl:math-accents} 和 \ref{tbl:math-arrow-accents} 等。
 \begin{example}
@@ -389,8 +361,7 @@ $\vec{AB} \qquad
 \overrightarrow{AB}$
 \end{example}
 
-\waccindex{overbrace}
-\waccindex{underbrace}
+\waccindex{overbrace,underbrace}
 \cmd{overbrace} 和 \cmd{underbrace} 命令用来生成上/下括号，各自可带一个上/下标公式。
 \begin{example}
 $\underbrace{\overbrace{a+b+c}^6
@@ -400,8 +371,7 @@ _\text{meaning of life} = 42$
 
 \subsection{箭头}
 
-\cmdindex[amsmath]{xleftarrow}
-\cmdindex[amsmath]{xrightarrow}
+\cmdindex[amsmath]{xleftarrow,xrightarrow}
 除了作为上下标之外，箭头还用于表示过程。\pkg{amsmath} 的 \amscmd{xleft\-arrow} 和 \amscmd{xright\-arrow} 命令可以为箭头增加上下标：
 \begin{example}
 \[ a\xleftarrow{x+y+z} b \]
@@ -416,7 +386,7 @@ _\text{meaning of life} = 42$
 ${a,b,c} \neq \{a,b,c\}$
 \end{example}
 
-\mathindex{left}
+\mathindex{left,right}
 \mathindex{right}
 使用 \cmd{left} 和 \cmd{right} 命令可令括号（定界符）的大小可变，在行间公式中常用。\LaTeX\ 会自动根据括号内的公式大小决定定界符大小。
 \cmd{left} 和 \cmd{right} 必须成对使用。需要使用单个定界符时，另一个定界符写成 \cmd{left.} 或 \cmd{right.}。
@@ -427,9 +397,9 @@ ${a,b,c} \neq \{a,b,c\}$
 \right|_{t=0}\]
 \end{example}
 
-\mathindex{big} \mathindex{bigg} \mathindex{Big} \mathindex{Bigg}
-\mathindex{bigl} \mathindex{biggl} \mathindex{Bigl} \mathindex{Biggl}
-\mathindex{bigr} \mathindex{biggr} \mathindex{Bigr} \mathindex{Biggr}
+\mathindex{big,bigg,Big,Bigg}
+\mathindex{bigl,biggl,Bigl,Biggl}
+\mathindex{bigr,biggr,Bigr,Biggr}
 有时我们不满意于 \LaTeX\ 为我们自动调节的定界符大小。这时我们还可以用 \cmd{big}、\cmd{bigg} 等命令生成固定大小的定界符。
 更常用的形式是类似 \cmd{left} 的 \cmd{bigl}、\cmd{biggl} 等，以及类似 \cmd{right} 的 \cmd{bigr}、\cmd{biggr} 等
 （\cmd{bigl} 和 \cmd{bigr} 不必成对出现）。
@@ -445,9 +415,9 @@ $\bigl( \Bigl( \biggl( \Biggl(
 \bigg\Downarrow \Bigg\Downarrow$
 \end{example}
 
-\section{多行公式}
+\section{多行公式}\label{sec:multi-eqns}
 
-\subsection{长公式折行}
+\subsection{长公式折行}\label{sec:multline}
 
 通常来讲应当避免写出需要折行的长公式。如果一定要折行的话，有若干个原则：
 \begin{enumerate}
@@ -459,7 +429,7 @@ $\bigl( \Bigl( \biggl( \Biggl(
 
 \envindex[amsmath]{multline}
 \pkg{amsmath} 宏包的 \amsenv{multline} 环境提供了书写折行长公式的方便环境。
-它允许用 \cmd{\char`\\} 断行，将公式编号放在最后一行。多行公式的首行左对齐，末行右对齐，其余行居中。
+它允许用 \crcmd\ 折行，将公式编号放在最后一行。多行公式的首行左对齐，末行右对齐，其余行居中。
 \begin{example}
 \begin{multline}
 a + b + c + d + e + f
@@ -473,14 +443,16 @@ a + b + c + d + e + f
 \envindex[amsmath]{multline*}
 类似 \amsenv{equation*}，\amsenv{multline*} 环境排版不带编号的折行长公式。
 
-\subsection{多行公式}
+\subsection{多行公式}\label{subsec:align}
 
+\pinyinindex{duohanggongshi}{多行公式|(}
 更多的情况是，我们需要罗列一系列公式，并令其按照等号对齐。
 
 读者可能阅读过其它手册或者资料，知道 \LaTeX\ 提供了 \env{eqnarray} 环境。它按照等号左边——等号——等号右边呈三列对齐，
 但等号周围的空隙过大，加上公式编号等一些 bug，目前已不推荐使用\footnote{\url{http://tug.org/pracjourn/2006-4/madsen/madsen.pdf}}。
 
 \envindex[amsmath]{align}
+\index{&@\texttt\& (\textit{单元格/对齐})}
 目前最常用的是 \amsenv{align} 环境，它将公式用 \texttt\& 隔为两部分并对齐。分隔符通常放在等号左边：
 \begin{example}
 \begin{align}
@@ -521,14 +493,12 @@ l + m = n
 \end{gather}
 \end{example}
 
-\envindex[amsmath]{align*}
-\envindex[amsmath]{gather*}
+\envindex[amsmath]{align*,gather*}
 \amsenv{align} 和 \amsenv{gather} 有对应的不带编号的版本 \amsenv{align*} 和 \amsenv{gather*}。
 
-\subsection{公用编号的多行公式}
+\subsection{公用编号的多行公式}\label{subsec:aligned}
 
-\envindex[amsmath]{aligned}
-\envindex[amsmath]{gathered}
+\envindex[amsmath]{aligned,gathered}
 另一个常见的需求是将多个公式组在一起公用一个编号，编号位于公式的居中位置。为此，\pkg{amsmath} 宏包
 提供了诸如 \amsenv{aligned}、\amsenv{gathered} 等环境，与 \env{equation} 环境套用。
 以 \texttt{-ed} 结尾的环境用法与前一节不以 \texttt{-ed} 结尾的环境用法一一对应。我们仅以 \amsenv{aligned} 举例：
@@ -547,10 +517,13 @@ l + m &= n
 \amsenv{split} 环境和 \amsenv{aligned} 环境用法类似，也用于和 \env{equation} 环境套用，区别是 \amsenv{split} 只能将每行的一个公式分两栏，
 \amsenv{aligned} 允许每行多个公式多栏。
 
-\section{数组和矩阵}
+\pinyinindex{duohanggongshi}{多行公式|)}
+
+\section{数组和矩阵}\label{sec:arrays}
 
 \envindex{array}
-为了排版二维数组，\LaTeX\ 提供了 \env{array} 环境，用法与 \env{tabular} 环境极为类似，也需要定义列格式，并用 \cmd{\char`\\} 换行。
+\index{&@\texttt\& (\textit{单元格/对齐})}
+为了排版二维数组，\LaTeX\ 提供了 \env{array} 环境，用法与 \env{tabular} 环境极为类似，也需要定义列格式，并用 \crcmd\ 换行。
 数组可作为一个子公式，在外套用 \cmd{left}、\cmd{right} 等定界符：
 \begin{example}
 \[
@@ -562,6 +535,8 @@ x_3 & x_4 & \ldots \\
 \end{array} \right)
 \]
 \end{example}
+
+值得注意的是，上一节末尾介绍的 \amsenv{aligned} 等环境也可以用定界符包裹。
 
 \mathindex{left}
 \mathindex{right}
@@ -590,14 +565,9 @@ x & \text{if } x > 0.
 \]
 \end{example}
 
-\envindex[amsmath]{matrix}
-\envindex[amsmath]{pmatrix}
-\envindex[amsmath]{bmatrix}
-\envindex[amsmath]{Bmatrix}
-\envindex[amsmath]{vmatrix}
-\envindex[amsmath]{Vmatrix}
-我们当然也可以用 \env{array} 环境排版各种矩阵，不过 \pkg{amsmath} 宏包还提供了种种排版矩阵的环境，有不带定界符的 \amsenv{matrix}，
-有带各种定界符的矩阵 \amsenv{pmatrix}$($、\amsenv{bmatrix}$[$、\amsenv{Bmatrix}$\{$、\amsenv{vmatrix}$\vert$、\amsenv{Vmatrix}$\Vert$。
+\envindex[amsmath]{matrix,pmatrix,bmatrix,Bmatrix,vmatrix,Vmatrix}
+我们当然也可以用 \env{array} 环境排版各种矩阵。\pkg{amsmath} 宏包还直接提供了多种排版矩阵的环境，包括不带定界符的 \amsenv{matrix}，
+以及带各种定界符的矩阵 \amsenv{pmatrix}$($、\amsenv{bmatrix}$[$、\amsenv{Bmatrix}$\{$、\amsenv{vmatrix}$\vert$、\amsenv{Vmatrix}$\Vert$。
 使用这些环境时，无需给定列格式：
 \begin{example}
 \[
@@ -616,12 +586,9 @@ p_{m1} & p_{m2} & \ldots & p_{mn}
 
 \section{公式中的间距}\label{sec:math-space}
 
-\cmdindex{quad}
-\cmdindex{qquad}
-\cmdindex{,}
-\mathindex{:}
-\mathindex{;}
-\mathindex{"!}
+\cmdindex{quad,qquad}
+\index{,@\cmd{,}} % The only one which cannot use \cmdindex, oops..
+\mathindex{:,;,"!}
 前文提到过，绝大部分时候，数学公式中各元素的间距是根据符号类型自动生成的，需要我们手动调整的情况极少。
 我们已经认识了两个生成间距的命令 \cmd{quad} 和 \cmd{qquad}。在公式中我们还可能用到的间距包括 \cmd{,}、\cmd{:}、\cmd{;}
 以及负间距 \cmd{!}，其中 \cmd{quad} 、 \cmd{qquad} 和 \cmd{,} 在文本和数学环境中可用，后三个命令只用于数学环境。
@@ -669,10 +636,8 @@ f(x)g(y) \diff x \diff y \\
 
 \subsection{数学字母字体}\label{subsec:math-alpha}
 
-\mathindex{mathrm} \mathindex{mathsf} \mathindex{mathtt}
-\mathindex{mathnormal} \mathindex{mathbf} \mathindex{mathit} \mathindex{mathcal}
-\cmdindex[amssymb]{mathbb}
-\cmdindex[amssymb]{mathfrak}
+\mathindex{mathrm,mathsf,mathtt,mathit,mathbf,mathcal,mathnormal}
+\cmdindex[amssymb]{mathbb,mathfrak}
 \cmdindex[mathrsfs]{mathscr}
 \LaTeX\ 允许一部分数学符号切换字体，主要是拉丁字母、数字等等。
 表 \ref{tbl:math-fonts} 给出了切换字体的命令。某一些命令需要字体宏包的支持。
@@ -710,10 +675,7 @@ $\mathbb{ABCDE}$                 & \cmd{mathbb}\marg*{\ldots}    & \pkg{amssymb}
 
 \subsection{数学符号的尺寸}
 
-\mathindex{displaystyle}
-\mathindex{textstyle}
-\mathindex{scriptstyle}
-\mathindex{scriptscriptstyle}
+\mathindex{displaystyle,textstyle,scriptstyle,scriptscriptstyle}
 数学符号按照符号排版的位置规定尺寸，从大到小包括行间公式尺寸、行内公式尺寸、上下标尺寸、次级上下标尺寸。
 除了字号有别之外，行间和行内公式尺寸下的巨算符也使用不一样的大小。\LaTeX\ 为每个数学尺寸指定了一个切换的命令。
 \begin{table}[htp]
@@ -733,13 +695,13 @@ $\mathbb{ABCDE}$                 & \cmd{mathbb}\marg*{\ldots}    & \pkg{amssymb}
 你可以使用合适的数学尺寸命令调整：
 \begin{example}
 \[
-P = \frac{\displaystyle{
-\sum_{i=1}^n (x_i- x)
-(y_i- y)}}
-{\displaystyle{\left[
-\sum_{i=1}^n(x_i-x)^2
-\sum_{i=1}^n(y_i- y)^2
-\right]^{1/2}}}
+P = \frac{\displaystyle
+  \sum_{i=1}^n (x_i- x)
+  (y_i- y) }
+  {\displaystyle \left[
+  \sum_{i=1}^n (x_i-x)^2
+  \sum_{i=1}^n (y_i-y)^2
+  \right]^{1/2} }
 \]
 \end{example}
 
@@ -770,7 +732,7 @@ $\mu, M \qquad
 \LaTeX\ 工具宏集之一的 \pkg{bm} 宏包可以用 \cmd{bm} 命令生成“伪粗体”，一定程度上解决了不带粗体版本的符号的问题。这里不做过多介绍，
 需要使用的用户请参考 \pkg{bm} 宏包的帮助文档。
 
-\section{定理环境}
+\section{定理环境}\label{sec:theorems}
 
 \cmdindex{newtheorem}
 使用 \LaTeX\ 排版数学和其他科技文档时，会接触到大量的定理、证明等内容。
@@ -814,7 +776,7 @@ described in theorem \ref{thm:light}.
 \end{mythm}
 \end{example}
 
-\subsection{\pkg{amsthm} 宏包}
+\subsection{\pkg{amsthm} 宏包}\label{subsec:amsthm}
 
 \LaTeX\ 只给了原始的证明环境格式（粗体标签、斜体正文、定理名用小括号包裹）。如果需要修改格式，
 则要依赖其它的宏包，如 \pkg{amsthm}、\pkg{ntheorem} 等等。本小节简单介绍一下 \pkg{amsthm} 的用法。
@@ -854,7 +816,7 @@ statement.\end{jury}
 \pkg{amsthm} 还支持使用 \cmd{new\-theorem\-style} 命令自定义定理格式，
 更为方便使用的是 \pkg{ntheorem} 宏包。感兴趣的读者可参阅它们的帮助手册。
 
-\subsection{证明环境和证毕符号}
+\subsection{证明环境和证毕符号}\label{subsec:proof}
 
 \envindex[amsthm]{proof}
 \pkg{amsthm} 还提供了一个 \env{proof} 环境用于排版定理的证明过程。\env{proof} 环境末尾

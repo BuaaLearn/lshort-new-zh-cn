@@ -45,20 +45,35 @@
 \envindex{envname}
 \envindex[pkgname]{envname}
 ```
-命令和环境的索引项。LaTeX 基本命令用不带可选参数的形式；宏包/文档类的命令在可选参数里指定名称。
+命令和环境的索引项。LaTeX 基本命令用不带可选参数的形式；宏包/文档类的命令在可选参数里指定宏包名称。
+cmdname 和 envname 可写多个命令和环境名，以逗号分隔（唯一例外的是 `\,` 命令）。
 
 ```
 \pkgindex{pkgname}
 \clsindex{clsname}
 ```
-宏包和文档类的索引项。
+宏包和文档类的索引项。可写多个宏包和文档类名称，以逗号分隔。
 
 ```
-\pinyinindex{pinyin}{汉字}
+\symindex{textsym}
+\accindex{textacc}
+```
+文本符号和重音的索引项。可写多个命令，以逗号分隔。
+
+```
+\mathindex{mathcmd}
+\msymindex{mathsym}
+\maccindex{mathacc}
+\waccindex{wideacc}
+```
+数学命令/符号/重音的索引项。可写多个命令，以逗号分隔。
+
+```
+\pinyinindex{hanzi}{汉字}
 ```
 汉字索引项，通过拼音参与排序。
 
-## 命令环境
+## 排版元素
 
 ```
 \demowidth{length}

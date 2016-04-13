@@ -107,11 +107,12 @@ or \TeX{} users?
 还有些命令在命令名称后可以带一个星号 \texttt*，带星号和不带星号的命令效果有一定差异。
 
 \index{LaTeX environment@\LaTeX\ 环境}
+\cmdindex{begin,end}
 \LaTeX\ 还引入了\textbf{环境}的用法，用以令一些效果在局部生效，或是生成特定的文档元素。
-\LaTeX\ 环境的用法为一对命令 \cmd{begin} \cmd{end}：
+\LaTeX\ 环境的用法为一对命令 \cmd{begin} 和 \cmd{end}：
 \begin{command}
 \cmd{begin}\marg{environment name}\marg{arguments} \\
-\texttt{...} \\
+\ldots \\
 \cmd{end}\marg{environment name} 
 \end{command}
 
@@ -251,12 +252,8 @@ xelatex helloworld.tex
 \cmd{documentclass}\oarg{options}\marg{class-name}
 \end{command}
 
-\clsindex{article}
-\clsindex{book}
-\clsindex{report}
-\clsindex{ctexart}
-\clsindex{ctexbook}
-\clsindex{ctexrep}
+\clsindex{article,book,report}
+\clsindex{ctexart,ctexrep,ctexbook}
 其中 \Arg{class-name} 为文档类的名称，如 \LaTeX\ 提供的 \cls{article}, \cls{book}, \cls{report}，
 在其基础上派生的一些文档类如支持中文排版的 \cls{ctexart} / \cls{ctexbook} / \cls{ctexrep}，
 或者有其它功能的一些文档类，如 \cls{moderncv} / \cls{beamer} 等。
@@ -359,7 +356,7 @@ xelatex helloworld.tex
   \item[\texttt{.sty}] 宏包文件。宏包的名称就是去掉扩展名的文件名。
   \item[\texttt{.cls}] 文档类文件。同样地，文档类名称就是文件名。
   \item[\texttt{.bib}] \hologo{BibTeX} 参考文献数据库文件。
-  \item[\texttt{.bst}] \hologo{BibTeX} 用到的参考文献格式模板。详见 \ref{subsec:bibtex-use}。
+  \item[\texttt{.bst}] \hologo{BibTeX} 用到的参考文献格式模板。详见 \ref{subsec:bibtex-use} 小节。
 \end{description}
 
 \LaTeX\ 在编译过程中生成相当多的辅助文件和日志。一些功能如交叉引用、参考文献、目录、索引等，需要先编译生成辅助文件，
@@ -387,8 +384,14 @@ xelatex helloworld.tex
 \begin{command}
 \cmd{include}\marg{filename}
 \end{command}
-\Arg{filename} 为文件名，如果和要编译的主文件不在一个目录中，则要加上相对路径。
-\Arg{filename} 可以不带扩展名，此时默认为 \texttt{.tex}；扩展名不是 \texttt{.tex} 的文件必须带扩展名。
+\Arg{filename} 为文件名，如果和要编译的主文件不在一个目录中，则要加上相对或绝对路径，例如：
+\begin{verbatim}
+\include{chapters/a.tex} % 相对路径
+\include{/home/Bob/file.tex} % Linux 绝对路径
+\include{D:/file.tex} % Windows 绝对路径
+\end{verbatim}
+
+\Arg{filename} 可以不带扩展名，此时默认为 \texttt{.tex}；其它文件必须带扩展名。
 
 \cmdindex{input}
 值得注意的是 \cmd{include} 在读入 \Arg{filename} 之前会另起一页。有的时候我们并不需要这样，而是用 \cmd{input} 命令，它纯粹是把文件里的内容插入：
