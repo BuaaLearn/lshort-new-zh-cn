@@ -1,11 +1,12 @@
 \chapter{用 \LaTeX\ 排版文字}\label{chap:text}
+\addtocontents{los}{\protect\addvspace{10pt}}
 
 \begin{intro}
 文字是排版的基础。在介绍 \LaTeX\ 支持的各种文档元素之前，首先应当了解一下如何在 \LaTeX\ 源代码中输入并排版文字，
 尤其是（西文中的）标点符号、连字符、重音等一些细节。
 
 本文的开头首先介绍了中文的支持方式。随着 \LaTeX\ 和底层 \TeX\ 引擎的发展，旧方式（CCT、CJK 宏包等）日渐退出舞台，
-xelatex 配合 xeCJK 宏包的方式成为主流。
+xelatex 编译命令配合 \cls{xeCJK} 宏包的方式成为主流。
 \end{intro}
 
 \section{语言文字和编码}\label{sec:encoding}
@@ -16,8 +17,8 @@ xelatex 配合 xeCJK 宏包的方式成为主流。
 \subsection{ASCII 编码}\label{subsec:ascii}
 
 \index{bianma@编码!ASCII}
-计算机的基本存储单位是字节（byte），每个字节为八位（8-bit），能够代表 0-255 这 256 个数。
-ASCII （美国通用信息交换码）使用前 128 个数 0-127 对文字编码，也就是 7-bit，能够表示 QWERTY 键盘上能够输入的拉丁字母、数字和符号。
+计算机的基本存储单位是字节（byte），每个字节为八位（8-bit），范围用十六进制写作 0x00-0xFF。
+ASCII （美国通用信息交换码）使用 0x00-0x7F 对文字编码，也就是 7-bit，能够表示 QWERTY 键盘上能够输入的拉丁字母、数字和符号。
 
 由于 \TeX\ 最初面向英语文档的排版，ASCII 编码完全够用，而早期版本的 \TeX\ 也只支持 7-bit 和 ASCII。
 要排版西欧语系中带重音的字符，就必须用到后文所叙述的重音命令，如 M\"obius 必须输入 \texttt{M\char`\\"obius}。
@@ -29,9 +30,9 @@ ASCII （美国通用信息交换码）使用前 128 个数 0-127 对文字编�
 
 \index{bianma@编码!Latin-1}
 \pkgindex{inputenc}
-现在的 \TeX\ 程序支持 8-bit，能够识别源代码里 128-255 范围的字符。
-西欧（拉丁字母）、俄语系（西里尔字母）等语言的编码刚好能够利用 128-255 这个编码范围，处理起来较为方便。
-\texttt{latex} 命令及 \texttt{pdflatex} 命令下，这些编码的支持由 \pkg{inputenc} 宏包提供。比如将文档保存为 Latin-1 编码，并在导言区使用：
+现在的 \TeX\ 程序支持 8-bit，能够识别源代码里编码处于 0x80-0xFF 范围的字符。
+西欧（拉丁字母）、俄语系（西里尔字母）等语言的编码方案刚好能够利用 0x80-0xFF 这个范围，处理起来较为方便。
+\texttt{latex} 命令及 \texttt{pdflatex} 命令下，这些编码的处理由 \pkg{inputenc} 宏包支持。比如将源代码保存为 Latin-1 编码，并在导言区使用：
 \begin{verbatim}
 \usepackage[latin1]{inputenc}
 \end{verbatim}
@@ -41,14 +42,14 @@ ASCII （美国通用信息交换码）使用前 128 个数 0-127 对文字编�
 
 \index{bianma@编码!GBK}
 GBK 等编码是多字节编码，ASCII 字符为一个字节，汉字等非 ASCII 字符为两个字节，这就需要借助一些宏包进行较为复杂的判断和处理。
-\pkg{CJK} 宏包就是处理中、日、韩等多字节编码的语言使用的宏包。但 \pkg{CJK} 宏包的使用非常不方便，笔者不再推荐直接使用。
+\pkg{CJK} 宏包就是用于处理中、日、韩等多字节编码的语言文字的宏包。但 \pkg{CJK} 宏包的使用非常不方便，笔者不再推荐直接使用。
 后一节将简单介绍现在推荐的中文支持方案。
 
 \subsection{UTF-8 编码}\label{subsec:utf8}
 
 \index{bianma@编码!UTF-8}
 Unicode 是一个多国字符的集合，覆盖了几乎全球范围内的语言文字。UTF-8 是 Unicode 的一套编码方案，
-一个字符可以由一个到四个（现在用到三个）字节编码，其中单字节字符仍然是 ASCII 字符。
+一个字符可以由一个到四个（现在用到三个）字节编码，其中单字节字符兼容 ASCII 编码。
 
 \pkgindex{inputenc}
 \texttt{latex} 命令及 \texttt{pdflatex} 命令下可以使用 \pkg{inputenc} 宏包支持 UTF-8：
@@ -56,8 +57,8 @@ Unicode 是一个多国字符的集合，覆盖了几乎全球范围内的语言
 \usepackage[utf8]{inputenc}
 \end{verbatim}
 
-\texttt{xelatex} 命令原生支持 UTF-8 编码，而且也\textbf{不适用 \pkg{inputenc} 宏包}。将源代码以 UTF-8 格式保存，
-并用 \pkg{fontspec} 宏包（见 \ref{subsec:fontspec} 小节）载入所需的字体，就可以在 \texttt{.tex} 源代码中输入任意语言的文字。
+\texttt{xelatex} 命令原生支持 UTF-8 编码，而且也\textbf{不适用 \pkg{inputenc} 宏包}。将 \texttt{.tex} 源代码保存为 UTF-8 编码，
+并借助 \pkg{fontspec} 宏包（见 \ref{subsec:fontspec} 小节）调用适当的字体，就可以在源代码中输入任意语言的文字。
 但各个语言（印地语、阿拉伯语等）的特殊排版要求需要更多的宏包支持，如 \pkg{babel}、 \pkg{polyglossia} 等。
 
 \section{排版中文}\label{sec:chinese}

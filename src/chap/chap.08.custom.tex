@@ -1,4 +1,5 @@
 \chapter{自定义 \LaTeX\ 命令和功能}
+\addtocontents{los}{\protect\addvspace{10pt}}
 
 \begin{intro}
 读到这一章之前，如果你确保掌握了前几章的知识并熟练运用，你已经能制作出内容和形式都相当丰富的文档了。
@@ -132,7 +133,7 @@ My humble subjects \ldots
 \end{command}
 这个命令应该放在你的宏包的最前面，并且一定要注意：\textbf{\Arg{package name} 需要和宏包的文件名一致。}
 \cmd{Provides\-Package} 让 \LaTeX\ 记录宏包的名称，从而在你尝试再次调用同一个宏包的时候忽略后面的引入%
-\footnote{但如果你以\emph{不同的选项}多次引入宏包，则有可能会引起错误，见附录 \ref{subsec:generic-error}。}。
+\footnote{但如果你以\emph{不同的选项}多次引入宏包，则有可能会引起错误，见附录 \ref{sec:errors}。}。
 源代码 \ref{code:package} 给出了一个小的宏包示例，其中包含了我们之前定义的一些命令。
 
 \subsection{在宏包中调用其它宏包}
@@ -177,11 +178,11 @@ My humble subjects \ldots
 \cmd{newcounter}\marg{counter name}\oarg{parent counter name}
 \end{command}
 
-\Arg{counter name} 为计数器的名称，可选参数 \Arg{parent counter name} 定义为 \Arg{counter name} 的父一级计数器。
+\Arg{counter name} 为计数器的名称，可选参数 \Arg{parent counter name} 定义为 \Arg{counter name} 的上级计数器。
 
 \cmdindex{setcounter,addtocounter,stepcounter}
 以下命令修改计数器的数值，\cmd{set\-counter} 将数值设为 \Arg{number}；\cmd{add\-to\-counter} 将数值加上 \Arg{number}；
-\cmd{step\-counter} 将数值加一，并\textbf{将所有子级计数器归零}。
+\cmd{step\-counter} 将数值加一，并\textbf{将所有下级计数器归零}。
 \begin{command}
 \cmd{setcounter}\marg{counter name}\marg{number} \\
 \cmd{addtocounter}\marg{counter name}\marg{number} \\
@@ -212,9 +213,9 @@ My humble subjects \ldots
 \end{tabular}
 \end{center}
 
-计数器还可以利用其它字符，甚至其它计数器的值与之组合。如 \cls{article} 文档类里 \cmd{sub\-section} 相关的计数器的定义相当于：
+计数器的值还可以利用其它字符，甚至其它计数器的值与之组合。如标准文档类里对 \cmd{sub\-section} 相关的计数器的值给出的定义相当于：
 \begin{verbatim}
-\renewcommand\thesubsection {\thesection.\arabic{subsection}}
+\renewcommand\thesubsection{\thesection.\arabic{subsection}}
 \end{verbatim}
 
 \subsection{\LaTeX\ 中的计数器}\label{subsec:latex-counts}
@@ -223,8 +224,9 @@ My humble subjects \ldots
   \item 我们当然早就意识到了，所有章节命令 \cmd{chapter}、\cmd{section} 等分别对应计数器 chapter、section 等等，而且有上下级的关系。
 而计数器 part 是独立的。
   \item 有序列表 \env{enumerate} 的各级计数器为 enumi, enumii, enumiii, enumiv，也是有上下级的关系。
-  \item 图表浮动体的计数器就是 table 和 figure。
-  \item 公式、页码、脚注的计数器分别是 equation、footnote 和 page。
+  \item 图表浮动体的计数器就是 table 和 figure；公式的计数器为 equation。
+  这些计数器在 \cls{article} 文档类中是独立的，而在 \cls{book} 和 \cls{report} 中以 chapter 为上级计数器。
+  \item 页码、脚注的计数器分别是 page 和 footnote。
 \end{itemize}
 
 \cmdindex{pagenumbering}
@@ -246,13 +248,14 @@ My humble subjects \ldots
     \item 在 \cls{report}/\cls{book} 文档类里 part 为 -1，chapter 为 0，section 为 1，等等。
   \end{itemize}
 
-  secnumdepth 计数器控制章节编号的深度，如果章节的层级大于 secnumdepth，那么章节的标题、在目录和页眉页脚的标题都不编号，计数器也不计数。
+  secnumdepth 计数器控制章节编号的深度，如果章节的层级大于 secnumdepth，那么章节的标题、在目录和页眉页脚的标题都不编号
+  （照常生成目录和页眉页脚），章节计数器也不计数。
 
   可以用 \cmd{setcounter} 命令设置 secnumdepth 为较大的数使得层级比较深的章节也编号，
-如设置为 4 令 \cmd{paragraph} 也编号；或者设置一个较小的数以取消编号，如设置为 -1 令 \cmd{chapter} 不编号（但照常生成目录和页眉页脚）。
-后者是生成不编号的章节的一个妙招，免去了手动使用 \cmd{add\-contents\-line} 和 \cmd{mark\-both} 的麻烦。
+  如设置为 4 令 \cmd{paragraph} 也编号；或者设置一个较小的数以取消编号，如设置为 -1 令 \cmd{chapter} 不编号。
+  后者是生成不编号的章节的一个妙招，免去了手动使用 \cmd{add\-contents\-line} 和 \cmd{mark\-both} 的麻烦。
 
-  secnumdepth 计数器在 \cls{article} 文档类里默认为 3 （subsubsection 一级）；在 \cls{report}/\cls{book} 文档类里默认为 2 （subsection 一级）。
+  secnumdepth 计数器在 \cls{article} 文档类里默认为 3 （subsubsection 一级）；在 \cls{report} 和 \cls{book} 文档类里默认为 2 （subsection 一级）。
 
   \item tocdepth \index{tocdepth@tocdepth (\textit{计数器})}
 

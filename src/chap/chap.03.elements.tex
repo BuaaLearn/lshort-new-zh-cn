@@ -1,4 +1,5 @@
 \chapter{文档元素}\label{chap:elements}
+\addtocontents{los}{\protect\addvspace{10pt}}
 
 \begin{intro}
 在知道了如何输入文字后，我们将在本章了解一个结构化的文档所依赖的各种元素——章节、目录、列表、图表、交叉引用、脚注等等。
@@ -64,7 +65,7 @@
 \cmdindex{appendix}
 所有标准文档类都提供了一个 \cmd{appendix} 命令将正文和附录分开%
 \footnote{有的地方可能写作 \cmd{begin} \marg*{appendix} \ldots \cmd{end} \marg*{appendix} 这样，
-虽然是可行的，但这种写法不规范，只要使用 \cmd{appendix} 命令就够了。}，
+虽然有效，但并不规范，只要使用 \cmd{appendix} 命令就够了。}，
 使用 \cmd{appendix} 后，最高一级章节改为使用拉丁字母编号，从 A 开始。
 
 \clsindex{book}
@@ -76,7 +77,42 @@
   \item[\cmd{backmatter}] 后记部分，页码继续正常计数，格式不变；其后的章节不编号，类似 \cmd{frontmatter} 命令。
 \end{description}
 
+\cmdindex{include}
 以上三个命令还可和 \cmd{appendix} 命令结合，生成有前言、正文、附录、后记四部分的文档。
+源代码 \ref{code:book-struct} 结合 \ref{sec:latex-multi-files} 节的 \cmd{include} 命令和其它一些命令示意了一份完整的文档结构。
+
+\begin{sourcecode}[hbp]
+\begin{Verbatim}
+\documentclass[...]{book}
+% 导言区，加载宏包和各项设置
+\usepackage{...}
+% 此处示意对参考文献和索引的设置
+\usepackage{makeidx}
+\makeindex
+\bibliographystyle{...}
+
+\begin{document}
+\frontmatter
+\maketitle % 标题页
+\include{preface} % 前言章节 preface.tex 
+\tableofcontents
+
+\mainmatter
+\include{chapter1} % 第一章 chapter1.tex
+\include{chapter2} % 第二章 chapter2.tex
+...
+\appendix
+\include{appendixA} % 附录 A appendixA.tex
+...
+
+\backmatter
+\include{prologue} % 后记 prologue.tex
+\bibliography{...} % 利用 BibTeX 工具生成参考文献
+\printindex        % 利用 makeindex 工具生成索引
+\end{document}
+\end{Verbatim}
+\caption{\cls{book} 文档类的文档结构示例。}\label{code:book-struct}
+\end{sourcecode}
 
 \section{标题页}\label{sec:titlepage}
 
@@ -102,7 +138,8 @@
 \begin{command}
 \cmd{maketitle}
 \end{command}
-生成一个简单的标题页了。\cls{article} 文档类的标题不单独成页，而 \cls{report} 和 \cls{book} 单独成页。
+生成一个简单的标题页了。\cls{article} 文档类的标题默认不单独成页，而 \cls{report} 和 \cls{book} 默认单独成页。
+可在 \cmd{document\-class} 命令中指定 \texttt{titlepage / notitlepage} 选项修改。
 
 \section{交叉引用}\label{sec:crossref}
 
@@ -113,9 +150,9 @@
 \end{command}
 
 \cmdindex{ref,pageref}
-之后就可以在别的地方使用 \cmd{ref} 或 \cmd{pageref} 命令，分别生成交叉引用的编号和页码：
+之后可以在别处使用 \cmd{ref} 或 \cmd{pageref} 命令，分别生成交叉引用的编号和页码：
 \begin{command}
-\cmd{ref}\marg{label-name} \\
+\cmd{ref}\marg{label-name} \quad
 \cmd{pageref}\marg{label-name}
 \end{command}
 \begin{example}
@@ -125,16 +162,15 @@ A reference to this subsection
 page~\pageref{sec:this}.''
 \end{example}
 
-生成正确的交叉引用一般也需要多次编译源代码。
+为了生成正确的交叉引用，一般也需要多次编译源代码。
 
 \cmd{label} 命令可用于记录各种类型的交叉引用，使用位置分别为：
 \begin{description}
   \item[章节标题] 在章节标题命令 \cmd{section} 等之后紧接着使用。
-  \item[行间公式] 单行公式（\env{equation} 环境，见 \ref{sec:math-basics} 节）在公式内任意位置使用；
-    多行公式（\pkg{amsmath} 提供的 \env{align} 环境等，见 \ref{subsec:align} 小节）在每一行公式的任意位置使用。
-  \item[有序列表] 在 \env{enumerate} 环境的每个 \cmd{item} 命令之后、下一个 \cmd{item} 命令之前任意位置使用，见 \ref{subsec:lists} 小节。
-  \item[图表浮动体] 在图表标题命令 \cmd{caption} 之后紧接着使用，见某小节。
-  \item[定理环境] 在定理环境内部任意位置使用，见 \ref{sec:theorems} 节。
+  \item[行间公式] 单行公式在公式内任意位置使用；多行公式在每一行公式的任意位置使用。
+  \item[有序列表] 在 \env{enumerate} 环境的每个 \cmd{item} 命令之后、下一个 \cmd{item} 命令之前任意位置使用。
+  \item[图表标题] 在图表标题命令 \cmd{caption} 之后紧接着使用。
+  \item[定理环境] 在定理环境内部任意位置使用。
 \end{description}
 
 在使用不记编号的命令形式（\cmd{section*}、\cmd{caption*}、带可选参数的 \cmd{item} 命令等）时不要使用 \cmd{label} 命令，
@@ -343,11 +379,14 @@ for (int i=0; i<4; ++i)
 同 \env{verbatim} 环境，\cmd{verb} 后也可以带一个星号，以显示空格：
 \begin{example}
 \verb|\LaTeX| \\
-\verb+(a || b)+ \\
-\verb*+(a || b)+
+\verb+(a || b)+ \verb*+(a || b)+
 \end{example}
 
 \cmd{verb} 命令对符号的处理比较复杂，一般\textbf{不能用在其它命令的参数里}，否则多半会出错。
+
+\pkg{verbatim} 宏包优化了 \env{verbatim} 环境的内部命令，并提供了 \cmd{verbatiminput} 命令用来直接读入文件生成代码环境。
+\pkg{fancyvrb} 宏包提供了可定制格式的 \env{Verbatim} 环境；\pkg{listings} 宏包更进一步，可生成关键字高亮的代码环境，
+支持各种程序设计语言的语法和关键字。详情请参考各自的帮助手册。
 
 \section{表格}\label{sec:tabular}
 
@@ -610,13 +649,13 @@ for (int i=0; i<4; ++i)
  \quad $\llcorner$（调用 \pkg{bmpsize} 宏包 ）   & .eps .pdf     & .jpg .png .bmp \\[.3\baselineskip]
  \texttt{pdflatex}                   & .pdf      & .jpg .png \\
  \quad $\llcorner$（调用 \pkg{epstopdf} 宏包）   & .pdf .eps & .jpg .png \\[.3\baselineskip]
- \texttt{xelatex}                    & .pdf .eps & .jpg .png .bmp .tif \\
+ \texttt{xelatex}                    & .pdf .eps & .jpg .png .bmp \\
  \hline
 \end{tabular}\par\endgroup
-\begin{quotation}\small
+\begin{quote}\footnotesize
 注：在较新的 \TeX\ 发行版中，\texttt{latex + dvipdfmx} 和 \texttt{pdf\-latex} 命令可不依赖宏包，支持原来需要宏包扩展的图片格式
 （但 \texttt{pdf\-latex} 命令仍不支持除 \texttt{.jpg} 和 \texttt{.png} 以外的位图）。
-\end{quotation}
+\end{quote}
 \end{table}
 
 \cmdindex[graphicx]{includegraphics}
@@ -652,6 +691,276 @@ for (int i=0; i<4; ++i)
 
 \section{盒子}\label{sec:box}
 
+盒子是 \LaTeX\ 排版的基础单元，虽然解释上去有些抽象：每一行是一个盒子，
+里面的文字从左到右依次排列；每一页也是一个盒子，各行文字从上到下依次排布……颇有一些活字印刷术的味道。
+
+不管如何，\LaTeX\ 提供了一些实用的命令让我们生成一些有用的盒子。
+
+\subsection{水平盒子}\label{subsec:mbox}
+
+\cmdindex{mbox,makebox}
+生成水平盒子的命令如下：
+\begin{command}
+\cmd{mbox}\marg*{\ldots} \\
+\cmd{makebox}\oarg{width}\oarg{align}\marg*{\ldots}
+\end{command}
+
+\cmd{mbox} 生成一个基本的水平盒子，内容只有一行（除非嵌套下文的垂直盒子），不允许分段。
+外表看上去，\cmd{mbox} 的内容与正常的文本无二，不过断行时文字不会从盒子里断开。
+
+\cmd{makebox} 更进一步，可以加上可选参数用于控制盒子的宽度 \Arg{width}，以及内容的对齐方式 \Arg{align}，
+可选居中 \texttt{c}（默认值）、左对齐 \texttt{l}、右对齐 \texttt{r} 和分散对齐 \texttt{s}%
+\footnote{分散对齐方式强行拉开单词的间距，往往会报 \texttt{Underfull} \cmd{hbox} 的警告。}。
+\begin{example}
+|\mbox{Test some words.}|\\
+|\makebox[10em]{Test some words.}|\\
+|\makebox[10em][l]{Test some words.}|\\
+|\makebox[10em][r]{Test some words.}|\\
+|\makebox[10em][s]{Test some words.}|
+\end{example}
+
+\subsection{带框的水平盒子}\label{subsec:fbox}
+
+\cmdindex{fbox,framebox}
+\cmd{fbox} 和 \cmd{framebox} 让我们可以为水平盒子添加边框。使用的语法与 \cmd{mbox} 和 \cmd{makebox} 一模一样：
+\begin{command}
+\cmd{fbox}\marg*{\ldots} \\
+\cmd{framebox}\oarg{width}\oarg{align}\marg*{\ldots}
+\end{command}
+\begin{example}
+\fbox{Test some words.}\\
+\framebox[10em][r]{Test some words.}
+\end{example}
+
+\cmdindex{setlength}
+\cmdindex{fboxrule,fboxsep}
+可以通过 \cmd{setlength} 命令（见 \ref{subsec:lengths} 小节）调节边框的宽度 \cmd{fbox\-rule} 和内边距 \cmd{fbox\-sep}：
+\begin{example}
+\framebox[10em][r]{Test box}\\[1ex]
+\setlength{\fboxrule}{1.6pt}
+\setlength{\fboxsep}{1em}
+\framebox[10em][r]{Test box}
+\end{example}
+
+\subsection{垂直盒子}\label{subsec:parbox}
+
+\cmdindex{parbox}
+\envindex{minipage}
+如果需要排版一个文字可以换行的盒子，\LaTeX\ 提供了两种方式：
+\begin{command}
+\cmd{parbox}\oarg{align}\oarg{height}\oarg{inner-align}\marg{width}\marg*{\ldots} \\[0.5ex]
+\cmd{begin}\marg*{minipage}\oarg{align}\oarg{height}\oarg{inner-align}\marg{width} \\
+\ldots \\
+\cmd{end}\marg*{minipage}
+\end{command}
+
+其中 \Arg{align} 为盒子和周围文字的对齐情况（类似 \env{tabular} 环境）；
+\Arg{height} 和 \Arg{inner-align} 设置盒子的高度和内容的对齐方式，类似水平盒子 \cmd{makebox} 的设置，
+不过 \Arg{inner-align} 接受的选项是顶部 \texttt{t}、底部 \texttt{b}、居中 \texttt{c} 和分散对齐 \texttt{s}。
+
+\begin{example}
+三字经：\parbox[t]{3em}%
+{人之初 性本善 性相近 习相远}
+\quad
+千字文：
+\begin{minipage}[b][8ex][t]{4em}
+天地玄黄 宇宙洪荒
+\end{minipage}
+\end{example}
+
+\cmdindex{footnote,footnotetext,footnotemark}
+如果在 \env{minipage} 里使用 \cmd{footnote} 命令，生成的脚注会出现在盒子底部，编号是独立的，并且使用小写字母编号。
+这也是 \env{minipage} 环境之被称为“迷你页”（Mini-page）的原因。
+而在 \cmd{parbox} 里无法正常使用 \cmd{footnote} 命令，只能在盒子里使用 \cmd{foot\-note\-mark}，在盒子外使用 \cmd{foot\-note\-text}。
+\begin{example}
+\fbox{\begin{minipage}{10em}%
+  这是一个垂直盒子的测试。
+  \footnote{脚注来自 minipage。}
+\end{minipage}}
+\end{example}
+
+\subsection{标尺盒子}\label{subsec:rules}
+
+\cmdindex{rule}
+\cmd{rule} 命令用来画一个实心的矩形盒子，也可适当调整以用来画线（标尺）：
+\begin{command}
+\cmd{rule}\oarg{raise}\marg{width}\marg{height}
+\end{command}
+\begin{example}
+Black \rule{12pt}{4pt} box. 
+
+Upper \rule[4pt]{6pt}{8pt} and
+lower \rule[-4pt]{6pt}{8pt} box.
+
+A \rule[-.4pt]{3em}{.4pt} line.
+\end{example}
+
 \section{浮动体}\label{sec:float}
+
+内容丰富的文章或者书籍往往包含丰富的图片和表格等内容。这些内容的尺寸往往太大，导致分页困难。
+\LaTeX\ 为此引入了浮动体的机制，令大块的内容可以脱离上下文，放置在合适的位置。
+
+\envindex{figure,table}
+\LaTeX\ 预定义了两类浮动体环境 \env{figure} 和 \env{table}。习惯上 \env{figure} 里放图片，\env{table} 里放表格，
+但并没有严格限制，可以在任何一个浮动体里放置表格、文字、列表等等任意内容。
+
+以 \env{table} 环境的用法举例，\env{figure} 同理：
+\begin{command}
+\cmd{begin}\marg*{table}\oarg{placement} \\
+\ldots \\
+\cmd{end}\marg*{table}
+\end{command}
+
+\Arg{placement} 参数提供了一些符号用来表示浮动体允许排版的位置，如 \texttt{[hbp]} 允许浮动体排版在当前位置、底部或者单独成页。
+\env{table} 和 \env{figure} 浮动体的默认设置为 \texttt{[tbp]}。
+\begin{center}
+\begin{tabular}{>{\ttfamily}lp{14em}}
+ \hline
+ h & 当前位置（代码所处的上下文） \\
+ t & 顶部 \\
+ b & 底部 \\
+ p & 单独成页 \\[0.5ex]
+ ! & 在决定位置时忽视限制 \\
+ \hline
+\end{tabular}
+\end{center}
+\begin{quote}\footnotesize
+注 1：排版位置的选取与参数里符号的顺序无关，\LaTeX\ 总是以 \texttt{h-t-b-p} 的优先级顺序选取位置。
+也就是说 \texttt{[!htp]} 和 \texttt{[ph!t]} 没有区别。\par
+注 2：限制包括浮动体个数（除单独成页外，默认每页不超过 3 个浮动体，其中顶部不超过 2 个，底部不超过 1 个）
+以及浮动体空间占页面的百分比（默认顶部不超过 70\%，底部不超过 30\%）。
+\end{quote}
+
+\envindex{table*,figure*}
+双栏排版环境下，\LaTeX\ 提供了 \env{table*} 和 \env{figure*} 环境用来排版跨栏的浮动体。
+它们的用法与 \env{table} 和 \env{figure} 一样，不同之处为双栏的 \Arg{placement} 参数只能用 \texttt{tp} 两个位置。
+
+\cmdindex{clearpage}
+浮动体的位置选取受到先后顺序的限制。如果某个浮动体由于参数限制、空间限制等原因在当前页无法放置，就要推迟到后一页，
+并使得之后的同类浮动体一并推迟。\cmd{clearpage} 命令会在另起一页之前，先将所有推迟放置的浮动体排版成页。
+
+\pkgindex{float}
+
+\pkg{float} 宏包为浮动体提供了 \texttt{H} 选项，不与 \texttt{htbp} 及 \texttt{!} 混用。使用 \texttt{H} 选项时，
+会取消浮动机制，将浮动体视为一般的盒子插入当前位置。这在一些特殊情况下（如使用 \pkg{multicol} 宏包生成分栏）的时候很有用，
+但尺寸过大的浮动体可能影响到分页。
+
+\subsection{浮动体的标题}\label{subsec:caption}
+
+\cmdindex{caption,label}
+图表等浮动体提供了 \cmd{caption} 命令加标题，并且自动给浮动体编号：
+\begin{command}
+\cmd{caption}\marg*{\ldots}
+\end{command}
+\cmd{caption} 的用法非常类似于 \cmd{section} 等命令，可以用带星号的命令 \cmd{caption*} 生成不计数的标题，
+也可以使用带可选参数的形式 \cmd{caption}\oarg*{\ldots}\marg*{\ldots}，使得在目录里使用短标题。
+
+\cmd{caption} 之后还可以紧跟 \cmd{label} 命令标记交叉引用。
+
+\cmdindex{listoftables,listoffigures}
+\env{table} 和 \env{figure} 两种浮动体分别有各自的生成目录的命令：
+\begin{command}
+\cmd{listoftables} \\
+\cmd{listoffigures}
+\end{command}
+
+\subsection{并排和子图表}\label{subsec:subfig}
+
+我们时常有在一个浮动体里面放置多张图的用法。最简单的用法就是直接并排放置，
+也可以通过分段或者换行命令 \crcmd\ 排版多行多列的图片。以下为示意代码，效果大致如图 \ref{fig:parallel-fig} 所示。
+\begin{verbatim}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=...]{...}
+  \qquad
+  \includegraphics[width=...]{...} \\[..pt]
+  \includegraphics[width=...]{...} 
+  \caption{...}
+\end{figure}
+\end{verbatim}
+
+\begin{figure}[htb]
+  \centering
+  \fcolorbox[gray]{0}{0.96}{\parbox{10em}{\vrule width 0pt height 10ex\hfil}}
+  \qquad
+  \fcolorbox[gray]{0}{0.96}{\parbox{10em}{\vrule width 0pt height 12ex\hfil}}
+  \par\bigskip
+  \fcolorbox[gray]{0}{0.96}{\parbox{20em}{\vrule width 0pt height 12ex\hfil}}
+  \caption{并排放置图片的示意。}\label{fig:parallel-fig}
+\end{figure}
+
+由于标题是横跨一行的，用 \cmd{caption} 命令为每个图片单独生成标题就需要借助前文提到的 \cmd{parbox}
+或者 \env{minipage} 环境，将标题限制在盒子内。效果见图 \ref{fig:parallel-cap1} 和图 \ref{fig:parallel-cap2}。
+\begin{verbatim}
+\begin{figure}[htbp]
+  \centering
+  \begin{minipage}
+    \centering
+    \includegraphics[width=...]{...}
+    \caption{...}
+  \end{minipage}
+  \qquad
+  \begin{minipage}
+    \centering
+    \includegraphics[width=...]{...}
+    \caption{...}
+  \end{minipage}  
+\end{figure}
+\end{verbatim}
+
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}{12em}
+    \centering
+    \fcolorbox[gray]{0}{0.96}{\parbox{10em}{\vrule width 0pt height 12ex\hfil}}
+    \caption{并排图1。}\label{fig:parallel-cap1}
+  \end{minipage}
+  \qquad
+  \begin{minipage}{12em}
+    \centering
+    \fcolorbox[gray]{0}{0.96}{\parbox{10em}{\vrule width 0pt height 12ex\hfil}}
+    \caption{并排图2。}\label{fig:parallel-cap2}
+  \end{minipage}
+\end{figure}
+
+\pkgindex{subfig}
+\cmdindex[subfig]{subfloat}
+当我们需要更进一步，给每个图片定义小标题时，就要用到 \pkg{subfig} 宏包的功能了。
+这里仅举一例，效果见图 \ref{fig:subfig}。更详细的用法请参考 \pkg{subfig} 宏包的帮助文档。
+\begin{verbatim}
+\begin{figure}[htbp]
+  \centering
+  \subfloat[...]{\label{sub-fig-1}% 为子图加交叉引用
+   \begin{minipage}
+    \centering
+    \includegraphics[width=...]{...}
+   \end{minipage}
+  }
+  \qquad
+  \subfloat[...]{%
+  \begin{minipage}
+    \centering
+    \includegraphics[width=...]{...}
+  \end{minipage}
+  }
+  \caption{...}
+\end{figure}
+\end{verbatim}
+
+\begin{figure}[htb]
+  \centering
+  \subfloat[并排子图1]{%
+  \begin{minipage}{12em}
+    \centering
+    \fcolorbox[gray]{0}{0.96}{\parbox{10em}{\vrule width 0pt height 12ex\hfil}}
+  \end{minipage}}
+  \qquad
+  \subfloat[并排子图2]{%
+  \begin{minipage}{12em}
+    \centering
+    \fcolorbox[gray]{0}{0.96}{\parbox{10em}{\vrule width 0pt height 12ex\hfil}}
+  \end{minipage}}
+  \caption{使用 \pkg{subfig} 宏包的 \cmd{subfloat} 命令排版子图。}\label{fig:subfig}
+\end{figure}
 
 \endinput

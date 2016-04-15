@@ -1,4 +1,5 @@
 \chapter{\LaTeX\ 须知}\label{chap:basics}
+\addtocontents{los}{\protect\addvspace{10pt}}
 
 \begin{intro}
 欢迎加入 \LaTeX\ 使用者的队伍！本章开头用简短的篇幅介绍了 \LaTeX\ 的来源，
@@ -74,7 +75,7 @@
 \section{\LaTeX\ 命令和代码结构}\label{sec:src}
 
 \LaTeX\ 的源代码本质上是文本文件。哪怕用 Windows 的记事本或者 Linux 的 gedit 等简单的编辑器，
-你也可以编写一份 \LaTeX\ 源代码并编译出文档来。专用于编辑 \LaTeX\ 源代码的编辑器如
+也可以编写一份 \LaTeX\ 源代码并编译出文档来。专用于编辑 \LaTeX\ 源代码的编辑器如
 TeXworks / TeXstudio / WinEdt 等提供了一些语法高亮、命令补全等功能，以及调用排版引擎的一些按钮。
 
 除了文字本身，\LaTeX\ 源代码之中还包括大量的命令，用在排版公式、划分文档结构、控制样式等等不同的地方。
@@ -105,6 +106,9 @@ or \TeX{} users?
 大多数的 \LaTeX\ 命令是带一个或多个参数，每个参数用花括号 \texttt\{ 和 \texttt\} 包裹。
 有些命令带一个或多个可选参数，以方括号 \texttt[ 和 \texttt] 包裹。
 还有些命令在命令名称后可以带一个星号 \texttt*，带星号和不带星号的命令效果有一定差异。
+
+\pinyinindex{fenzu}{分组}
+\LaTeX\ 的花括号本身也起到\textbf{分组}的作用，可以将字体、格式等的更改限制在大括号范围之内。
 
 \index{LaTeX environment@\LaTeX\ 环境}
 \cmdindex{begin,end}
@@ -144,13 +148,13 @@ or \TeX{} users?
 
 \pinyinindex{daoyanqu}{导言区}
 在 \cmd{documentclass} 和 \cmd{begin}\marg*{document} 之间的位置称为\textbf{导言区}，除了使用 \cmd{use\-package}
-调用宏包之外，一些对文档的全局设置命令也在这里使用。当然你也可以什么都不写，一个宏包都不调用。一切视自己需求。
+调用宏包之外，一些对文档的全局设置命令也在这里使用。当然也可以什么都不写，一个宏包都不调用。一切视自己需求。
 
 \section{用命令行操作 \LaTeX}
 
-相信你到这里已经急不可耐地想要写一个 \LaTeX\ 源代码试一试了。我们这就给一个最小的例子，见源代码 \ref{code:hello-world}。
+相信你看到这里已经急不可耐地想要写一个 \LaTeX\ 源代码试一试了。我们这就给一个最小的例子，见源代码 \ref{code:hello-world}。
 
-\begin{sourcecode}[hbp]
+\begin{sourcecode}[htp]
 \begin{Verbatim}
 \documentclass{article}
 \begin{document}
@@ -340,7 +344,7 @@ xelatex helloworld.tex
 详见附录 \ref{sec:pkg-manager} 。
 
 每个宏包（包括前面所说的文档类）都定义了许多命令和环境，或者修改了 \LaTeX\ 已有的命令和环境。
-为了明白它们的用法，用户需要查阅宏包和文档类的帮助手册。使用方法是在 Windows 命令提示符或者 Linux 终端下输入命令：
+为了明白它们的用法，需要查阅宏包和文档类的帮助手册。使用方法是在 Windows 命令提示符或者 Linux 终端下输入命令：
 \begin{command}
 \texttt{texdoc} \Arg{pkg-name}
 \end{command}
@@ -375,9 +379,10 @@ xelatex helloworld.tex
   \item[\texttt{.out}] \pkg{hyperref} 宏包生成的 PDF 书签记录文件。
 \end{description}
 
-\section{大文档的组织}\label{sec:latex-multi-files}
+\section{文件的组织方式}\label{sec:latex-multi-files}
 
-当编写较大规模的 \LaTeX\ 源代码，如书籍、毕业论文等，你有理由将源代码分成若干个文件而不是写到一堆，比如很自然地每章写一个文件。
+当编写较大规模的 \LaTeX\ 源代码，如书籍、毕业论文等，你有理由将源代码分成若干个文件而不是写到一堆，比如很自然地每章写一个文件，
+可参考源代码 \ref{code:book-struct} 的写法。
 
 \cmdindex{include}
 \LaTeX\ 提供了命令 \cmd{include} 用来在源代码里插入文件：

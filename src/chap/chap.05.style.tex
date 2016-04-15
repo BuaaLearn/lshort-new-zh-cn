@@ -1,4 +1,5 @@
 \chapter{排版样式设定}\label{chap:styles}
+\addtocontents{los}{\protect\addvspace{10pt}}
 
 \begin{intro}
 至此你已经基本学会排版内容丰富的文档，标题、目录、章节、公式、列表、图片、表格等等应有尽有。但是你可能已经有点不甘心了，
@@ -18,14 +19,15 @@
 \end{example}
 
 \LaTeXe\ （相比于早期的 \LaTeX\ 2.09 版本）的一个重要特征是：字体的各种属性是相互独立的，
-这意味着你可以改变字体的大小，而仍然保留字体原有的粗体或者斜体的特性。
+这意味着用户可以改变字体的大小，而仍然保留字体原有的粗体或者斜体的特性。
 
 \subsection{字体样式}\label{subsec:fontshape}
 
 \pinyinindex{ziti}{字体}
+\pinyinindex{fenzu}{分组}
 \LaTeX\ 提供了两组修改字体的命令，见表 \ref{tbl:fonts}。其中诸如 \cmd{bfseries} 形式的命令将会影响之后所有的字符，
-如果想要让它在局部生效，需要用花括号建立\textbf{分组}，也就是写成 \marg*{\cmd{bfseries}\ \Arg{some text}} 这样的形式；
-对应的 \cmd{textbf} 形式带一个参数，它只会改变参数内部的字体，相比之下更为常用。
+如果想要让它在局部生效，需要用花括号\textbf{分组}，也就是写成 \marg*{\cmd{bfseries}\ \Arg{some text}} 这样的形式；
+对应的 \cmd{textbf} 形式带一个参数，只改变参数内部的字体，更为常用。
 
 在公式中，直接使用 \cmd{textbf} 等命令不会起效，甚至报错。\LaTeX\ 已有修改数学字体的命令，详见 \ref{subsec:math-alpha} 小节。
 
@@ -184,8 +186,8 @@ He likes {\LARGE large and
 \end{verbatim}
 \Arg{font features} 还能配置字体本身的各种特性，这里不再赘述，感兴趣的读者请参考 \pkg{fontspec} 宏包的帮助文档。
 
-需要注意一点：\pkg{fontspec} 宏包会覆盖数学字体设置。需要使用 \ref{tbl:font-pkgs} 中列出的一些数学字体宏包时，
-应当在调用 \pkg{fontspec} 宏包时指定 \texttt{no-math} 选项。\pkg{fontspec} 宏包可能由其它宏包或文档类（如 \pkg{xeCJK}、\pkg{ctex} 文档类）加载时，
+需要注意的是：\pkg{fontspec} 宏包会覆盖数学字体设置。需要调用表 \ref{tbl:font-pkgs} 中列出的一些数学字体宏包时，
+应当在调用 \pkg{fontspec} 宏包时指定 \texttt{no-math} 选项。\pkg{fontspec} 宏包可能被其它宏包或文档类（如 \pkg{xeCJK}、\pkg{ctex} 文档类）自动调用时，
 则在文档开头的 \cmd{document\-class} 命令里指定 \texttt{no-math} 选项。
 
 \subsection{使用 \pkg{xeCJK} 宏包更改中文字体}\label{subsec:CJKfont}
@@ -310,11 +312,11 @@ But remember I am a liar.}\par
 \begin{command}
 \cmd{indent}
 \end{command}
-命令强制开启一段首行缩进的段落。多个 \cmd{indent} 命令
+命令强制开启一段首行缩进的段落。多个 \cmd{indent} 命令的效果可以累加。
 
 \pkgindex{indentfirst}
 \LaTeX\ 还默认\textbf{在 \cmd{chapter}、\cmd{section} 等章节命令之后的第一段不缩进}%
-\footnote{\pkg{ctex} 宏包按照中文习惯保持第一段的首行缩进。}。
+\footnote{\pkg{ctex} 宏包默认按照中文习惯保持第一段的首行缩进。}。
 如果如果不习惯这种设定，可以调用 \pkg{indent\-first} 宏包：
 \begin{verbatim}
 \usepackage{indentfirst}
@@ -401,7 +403,7 @@ x\hspace{\fill}x
 控制页边距的参数由图 \ref{fig:layouts} 里给出的各种长度变量控制（水平和垂直虚线显示的纸张宽度和高度对应的变量为，
 \cmd{paper\-height} 和 \cmd{paper\-width}）。
 可以用 \cmd{setlength} 命令修改这些长度变量，以达到调节页面尺寸和边距的作用；
-反之也可以利用这些长度变量来决定排版内容的尺寸，如设置图片或表格的宽度为 0.8\cmd{textwidth} 这样。
+反之也可以利用这些长度变量来决定排版内容的尺寸，如设置图片或表格的宽度为 0.8\cmd{textwidth}。
 
 \begin{figure}[!p]
 \oddpagelayouttrue
@@ -496,14 +498,16 @@ x\hspace{\fill}x
 \cmd{twocolumn}\oarg{one-column top material}
 \end{command}
 
+\cmd{twocolumn} 支持带一个可选参数，用于排版双栏之上的一部分单栏内容。
+
 \cmdindex{newpage,clearpage}
-以上命令总是会另起一页（\cmd{clearpage}）。\cmd{twocolumn} 支持带一个可选参数，用于排版双栏之上的一部分单栏内容。
-在双栏模式下使用 \cmd{newpage} 会换栏而不是直接换页；\cmd{clearpage} 则能够换页。
+切换单/双栏排版时总是会另起一页（\cmd{clearpage}）。
+在双栏模式下使用 \cmd{newpage} 会换栏而不是换页；\cmd{clearpage} 则能够换页。
 
 \pkgindex{multicol}
 \envindex[multicol]{multicols}
 一个比较好用的分栏解决方案是 \pkg{multicol}，它提供了简单的 \env{multicols} 环境
-（注意不要写成 \env{multicol} 环境！）自动产生分栏，如以下环境将内容分为 3 栏：
+（注意不要写成 \env{multicol} 环境）自动产生分栏，如以下环境将内容分为 3 栏：
 \begin{verbatim}
 \begin{multicols}{3}
 ...

@@ -1,4 +1,5 @@
 \chapter{特色工具和功能}
+\addtocontents{los}{\protect\addvspace{10pt}}
 
 \begin{intro}
 本章介绍一些特色的 \LaTeX\ 辅助功能。前两个功能 \hologo{BibTeX} 和 makeindex 依靠一些辅助程序自动生成参考文献、索引等；
@@ -162,7 +163,7 @@ pdflatex demo
 pdflatex demo
 \end{verbatim}
 
-如果使用 \texttt{latex} 和 {dvipdfmx} 命令编译，则 \texttt{dvipdfmx} 命令放在最后，相当于先后使用
+使用 \texttt{latex + dvipdfmx} 命令编译时，则 \texttt{dvipdfmx} 命令放在最后，相当于先后使用
 \texttt{latex}, \texttt{bibtex}, \texttt{latex}, \texttt{latex}, \texttt{dvipdfmx}。
 
 \subsection{\pkg{natbib} 宏包}
@@ -389,6 +390,9 @@ Test index.
   黄色背景}
 }
 \end{example}
+
+\cmdindex{fboxrule,fboxsep}
+\cmd{fcolorbox} 也可以像 \ref{subsec:fbox} 小节里的 \cmd{fbox} 那样调节 \cmd{fbox\-rule} 和 \cmd{fbox\-sep}。这里不再示例。
 
 \section{使用超链接}\label{sec:hyperlinks}
 

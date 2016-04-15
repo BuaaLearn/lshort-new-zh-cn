@@ -8,49 +8,12 @@
 % 基本工具宏包
 % 
 \RequirePackage{colortbl,xcolor,tabularx,multirow,booktabs}
-\RequirePackage{graphicx,float}
+\RequirePackage{graphicx,float,subfig}
 \RequirePackage{hologo,verbatim,fancyvrb,layouts,multicol}
 \RequirePackage{makeidx}
 \RequirePackage{amsmath,amsthm}
 \RequirePackage[inner=1in,outer=1.5in,vmargin=1in,marginparwidth=1in]{geometry}
-%\RequirePackage{tikz}
-%\usetikzlibrary{%
-%  arrows,%
-%  calc,%
-%  fit,%
-%  patterns,%
-%  plotmarks,%
-%  shapes.geometric,%
-%  shapes.misc,%
-%  shapes.symbols,%
-%  shapes.arrows,%
-%  shapes.callouts,%
-%  shapes.multipart,%
-%  shapes.gates.logic.US,%
-%  shapes.gates.logic.IEC,%
-%  er,%
-%  automata,%
-%  backgrounds,%
-%  chains,%
-%  topaths,%
-%  trees,%
-%  petri,%
-%  mindmap,%
-%  matrix,%
-%  calendar,%
-%  folding,%
-%  fadings,%
-%  through,%
-%  positioning,%
-%  scopes,%
-%  decorations.fractals,%
-%  decorations.shapes,%
-%  decorations.text,%
-%  decorations.pathmorphing,%
-%  decorations.pathreplacing,%
-%  decorations.footprints,%
-%  decorations.markings,%
-%  shadows}
+\RequirePackage{tikz}
 
 %
 % ctex 宏包 2.2(2015/06/24) 或以上版本
@@ -158,10 +121,12 @@
 \def\CTAN|#1|{\href{http://mirrors.tuna.tsinghua.edu.cn/CTAN/#1}{\CTANref|CTAN://#1|}}
 \newcommand{\contrib}[3]{#1\quad\mailto|#2|{\small\\\quad\textit{#3}}\\[1ex]}
 
+\DeclareRobustCommand*\TikZ{Ti\textit{k\/}Z}
 %
 % PDF 书签中对符号的特殊处理
 % 
 \pdfstringdefDisableCommands{\def\AmS{AMS}}%
+\pdfstringdefDisableCommands{\def\TikZ{TikZ}}%
 
 %
 % 示意长度
@@ -221,7 +186,7 @@
 %
 \newenvironment{command}%
   {\trivlist\item\relax%
-  \def\arraystretch{1.4}%
+  \def\arraystretch{1.2}%
   \hskip\parindent%
   \begin{tabular}{>{\columncolor{blue!5}}l}
   }%

@@ -1,4 +1,6 @@
 \chapter{排版数学公式}
+\addtocontents{los}{\protect\addvspace{10pt}}
+
 \begin{intro}
 准备好了！本章将见识到 \LaTeX\ 闻名的强项——排版数学公式。当然你得注意了，本章的内容只是一点皮毛，
 虽然对大多数人来说已经够用了，但是如果不能解决你的问题的话也不要大惊小怪，求助于搜索引擎或者有经验的人不失为一个好办法。
@@ -34,8 +36,8 @@ $a^2 + b^2 = c^2$
 \cmdindex[amsmath]{eqref,tag,notag}
 单独成行的\textbf{行间公式}在 \LaTeX\ 里由 \env{equation} 环境包裹。
 \env{equation} 环境为公式自动生成一个编号，这个编号可以用 \cmd{label} 和 \cmd{ref} 生成交叉引用，
-\pkg{amsmath} 的 \amscmd{eqref} 命令甚至为引用自动加上括号；你还可以用 \amscmd{tag} 命令手动修改公式的编号，
-或者用 \amscmd{notag} 命令取消为公式编号（\LaTeX\ 提供了与之基本等效的命令 \cmd{nonumber}）。
+\pkg{amsmath} 的 \amscmd{eqref} 命令甚至为引用自动加上圆括号；还可以用 \amscmd{tag} 命令手动修改公式的编号，
+或者用 \amscmd{notag} 命令取消为公式编号（与之基本等效的命令是 \cmd{nonumber}）。
 
 \begin{example}
 Add $a$ squared and $b$ squared
@@ -275,7 +277,7 @@ $a\bmod b \\
 \end{example}
 
 \cmdindex[amsmath]{DeclareMathOperator}
-如果表 \ref{tbl:math-functions} 中的算符不满足使用的话，\pkg{amsmath} 允许用户用 \amscmd{Declare\-Math\-Operator} 
+如果表 \ref{tbl:math-functions} 中的算符不够用的话，\pkg{amsmath} 允许用户用 \amscmd{Declare\-Math\-Operator} 
 定义自己的算符，其中带星号的命令定义带上下限的算符：
 \begin{verbatim}
 \DeclareMathOperator{\argh}{argh}
@@ -419,17 +421,13 @@ $\bigl( \Bigl( \biggl( \Biggl(
 
 \subsection{长公式折行}\label{sec:multline}
 
-通常来讲应当避免写出需要折行的长公式。如果一定要折行的话，有若干个原则：
-\begin{enumerate}
-  \item 优先在等号之前折行；
-  \item 其次在加号、减号之前折行；
-  \item 其次在乘号、除号之前折行；
-  \item 除以上符号外，其它位置应当避免折行。
-\end{enumerate}
+通常来讲应当避免写出需要折行的长公式。如果一定要折行的话，优先在等号之前折行，其次在加号、减号之前，再次在乘号、除号之前。
+其它位置应当避免折行。
 
 \envindex[amsmath]{multline}
 \pkg{amsmath} 宏包的 \amsenv{multline} 环境提供了书写折行长公式的方便环境。
-它允许用 \crcmd\ 折行，将公式编号放在最后一行。多行公式的首行左对齐，末行右对齐，其余行居中。
+它允许用 \crcmd\ 折行，将公式编号放在最后一行。
+多行公式的首行左对齐，末行右对齐，其余行居中。
 \begin{example}
 \begin{multline}
 a + b + c + d + e + f
@@ -439,6 +437,8 @@ a + b + c + d + e + f
 = t + u + v + x + z
 \end{multline}
 \end{example}
+
+与表格不同的是，公式的最后一行不写 \crcmd，如果写了，反倒会产生一个多余的空行。
 
 \envindex[amsmath]{multline*}
 类似 \amsenv{equation*}，\amsenv{multline*} 环境排版不带编号的折行长公式。
@@ -477,8 +477,8 @@ a ={} & b + c \\
 \amsenv{align} 还能够对齐多组公式，除等号前的 \texttt\& 之外，公式之间也用 \texttt\& 分隔：
 \begin{example}
 \begin{align}
-a &=1 & b &=2 & c &=3 \\
-d &=-1 & e &=-2 & f &=-5 
+a &=1  &  b &=2   & c &=3   \\
+d &=-1 &  e &=-2  & f &=-5 
 \end{align}
 \end{example}
 
@@ -730,7 +730,7 @@ $\mu, M \qquad
 \cmdindex[bm]{bm}
 然而定界符、巨算符等一些符号本身没有粗体版本，\amscmd{boldsymbol} 也得不到粗体。
 \LaTeX\ 工具宏集之一的 \pkg{bm} 宏包可以用 \cmd{bm} 命令生成“伪粗体”，一定程度上解决了不带粗体版本的符号的问题。这里不做过多介绍，
-需要使用的用户请参考 \pkg{bm} 宏包的帮助文档。
+详情请参考 \pkg{bm} 宏包的帮助文档。
 
 \section{定理环境}\label{sec:theorems}
 
@@ -866,7 +866,7 @@ E=mc^2.\qedhere
 \end{proof}
 \end{example}
 
-在 \cmd{align} 中使用 \cmd{qedhere} 命令会使 \qedsymbol\ 盖掉公式的编号；使用 \env{equation} 嵌套 \amsenv{aligned} 环境时，
+在 \amsenv{align} 等环境中使用 \cmd{qedhere} 命令会使 \qedsymbol\ 盖掉公式的编号；使用 \env{equation} 嵌套 \amsenv{aligned} 等环境时，
 \cmd{qedhere} 命令会将 \qedsymbol\ 直接放在公式后。这些位置都不太正常。
 
 \endinput
