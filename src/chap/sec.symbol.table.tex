@@ -36,12 +36,13 @@
 \end{enumerate}
 
 \subsection{\LaTeX\ 普通符号}
+\symindex{dag,ddag,P,S,copyright,pounds}
 
 \begin{table}[htp]
 \caption{文本/数学模式通用符号}\label{tbl:general-syms}
-\begin{trivlist}\item\relax\small%
+\begin{quote}\footnotesize%
 这些符号可用于文本和数学模式。
-\end{trivlist}
+\end{quote}
 \begin{symbols}{*4{cl}}
 \hline
  \SC{\{}    &  \SC{\}}  &  \SC{\$}         &  \SC{\%}               \\
@@ -53,10 +54,10 @@
 
 \begin{table}[htp]
 \caption{希腊字母。} \label{tbl:math-greek}
-\begin{trivlist}\item\relax\small%
+\begin{quote}\footnotesize%
 \cmd{Alpha}，\cmd{Beta} 等希腊字母符号不存在，因为它们和拉丁字母 A,B 等一模一样；
 小写字母里也不存在 \cmd{omicron}，直接用 $o$ 代替。
-\end{trivlist}
+\end{quote}
 \begin{symbols}{*4{cl}}
 \hline
  \SYM{\alpha}     & \SYM{\theta}     & \SYM{o}          & \SYM{\upsilon}  \\
@@ -79,9 +80,9 @@
 
 \begin{table}[htp]
 \caption{二元关系符。} \label{tbl:math-rel}
-\begin{trivlist}\item\relax\small%
+\begin{quote}\footnotesize%
 所有的二元关系符都可以加 \cmd{not} 前缀得到相反意义的关系符，例如 \cmd{not}\texttt{=} 就得到不等号（同 \cmd{ne}）。
-\end{trivlist}
+\end{quote}
 \begin{symbols}{*3{cl}}
 \hline
  \SYM{<}              & \SYM{>}                    & \SYM{=}          \\
@@ -141,9 +142,9 @@
 
 \begin{table}[htp]
 \caption{数学重音符号。}\label{tbl:math-accents}
-\begin{trivlist}\item\relax\small
+\begin{quote}\footnotesize%
 最后一个 \cmd{wideparen} 依赖 \pkg{yhmath} 宏包。
-\end{trivlist}
+\end{quote}
 \begin{symbols}{*3{cl}}
 \hline
 \ACC{\hat}{a}   & \ACC{\check}{a} & \ACC{\tilde}{a}       \\

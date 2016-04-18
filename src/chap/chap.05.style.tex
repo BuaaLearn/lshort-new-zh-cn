@@ -131,6 +131,26 @@ He likes {\LARGE large and
 表 \ref{tbl:font-pkgs} 列出了较为常用的字体宏包，其中相当多的宏包还配置了数学字体，或者文本、数学字体兼而有之。
 更多的的字体配置参考 \cite{survey,fontcatalogue}。
 
+\subsection{字体编码}\label{subsec:font-encs}
+
+字体编码对于 \LaTeX\ 用户来讲是一个比较难懂的概念。它指定了一个字体里面包含了哪些符号、符号如何编码等等细节。
+需要明确一点：字体编码并不与我们在 \ref{subsec:ascii} 等小节叙述的 ASCII 编码等一一对应。
+
+常见的正文字体编码有 \texttt{OT1} 和 \texttt{T1} 等。\LaTeX\ 默认使用对原始 \TeX\ 兼容的 \texttt{OT1} 编码，使用起来有诸多限制：
+高德纳在设计 Computer Modern 字体时认为一些符号，如大于号、小于号等，原则上都应该在公式里出现，所以在正文字体里，
+这些符号所在的位置被其它符号所占据
+（事实上用户输入 \texttt< 和 \texttt> 得到的是\ !` 和\ ?` 两个倒立的标点符号，正常的大于号和小于号可用命令 \cmd{textgreater} 和 \cmd{textless} 输入）。
+
+扩展的 \texttt{T1} 编码则对 ASCII 字符的兼容好得多，不会出现上述的大于号、小于号的问题。
+\texttt{T1} 编码配合一些字体宏包如 \pkg{txfonts}、\pkg{lmodern} 等，还能够令用户使用 \cmd{textasciitilde} 命令
+输入位置居中的连字符 a\textasciitilde b，相比数学符号 \texttt\$\cmd{sim}\texttt\$ 来得合理一些。
+
+\pkgindex{fontenc}
+\pkg{fontenc} 宏包用于切换字体编码：
+\begin{verbatim}
+\usepackage[T1]{fontenc}
+\end{verbatim}
+
 \begin{table}[!p]
 \centering
 \caption{常见的 \LaTeX\ 字体宏包。}\label{tbl:font-pkgs}
@@ -378,7 +398,7 @@ x\hspace{\fill}x
 对应地，\cmd{vspace*} 命令产生不会因断页而消失的垂直间距。\cmd{vspace} 也可用 \cmd{stretch} 设置无限延伸的垂直长度。
 
 \index{\@\crcmd\ (\textit{换行})}
-在段落内的两行之间增加垂直间距，一般通过给换行命令 \crcmd\ 加可选参数，如 \crcmd \texttt{[6pt]}。
+在段落内的两行之间增加垂直间距，一般通过给断行命令 \crcmd\ 加可选参数，如 \crcmd\texttt{[6pt]} 或 \crcmd\texttt{*[6pt]}。
 
 \cmdindex{bigskip,medskip,smallskip}
 另外 \LaTeX\ 还提供了\cmd{bigskip}, \cmd{medskip}, \cmd{smallskip} 来增加预定义长度的垂直间距。

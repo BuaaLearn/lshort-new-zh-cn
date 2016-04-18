@@ -43,7 +43,7 @@
 \envindex[tikz]{tikzpicture}
 \cmdindex[tikz]{tikz}
 在导言区调用 \pkg{tikz} 宏包，就可以用以下命令和环境使用 \TikZ\ 的绘图功能了%
-\footnote{\texttt{latex + dvipdfmx} 编译方式要在 \pkg{tikz} 宏包之前加载 \pkg{graphicx} 宏包并指定 \texttt{dvipdfmx} 选项。}：
+\footnote{\texttt{latex + dvipdfmx} 编译方式要在 \pkg{tikz} 宏包之前调用 \pkg{graphicx} 宏包并指定 \texttt{dvipdfmx} 选项。}：
 \begin{command}
 \cmd{tikz}\oarg*{\ldots} \Arg{tikz code}\texttt{;} \\[1ex]
 \cmd{begin}\marg*{tikzpicture}\oarg*{\ldots} \\
@@ -73,11 +73,13 @@
 \begin{tikzpicture}
 \draw (0,0) -- (30:1);
 \draw (1,0) -- (2,1);
+\coordinate (S) at (0,1);
+\draw (S) -- (1,1);
 \end{tikzpicture}
 \end{example}
 
 \TikZ\ 最基本的路径为两点之间连线，如 \texttt{(\Arg{$x_1$},\Arg{$y_1$}) -{}- (\Arg{$x_2$},\Arg{$y_2$})}，可以连用表示多个连线（折线）。
-连续使用连线时，可以使用 \texttt{cycle} 作为最后一个点，生成闭合的路径。
+连续使用连线时，可以使用 \texttt{cycle} 令路径回到起点，生成闭合的路径。
 \begin{example}
 \begin{tikzpicture}
 \draw (0,0) -- (1,1) 
@@ -217,6 +219,33 @@
 \end{tikzpicture}
 \end{example}
 
+表 \ref{tbl:tikz-options} 中的参数可用于 \cmd{node} 命令的配置。除此之外，\cmd{node} 还有一些特定的参数，见表 \ref{tbl:tikz-node-options}。
+
+\begin{table}[htp]
+\caption{\TikZ\ 结点使用的一些绘图参数。}\label{tbl:tikz-node-options}
+\small
+\hrule
+\begin{itemize}
+  \item \texttt{anchor=\Arg{position}} \par
+  指定结点的某个角落 \Arg{position} 位于给定的位置 \Arg{coordinate}。
+  \item \texttt{center/ above / below / left / right / above left / \ldots} \par
+  指定结点相对于 \Arg{coordinate} 的位置，\texttt{anchor=\Arg{position}} 的等效写法。\texttt{above} 相当于 \texttt{anchor=south}，以此类推。
+  带参数的形式 \texttt{above=\Arg{length}} 指定节点相对于 \Arg{coordinate} 的距离。
+  \item \texttt{shape=\Arg{shape}} \par
+  结点的形状，默认可用 \texttt{rectangle} 和 \texttt{circle}，可省略 \texttt{shape=} 直接写。在导言区使用命令 
+  \cmd{use\-tikz\-library}\marg*{shapes.geometric} 可用更多的形状。
+  \item \texttt{inner sep=\Arg{length} / outer sep=\Arg{length}} \par
+  结点边界向外和向内的额外距离。
+  \item \texttt{minimum size=\Arg{length} / minimum height=\Arg{length} / minimum width=\Arg{length}} \par
+  结点的最小大小或最小高度/宽度。
+  \item \texttt{text=\Arg{color}} \par
+  结点文字的颜色。
+  \item \texttt{node font=\Arg{font command}} \par
+  结点文字的字体，形如 \cmd{bfseries} 或 \cmd{itshape} 等。
+\end{itemize}
+\hrule
+\end{table}
+
 \cmd{node} 命令不仅为文字结点的位置命名（类似 \cmd{coordinate} 命令），在 \cmd{draw} 等命令中还可以使用某个结点的相对位置，
 以“东南西北”的方式命名：
 
@@ -234,39 +263,13 @@
 \begin{tikzpicture}
 \draw (2,1.5) node[above] {$A$}
        -- node[above left]  {$c$}
-    (0,0) node[below left]  {$B$}
+    (0,0) node[left]  {$B$}
        -- node[below]       {$a$}
-  (2.5,0) node[below right] {$C$}
+  (2.5,0) node[right] {$C$}
        -- node[above right] {$b$}
        cycle;
 \end{tikzpicture}
 \end{example}
-
-表 \ref{tbl:tikz-options} 中的参数可用于 \cmd{node} 命令的配置。除此之外，\cmd{node} 还有一些特定的参数，见表 \ref{tbl:tikz-node-options}。
-
-\begin{table}[htp]
-\caption{\TikZ\ 结点使用的一些绘图参数。}\label{tbl:tikz-node-options}
-\small
-\hrule
-\begin{itemize}
-  \item \texttt{anchor=\Arg{position}} \par
-  指定结点的某个角落 \Arg{position} 位于给定的位置 \Arg{coordinate}。
-  \item \texttt{above / below / left / right / above left / \ldots} \par
-  \texttt{anchor=\Arg{position}} 的等效写法，\texttt{above} 相当于 \texttt{anchor=south}，以此类推。
-  \item \texttt{shape=\Arg{shape}} \par
-  结点的形状，默认可用 \texttt{rectangle} 和 \texttt{circle}，可省略 \texttt{shape=} 直接写。在导言区使用命令 
-  \cmd{use\-tikz\-library}\marg*{shapes.geometric} 可用更多的形状。
-  \item \texttt{inner sep=\Arg{length} / outer sep=\Arg{length}} \par
-  结点边界向外和向内的额外距离。
-  \item \texttt{minimum size=\Arg{length} / minimum height=\Arg{length} / minimum width=\Arg{length}} \par
-  结点的最小大小或最小高度/宽度。
-  \item \texttt{text=\Arg{color}} \par
-  结点文字的颜色。
-  \item \texttt{node font=\Arg{font command}} \par
-  结点文字的字体，形如 \cmd{bfseries} 或 \cmd{itshape} 等。
-\end{itemize}
-\hrule
-\end{table}
 
 除了 \cmd{node} 命令之外，\cmd{coordinate} 也可以通过参数为某个位置添加文字。
 我们最后举一个较为复杂的例子，综合前面介绍过的各种路径、形状、文字结点和参数设置。
@@ -287,11 +290,7 @@
   at (b) {$\displaystyle \int_a^b {f(x)\,\mathrm{d}x} = F(b) - F(a)$};
 \end{tikzpicture}
 \end{Verbatim}
-\caption{\TikZ\ 绘图示例源代码。}\label{code:tikz-example}
-\end{sourcecode}
-
-\begin{figure}[htp]
-\centering
+\begin{center}
 \begin{tikzpicture}
 \draw[-stealth,line width=0.2pt] (-0.5,0) -- (4.5,0);
 \draw[-stealth,line width=0.2pt] (0,-0.5) -- (0,2.5);
@@ -305,6 +304,6 @@
   fill=green!20,draw=gray,text=blue!60!black,scale=0.6] 
   at (b) {$\displaystyle \int_a^b {f(x)\,\mathrm{d}x} = F(b) - F(a)$};
 \end{tikzpicture}
-\caption{\TikZ\ 绘图示例。}\label{fig:tikz-example}
-\end{figure}
-\endinput
+\end{center}
+\caption{\TikZ\ 绘图示例源代码和效果。}\label{code:tikz-example}
+\end{sourcecode}

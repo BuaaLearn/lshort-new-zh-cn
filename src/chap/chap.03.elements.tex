@@ -42,6 +42,9 @@
   标题不带编号，也不生成目录项和页眉页脚。
 \end{itemize}
 
+\pkgindex{titlesec}
+\LaTeX\ 并未提供为 \cmd{section} 等章节命令定制格式的功能，这一功能由 \pkg{titlesec} 宏包提供。详情请参考宏包的帮助手册。
+
 \subsection{目录}\label{sec:toc}
 
 \cmdindex{tableofcontents}
@@ -252,7 +255,7 @@ page~\pageref{sec:this}.''
 \end{description}
 \end{example}
 
-默认的列表间距比较宽，\LaTeX\ 本身也难以修改，一般要用到 \pkg{enumitem} 宏包。本文不详细叙述，有兴趣的可查阅其帮助手册。
+默认的列表间距比较宽，\LaTeX\ 本身也未提供方便的定制功能，而要用到 \pkg{enumitem} 宏包。有兴趣的读者可参考其帮助手册。
 
 \subsection{对齐环境}\label{subsec:flush}
 
@@ -639,7 +642,7 @@ for (int i=0; i<4; ++i)
 \texttt{xelatex} 命令是笔者最推荐的方式。
 
 \begin{table}[htp]
-\begingroup\centering
+\centering
 \caption{各种编译方式支持的主流图片格式。}\label{tbl:figure-format}
 \begin{tabular}{l>{\ttfamily}l>{\ttfamily}l}
  \hline
@@ -651,7 +654,7 @@ for (int i=0; i<4; ++i)
  \quad $\llcorner$（调用 \pkg{epstopdf} 宏包）   & .pdf .eps & .jpg .png \\[.3\baselineskip]
  \texttt{xelatex}                    & .pdf .eps & .jpg .png .bmp \\
  \hline
-\end{tabular}\par\endgroup
+\end{tabular}
 \begin{quote}\footnotesize
 注：在较新的 \TeX\ 发行版中，\texttt{latex + dvipdfmx} 和 \texttt{pdf\-latex} 命令可不依赖宏包，支持原来需要宏包扩展的图片格式
 （但 \texttt{pdf\-latex} 命令仍不支持除 \texttt{.jpg} 和 \texttt{.png} 以外的位图）。
@@ -852,7 +855,7 @@ A \rule[-.4pt]{3em}{.4pt} line.
 \begin{command}
 \cmd{caption}\marg*{\ldots}
 \end{command}
-\cmd{caption} 的用法非常类似于 \cmd{section} 等命令，可以用带星号的命令 \cmd{caption*} 生成不计数的标题，
+\cmd{caption} 的用法非常类似于 \cmd{section} 等命令，可以用带星号的命令 \cmd{caption*} 生成不带编号的标题，
 也可以使用带可选参数的形式 \cmd{caption}\oarg*{\ldots}\marg*{\ldots}，使得在目录里使用短标题。
 
 \cmd{caption} 之后还可以紧跟 \cmd{label} 命令标记交叉引用。

@@ -7,7 +7,7 @@
 %
 % 基本工具宏包
 % 
-\RequirePackage{colortbl,xcolor,tabularx,multirow,booktabs}
+\RequirePackage{colortbl,xcolor,tabularx,multirow,booktabs,ulem}
 \RequirePackage{graphicx,float,subfig}
 \RequirePackage{hologo,verbatim,fancyvrb,layouts,multicol}
 \RequirePackage{makeidx}
@@ -162,8 +162,7 @@
 \def\pkgcmdindex[#1]#2{\@for\@pkgcmd:=#2\do{\index{\@pkgcmd @\cmd{\@pkgcmd} (\pkg{#1})}}}
 \def\pkgenvindex[#1]#2{\@for\@pkgcmd:=#2\do{\index{\@pkgcmd @\env{\@pkgcmd} 环境 (\pkg{#1})}}}
 % 文本和数学符号索引
-\def\symindex#1{\@for\symcmd:=#1\do{\index{\symcmd @\cmd{\symcmd} (\expandafter\protect\csname \symcmd\endcsname)}}}
-\def\accindex#1{\@for\acccmd:=#1\do{\index{\acccmd @\cmd{\acccmd} (\textit{重音符号} \expandafter\protect\csname \acccmd\endcsname{a})}}}
+\def\symindex#1{\@for\t@xtsym:=#1\do{\index{\t@xtsym @\cmd{\t@xtsym} (\textit{符号} \expandafter\protect\csname \t@xtsym\endcsname)}}}
 \def\mathindex#1{\@for\m@thcmd:=#1\do{\index{\m@thcmd @\cmd{\m@thcmd} (\textit{数学命令})}}}
 \def\msymindex#1{\@for\m@thsym:=#1\do{\index{\m@thsym @\cmd{\m@thsym} (\textit{数学符号}$\expandafter\protect\csname \m@thsym\endcsname$)}}}
 \def\maccindex#1{\@for\m@thacc:=#1\do{\index{\m@thacc @\cmd{\m@thacc} (\textit{数学重音}$\expandafter\protect\csname \m@thacc\endcsname{a}$)}}}

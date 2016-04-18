@@ -156,35 +156,221 @@ ak a word.
 \end{example}
 
 事实上这些带反斜线的形式就是 \LaTeX\ 命令。\cmd{\textasciicircum} 和 \cmd{\textasciitilde} 
-两个命令是需要带参数的，如果不加一对花括号（空参数），就将后面的字符作为参数，形成重音效果（详见某节）。
+两个命令是需要带参数的，如果不加一对花括号（空参数），就将后面的字符作为参数，形成重音效果（详见 \ref{subsec:accents} 节）。
 \crcmd\ 被直接定义成了手动换行的命令，输入反斜杠就只好用 \cmd{text\-back\-slash}。
 
-\section{文字强调}
+\subsection{标点符号}\label{subsec:punct}
 
-\leavevmode\nobreakspace
+中文的标点符号（都是全角的非 ASCII 字符）一般来讲不用特别操心，只要使用中文输入法输入即可。
+而在英文标点的输入上，有许多需要留意的地方。
 
-\section{段落}
+\subsubsection{引号}
 
-\leavevmode\nobreakspace
+\index{biaodianfuhao@标点符号!`@\protect\verb+`+ (\textit{前引号 `})}
+\index{biaodianfuhao@标点符号!``@\protect\verb+'+ (\textit{后引号 '})}
+\index{biaodianfuhao@标点符号!'@\protect\verb+``+ (\textit{前双引号 ``})}
+\index{biaodianfuhao@标点符号!''@\protect\verb+''+ (\textit{后双引号 ''})}
+\LaTeX\ 的单引号 ` ' 用 \texttt` 和 \texttt' 输入；双引号 `` '' 用 \verb|``| 和 \verb|''| 输入
+（虽然 \texttt" 也能表示双引号，但没有合适的单个符号用来表示前双引号，所以不常用在正文）。
+\begin{example}
+``Please press the `x' key.''
+\end{example}
 
-\section{单词之间的空格}
+\subsubsection{连字号和破折号}
 
-\leavevmode\nobreakspace
+\index{biaodianfuhao@标点符号!-@\texttt{-} (\textit{连字号 -})}
+\index{biaodianfuhao@标点符号!--@\texttt{-{}-} (\textit{短破折号 --})}
+\index{biaodianfuhao@标点符号!---@\texttt{-{}-{}-} (\textit{长破折号 ---})}
+\LaTeX\ 中有三种长度的“横线”可用：连字号、短破折号（en-dash）和长破折号（em-dash）。
+它们分别有不同的用途：连字号 - 用来组成复合词；短破折号 -- 将数字连接表示范围；长破折号 --- 作为破折号使用。
+\begin{example}
+daughter-in-law, X-rated\\
+pages 13--67\\
+yes---or no?
+\end{example}
 
-\section{断行和断页}
+\subsubsection{省略号}
 
-\leavevmode\nobreakspace
+\index{biaodianfuhao@标点符号!ldots@\cmd{ldots} (\textit{省略号 \ldots})}
+\index{biaodianfuhao@标点符号!dots@\cmd{dots} (\textit{省略号 \dots})|see{\cmd{ldots}}}
+\LaTeX\ 提供了命令 \cmd{ldots} 来生成省略号，相对于直接输入三个点的方式更为合理。
+\cmd{ldots} 和 \cmd{dots} 是两个等效的命令。
+\begin{example}
+one, two, three, \ldots one hundred.
+\end{example}
 
-\subsection{手动断行和断页}
+\subsubsection{波浪号}
 
-\leavevmode\nobreakspace
+我们在 \ref{subsec:special-chars} 小节中了解了 \cmd{\textasciitilde} 命令，它可以用来输入波浪号，
+但位置靠顶端，可能不甚理想。有的人可能喜欢用数学公式里的 \cmd{sim} 符号来代替：
+\begin{example}
+a\~{}z \qquad a$\sim$z
+\end{example}
 
-\subsection{连字符}
+更合理的波浪号请参考 \ref{subsec:font-encs} 小节讨论的内容。
+有的时候，使用中文的全角波浪号也不失为一个办法（西文中使用波浪号的情形较少见）。
 
-\leavevmode\nobreakspace
+\subsection{特殊西文符号与重音}\label{subsec:accents}
 
-\section{预定义的字符串}
+\pinyinindex{zhongyin}{重音}
+\LaTeX\ 支持用命令输入各种西欧语言的特殊符号和重音：
+\begin{example}
+H\^otel, na\"\i ve, \'el\`eve,\\
+sm\o rrebr\o d, !`Se\ norita!,\\
+Sch\"onbrunner Schlo\ss{}
+Stra\ss e
+\end{example}
 
-\leavevmode\nobreakspace
+更多可用的符号和重音见表 \ref{tbl:accents}。注意这些重音符号不可和与之相似的数学重音混用。
+
+\def\TSYM #1{#1       & \texttt{\string#1}}
+\def\TACC #1#2{#1{#2} & \texttt{\string#1#2}}       % accents using a control character
+\def\TTACC #1#2{#1{#2} & \texttt{\string#1 #2}}     % accents using a control word
+\def\WTACC #1#2{#1{#2} & \texttt{\string#1\{#2\}}}  % multi-letter accents
+\begin{table}[htbp]
+\centering
+\caption{\LaTeX\ 文本中的重音和特殊字符。} \label{tbl:accents}
+\begin{tabular}{*4{cl}}
+ \hline
+ \TACC{\`}{o} & \TACC{\'}{o} & \TACC{\^}{o} & \TACC{\~}{o} \\
+ \TACC{\=}{o} & \TACC{\.}{o} & \TACC{\"}{o} & \TTACC{\c}{c}\\
+ \TTACC{\u}{o} & \TTACC{\v}{o} & \TTACC{\H}{o} & \TTACC{\c}{o} \\
+ \TTACC{\d}{o} & \TTACC{\b}{o} & \WTACC{\t}{oo} \\[6pt]
+ \TSYM{\oe} & \TSYM{\OE} & \TSYM{\ae} & \TSYM{\AE} \\
+ \TSYM{\aa} & \TSYM{\AA} \\[6pt]
+ \TSYM{\o}  & \TSYM{\O}  & \TSYM{\l} & \TSYM{\L} \\
+ \TSYM{\i}  & \TSYM{\j}  & !` & \verb|!`| & ?` & \verb|?`| \\
+ \hline
+\end{tabular}
+\begin{quote}\footnotesize%
+前四行实际上都是命令带一个参数的写法，实际上 \cmd{\textasciicircum}\texttt{o} 也可以写作
+\cmd{\textasciicircum}\marg*{o}，以此类推。
+\end{quote}
+\end{table}
+
+\subsection{其它符号}\label{subsec:text-misc}
+
+\symindex{dag,ddag,P,S,copyright,pounds}
+\symindex{textasteriskcentered,textperiodcentered,textbullet,textregistered,texttrademark}
+\LaTeX\ 预定义了其它一些文本模式的符号，部分符号可参考表 \ref{tbl:general-syms}。
+\begin{example}
+\P{} \S{} \dag{} \ddag{}
+\copyright{} \pounds{}
+
+\textasteriskcentered
+\textperiodcentered
+\textbullet
+
+\textregistered{} \texttrademark
+\end{example}
+
+更多的符号多由特定的宏包支持。参考文献 \cite{symbols} 搜集了所有在 \TeX\ 发行版中可用的符号，使用时要留意每个符号所依赖的宏包。
+
+\subsection{\LaTeX\ 标志}\label{subsec:latex-mark}
+
+\cmdindex{TeX,LaTeX,LaTeXe}
+我们见到的所有错落有致的 \LaTeX\ 标志都是由以下命令输入的：
+\begin{center}
+\begin{tabular}{*{6}{l}}
+ \hline
+ \TeX & \cmd{TeX} & \LaTeX & \cmd{LaTeX} & \LaTeXe & \cmd{LaTeXe} \\
+ \hline
+\end{tabular}
+\end{center}
+
+\section{文字强调}\label{sec:emph}
+
+强调文字的方法，要么是添加一些下划线或者装饰物，要么是改变文字的字体。
+
+\cmdindex{underline}
+\LaTeX\ 定义了 \cmd{underline} 命令用来为文字添加下划线：
+\begin{example}
+An \underline{underlined} text.
+\end{example}
+
+\pkgindex{ulem}
+\cmdindex[ulem]{uline}
+\cmd{underline} 命令生成下划线的样式比较机械，不同的单词可能生成高低各异的下划线，并且无法换行。
+\pkg{ulem} 宏包解决了这一问题，它提供的 \cmd{uline} 命令能够轻松生成自动换行的下划线：
+\begin{example}
+An example of \uline{some 
+long and underlined words.}
+\end{example}
+
+\cmdindex{emph}
+\cmd{emph} 命令用来将文字变为斜体以示强调。如果在本身已经用 \cmd{emph} 命令强调的文字内部嵌套使用 \cmd{emph}，
+内部则使用正常字体的文字：
+\begin{example}
+Some \emph{emphasized words, 
+including \emph{double-emphasized}
+words}, are shown here.
+\end{example}
+
+如果需要用其它字体表示强调，可参考后文的 \ref{subsec:fontshape} 小节。
+
+\section{断行和断页}\label{sec:break}
+
+\LaTeX\ 将一个段落的文档在合适的位置进行断行，尽可能做到每行的宽度一致，并且单词间距匀称。
+文字段落和公式、图表等内容顺序排布，并在合适的位置断页，分割成匀称的页面。
+在绝大多数时候，我们无需自己操心断行和断页。但偶尔会遇到需要手工调整的地方。
+
+\subsection{单词间距和断行}\label{subsec:interword}
+
+通常情况下，断行的位置尽可能选取在两个单词之间，也就是你输入到源文件中的“空格”。
+没有断开的单词间位置则插入一小段间距，间距是根据行宽和文字自动调整的，文字密一些的地方，单词间距就略窄，反之略宽。
+
+\index{~@\texttt\textasciitilde (\textit{不断行空格})}
+我们可以使用字符 \texttt\textasciitilde 在合适的位置插入一个空格，并且这个空格不能被断开，通常用在英文人名、图表名称等场景：
+\begin{example}
+Fig.~2a \\
+Donale~E. Knuth
+\end{example}
+
+\subsection{手动断行和断页}\label{subsec:manual-break}
+
+\index{\@\crcmd\ (\textit{换行})} \cmdindex{newline}
+如果我们确实需要手动断行，可使用如下命令：
+\begin{command}
+\crcmd \quad or \quad \cmd{newline}
+\end{command}
+
+\crcmd\ 也在表格、公式等地方用于分行，而 \cmd{newline} 只用于文本段落中。
+
+\cmdindex{newpage,clearpage}
+断页的命令有两个：
+\begin{command}
+\cmd{newpage}  \quad  or \quad \cmd{clearpage}
+\end{command}
+
+通常情况下两个命令都能起到另起一页的作用，但有一些区别：一是在双栏排版中 \cmd{newpage} 只起到另起一栏的作用；二是涉及到浮动体的排版上行为不同。
+后文的 \ref{sec:float} 节以及 \ref{subsec:columns} 小节会更详细地介绍相关内容。
+
+\cmdindex{linebreak,nolinebreak}
+有时候我们不满足于 \LaTeX\ 默认的断行和断页位置，需要进行微调，就要用以下命令告诉 \LaTeX\ 哪些地方适合断页，哪些地方不适合：
+\begin{command}
+\cmd{linebreak}\oarg{n} \quad \cmd{nolinebreak}\oarg{n} \\
+\cmd{pagebreak}\oarg{n} \quad \cmd{nopagebreak}\oarg{n}
+\end{command}
+
+以上命令都带一个可选参数，用数字 \Arg{n} 代表适合/不适合的程度，取值范围为 0-4，不带可选参数时，缺省为 4。
+比如 \cmd{linebreak}\texttt{[3]} 意味着此处在断行时优先考虑；\cmd{nopagebreak} 或 \cmd{nopagebreak}\texttt{[4]}
+意味着禁止在此处断页。
+
+以上命令适合给出优先考虑断行断页/禁止断行断页的位置，但不适合直接拿来断行或断页，使用 \cmd{newline} 或 \cmd{newpage} 等是更好的选择%
+\footnote{\cmd{newline} 和 \cmd{newpage} 会在断行/断页位置正确添加空白，但 \cmd{linebreak} 和 \cmd{pagebreak} 不能，
+它们的强行断行/断页会导致 \LaTeX\ 报 \texttt{Underfull \cmd{hbox}} 等警告。}。
+
+\subsection{断词}\label{subsec:hyphen}
+
+如果 \LaTeX\ 遇到了很长的英文单词，仅在单词之间的位置断行无法生成宽度匀称的行时，就要考虑从单词中间断开。
+对于绝大部分单词，\LaTeX\ 能够找到合适的断词位置，在断开的行尾加上连字符 -。
+
+\index{-@\cmd{-} (\textit{断词})}
+如果一些单词没能自动断词，我们可以在单词内手动使用 \cmd{-} 命令指定断词的位置：
+\begin{example}
+I think this is: su\-per\-cal\-%
+i\-frag\-i\-lis\-tic\-ex\-pi\-%
+al\-i\-do\-cious.
+\end{example}
 
 \endinput
