@@ -189,15 +189,34 @@ page~\pageref{sec:this}.''
 
 假如我们输入以下文字和命令：
 \begin{verbatim}
-“天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnote{语出《千字文》。}
+“天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnote{出自《千字文》。}
 \end{verbatim}
 
 在正文中则为：%
-“天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnote{语出《千字文》。}
+“天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnote{出自《千字文》。}
 
 \cmdindex{footnotemark,footnotetext}
 有些情况下（比如在表格环境、盒子内）使用 \cmd{footnote} 并不能正确生成脚注。我们可以分两步进行，
 先使用 \cmd{foot\-note\-mark} 为脚注计数，再在合适的位置用 \cmd{foot\-note\-text} 生成脚注。
+
+比如：
+\begin{verbatim}
+\begin{tabular}{l}
+\hline
+“天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnotemark \\
+\hline
+\end{tabular}
+\footnotetext{表格里的名句出自《千字文》。}
+\end{verbatim}
+
+效果为：
+
+\leavevmode\begin{tabular}{l}
+\hline
+“天地玄黄，宇宙洪荒。日月盈昃，辰宿列张。”\footnotemark \\
+\hline
+\end{tabular}
+\footnotetext{表格里的名句出自《千字文》。}
 
 \section{特殊环境}\label{sec:envs}
 

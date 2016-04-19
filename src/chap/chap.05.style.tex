@@ -278,17 +278,15 @@ He likes {\LARGE large and
 \cmd{linespread}\marg{factor}
 \end{command}
 
-\cmd{linespread} 命令的参数 \Arg{factor} 还并不是最终的行距。前文所叙述的 \cmd{fontsize} 命令为字号设定了对应的基本行距。
-\cmd{small}、\cmd{large} 等命令也自动设置了基本行距为字号的 1.2 倍。
-而 \cmd{linespread} 设定的行距相当于在 1.2 倍的基础上乘以 \Arg{factor}。
-所以要想设定 1.5 倍行距的话，应当将命令写作 \cmd{linespread}\marg*{1.25} 。
+此处的行距，指的是基本行距（相当于 \cmd{fontsize} 命令的第二个参数）而不是字号大小。所以设置 1.5 倍行距的命令 \cmd{line\-spread}\marg*{1.5}
+意味着最终行距为 1.8 倍的字号大小。
 
 \cmdindex{selectfont}
 如果不是在导言区全局修改，而想要局部地改变某个段落的行距，需要用 \cmd{select\-font} 命令使 \cmd{line\-spread} 命令的改动立即生效：
 \begin{example}
-{\linespread{1.67}\selectfont
+{\linespread{2.0}\selectfont
 The baseline skip is set to twice
-the font size ($1.67\times 1.2=2$). 
+the normal baseline skip. 
 Pay attention to the \verb|\par|
 command at the end. \par}
 
@@ -299,8 +297,8 @@ everything is back to normal.
 
 \cmdindex{par}
 字号的改变是即时生效的，而行距的改变直到文字\textbf{分段}时才生效。
-如果你想改变某一部分文字的行距，那么不能简单地将文字包含在花括号内。注意下面两个例子中 \cmd{par} 命令的位置
-（\cmd{par} 相当于分段，见 \ref{subsec:spaces} 小节）。
+如果你想改变某一部分文字的行距，那么不能简单地将文字包含在花括号内。注意下面两个例子中 \cmd{par} 命令的位置，包括上一个例子的写法
+（\cmd{par} 相当于分段，见 \ref{subsec:spaces} 小节）：
 \begin{example}
 {\Large Don't read this!
  It is not true.
