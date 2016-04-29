@@ -429,9 +429,9 @@ between lines in a paragraph.
 反之也可以利用这些长度变量来决定排版内容的尺寸，如设置图片或表格的宽度为 0.8\cmd{textwidth}。
 
 \begin{figure}[!p]
-\caption{本文档的页面参数示意图（偶数页；由 \pkg{layout} 宏包生成）。} \label{fig:layouts}
 \centering
 \layoutpicture*
+\caption{本文档的页面参数示意图（奇数页；由 \pkg{layout} 宏包生成）。} \label{fig:layouts}
 \end{figure}
 
 但是，如果你想要直接设置页边距等参数，着实是一件麻烦事。我们根据图 \ref{fig:layouts} 将各个方向的页边距计算公式给出（以奇数页为例）：
@@ -453,7 +453,7 @@ between lines in a paragraph.
 \end{align*}
 如果我们想设置合适的 \Arg{left-margin} 和 \Arg{right-margin}，就要靠上述方程组把 \cmd{odd\-sidemargin} 和 \cmd{text\-width} 等参数解出来！
 
-幸好 \pkg{geometry} 宏包能够帮我们完成背后繁杂的计算，让我们能够用简便的方法设置页面参数。
+幸好 \pkg{geometry} 宏包提供了设置页面参数的简便方法，能够帮我们完成背后繁杂的计算。
 
 \subsection{利用 \pkg{geometry} 宏包设置页面参数}\label{subsec:geometry}
 

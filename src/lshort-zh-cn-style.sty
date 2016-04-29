@@ -28,9 +28,8 @@
 \RequirePackage{amssymb,latexsym,textcomp,mathrsfs,euscript,yhmath} % 与默认字体不冲突的一些符号包
 \RequirePackage[LGR,T1]{fontenc}
 
-% layout 宏包生成能放入浮动体的命令；文字汉化
-\def\layoutpicture{%
-  \@ifstar{\lay@getvalues\lay@layout}{\lay@layout}}
+% layout 宏包生成能放入浮动体的命令，固定为奇数页面；文字汉化
+\input lshort-zh-cn-layout
 \def\Headertext{页眉}
 \def\Bodytext{版心}
 \def\Footertext{页脚}
