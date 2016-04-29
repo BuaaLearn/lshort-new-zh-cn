@@ -9,12 +9,23 @@ lshort 中文版使用 Fandol 宏包作为中文字体。fontspec 会对此字�
 
 编译方式
 ---
+
+### 手动编译
+
 在 src 目录下按照以下顺序编译：
 ```
 xelatex lshort-zh-cn
-makeindex lshort-zh-cn
+makeindex -s lshort-zh-cn.ist lshort-zh-cn
 xelatex lshort-zh-cn
 ```
 如果编译正确生成 PDF，之后将 PDF 移动到根目录。
 
-Windows 下已在 src 目录提供 bat 脚本，Linux 下提供了用于 GNU Make 工具的 Makefile（未验证）。
+### 脚本和 Makefile
+
+Windows 下已在 src 目录提供 bat 脚本，双击后直接执行编译，完成后将 PDF 移动到根目录。
+一并提供的有 MinGW 可用的 Makefile
+
+```
+mingw32-make
+mingw32-make install
+```

@@ -215,9 +215,9 @@ Pascal’s rule is
 
 \msymindex{ne,ge,le,approx,equiv,propto,sim}
 \LaTeX\ 常见的关系符号除了可以直接输入的 $=$，$>$，$<$，其它符号用命令输入，常用的有不等号 \msym{ne}、
-大于等于号 \msym{ge}、小于等于号 \msym{le}、
-约等号 \msym{approx}、等价 \msym{equiv}、正比 \msym{propto}、相似 \msym{sim}%
-\footnote{\texttt\$\cmd{sim}\texttt\$ 经常用来替代 \cmd{\textasciitilde\marg*{}} 作为波浪号。}等等。
+大于等于号 \msym{ge} 和小于等于号 \msym{le}%
+\footnote{倾斜的关系符号 \msym{leqslant} 和 \msym{geqslant} 由 \pkg{amssymb} 提供，见表 \ref{tbl:ams-rel}。}、
+约等号 \msym{approx}、等价 \msym{equiv}、正比 \msym{propto}、相似 \msym{sim} 等等。
 更多符号命令可参考表 \ref{tbl:math-rel} 以及表 \ref{tbl:ams-rel}。
 
 \mathindex{stackrel}
@@ -407,7 +407,7 @@ ${a,b,c} \neq \{a,b,c\}$
 更常用的形式是类似 \cmd{left} 的 \cmd{bigl}、\cmd{biggl} 等，以及类似 \cmd{right} 的 \cmd{bigr}、\cmd{biggr} 等
 （\cmd{bigl} 和 \cmd{bigr} 不必成对出现）。
 \begin{example}
-$\Big((x+1)(x-1)\Big)^{2}$\\
+$\Bigl((x+1)(x-1)\Bigr)^{2}$\\
 $\bigl( \Bigl( \biggl( \Biggl( 
 \quad
 \bigr\} \Bigr\} \biggr\} \Biggr\} 
@@ -568,7 +568,8 @@ x & \text{if } x > 0.
 
 \envindex[amsmath]{matrix,pmatrix,bmatrix,Bmatrix,vmatrix,Vmatrix}
 我们当然也可以用 \env{array} 环境排版各种矩阵。\pkg{amsmath} 宏包还直接提供了多种排版矩阵的环境，包括不带定界符的 \amsenv{matrix}，
-以及带各种定界符的矩阵 \amsenv{pmatrix}$($、\amsenv{bmatrix}$[$、\amsenv{Bmatrix}$\{$、\amsenv{vmatrix}$\vert$、\amsenv{Vmatrix}$\Vert$。
+以及带各种定界符的矩阵 \amsenv{pmatrix}（$\bigl($）、\amsenv{bmatrix}（$\bigl[$）、\amsenv{Bmatrix}（$\bigl\{$）、
+\amsenv{vmatrix}（$\bigl\vert$）、\amsenv{Vmatrix}（$\bigl\Vert$）。
 使用这些环境时，无需给定列格式：
 \begin{example}
 \[
@@ -678,7 +679,7 @@ $\mathbb{ABCDE}$                 & \cmd{mathbb}\marg*{\ldots}    & \pkg{amssymb}
 
 \mathindex{displaystyle,textstyle,scriptstyle,scriptscriptstyle}
 数学符号按照符号排版的位置规定尺寸，从大到小包括行间公式尺寸、行内公式尺寸、上下标尺寸、次级上下标尺寸。
-除了字号有别之外，行间和行内公式尺寸下的巨算符也使用不一样的大小。\LaTeX\ 为每个数学尺寸指定了一个切换的命令。
+除了字号有别之外，行间和行内公式尺寸下的巨算符也使用不一样的大小。\LaTeX\ 为每个数学尺寸指定了一个切换的命令，见 \ref{tbl:math-size}。
 \begin{table}[htp]
 \centering
 \caption{数学符号尺寸。}\label{tbl:math-size}
@@ -692,16 +693,14 @@ $\mathbb{ABCDE}$                 & \cmd{mathbb}\marg*{\ldots}    & \pkg{amssymb}
 \end{tabular}
 \end{table}
 
-例如，分式的分子和分母使用比当前公式小一号的尺寸，比如巨算符将使用行内公式下的小尺寸。
-你可以使用合适的数学尺寸命令调整：
+例如行间公式的分式内，分子分母使用行内公式尺寸，巨算符采用行内尺寸的形式。对比一下分子分母使用 \cmd{display\-style} 命令与否的区别：
 \begin{example}
 \[
-P = \frac{\displaystyle
-  \sum_{i=1}^n (x_i- x)
-  (y_i- y) }
+P = \frac
+  {\sum_{i=1}^n (x_i- x)(y_i- y)} 
   {\displaystyle \left[
-  \sum_{i=1}^n (x_i-x)^2
-  \sum_{i=1}^n (y_i-y)^2
+    \sum_{i=1}^n (x_i-x)^2
+    \sum_{i=1}^n (y_i-y)^2
   \right]^{1/2} }
 \]
 \end{example}

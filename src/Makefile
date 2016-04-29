@@ -1,15 +1,23 @@
-LSHORT = lshort-zh-cn
+LSHORT  = lshort-zh-cn
+PDF     = $(LSHORT).pdf
 REQUIRE = $(LSHORT).tex $(LSHORT)-style.sty $(LSHORT).ist
-TEMP = *.{aux,idx,ind,ilg,toc,los,log}
+TEMP    = *.aux *.log *.idx *.ind *.ilg *.out *.toc *.los
+
+RM      = del
+INSTALL = move /y
 
 TEX = xelatex
 MAKEIDX = makeindex
 
-compile: $(REQUIRE)
+compile: $(PDF)
+
+$(PDF): $(REQUIRE)
 	$(TEX) $(LSHORT)
 	$(MAKEIDX) -s $(LSHORT).ist $(LSHORT)
 	$(TEX) $(LSHORT)
-	mv -f $(LSHORT).pdf ..
+
+install:
+	$(INSTALL) $(LSHORT).pdf ..
 
 clean:
-	rm -f $(TEMP)
+	$(RM) $(TEMP)

@@ -376,7 +376,7 @@ a perfect mirror.
 #include <iostream>
 int main()
 {
-  std::cout << 'Hello, world'
+  std::cout << "Hello, world!"
             << std::endl;
   return 0;
 }
@@ -386,7 +386,7 @@ int main()
 \begin{example}
 \begin{verbatim*}
 for (int i=0; i<4; ++i)
-  printf('Number %d',i);
+  printf("Number %d\n",i);
 \end{verbatim*}
 \end{example}
 
@@ -651,7 +651,7 @@ for (int i=0; i<4; ++i)
 
 使用 \texttt{latex + dvipdfmx} 编译命令时，调用 \pkg{graphicx} 宏包时要给定 \texttt{dvipdfmx} 选项%
 \footnote{早期常使用 \texttt{latex + dvips} 组合命令，后者将 \texttt{.dvi} 文件转为 \texttt{.ps} 文件（PostScript），
-可进一步通过 ps2pdf 工具生成 PDF。\texttt{dvips} 和 \texttt{dvipdfmx} 在图形、颜色、超链接等功能的实现上有差别，而 \LaTeX\ 无法识别
+可进一步通过 \texttt{ps2pdf} 工具生成 PDF。\texttt{dvips} 和 \texttt{dvipdfmx} 在图形、颜色、超链接等功能的实现上有差别，而 \LaTeX\ 无法识别
 用户是用 \texttt{dvips} 还是 \texttt{dvipdfmx}，所以要给定选项（缺省为 \texttt{dvips}）。
 \ref{sec:hyperlinks} 节中的 \pkg{hyperref} 宏包同理。}；而使用 \texttt{pdflatex} 或 \texttt{xelatex} 命令编译时不需要。
 

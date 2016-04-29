@@ -105,7 +105,7 @@ Unicode 是一个多国字符的集合，覆盖了几乎全球范围内的语言
 用 \texttt{latex} + \texttt{dvipdfmx} 命令、\texttt{pdflatex} 或 \texttt{xelatex} 命令（只支持 UTF-8 编码）都能够编译。
 笔者建议在使用 \pkg{ctex} 宏包和文档类时总是将源代码保存为 UTF-8 编码，用 \texttt{xelatex} 命令编译。
 
-\section{\LaTeX\ 中的符号}\label{sec:text-symbols}
+\section{\LaTeX\ 中的字符}\label{sec:text-symbols}
 
 \subsection{空格和分段}\label{subsec:spaces}
 
@@ -158,6 +158,14 @@ ak a word.
 事实上这些带反斜线的形式就是 \LaTeX\ 命令。\cmd{\textasciicircum} 和 \cmd{\textasciitilde} 
 两个命令是需要带参数的，如果不加一对花括号（空参数），就将后面的字符作为参数，形成重音效果（详见 \ref{subsec:accents} 节）。
 \crcmd\ 被直接定义成了手动换行的命令，输入反斜杠就只好用 \cmd{text\-back\-slash}。
+
+\subsection{连字}\label{subsec:ligatures}
+
+西文排版中经常会出现连字（Ligatures），常见的有 ff / fi / fl / ffi / ffl。
+\begin{example}
+It's difficult to find \ldots .\\
+It's dif{}f{}icult to f{}ind \ldots .
+\end{example}
 
 \subsection{标点符号}\label{subsec:punct}
 

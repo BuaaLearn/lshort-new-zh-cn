@@ -9,7 +9,7 @@
 % 
 \RequirePackage{colortbl,xcolor,tabularx,multirow,booktabs,ulem}
 \RequirePackage{graphicx,float,subfig}
-\RequirePackage{hologo,verbatim,fancyvrb,layouts,multicol}
+\RequirePackage{hologo,verbatim,fancyvrb,layout,multicol}
 \RequirePackage{makeidx}
 \RequirePackage{amsmath,amsthm}
 \RequirePackage[inner=1in,outer=1.5in,vmargin=1in,marginparwidth=1in]{geometry}
@@ -27,17 +27,17 @@
 \RequirePackage{lmodern}  % 正文字体使用 Latin Modern
 \RequirePackage{amssymb,latexsym,textcomp,mathrsfs,euscript,yhmath} % 与默认字体不冲突的一些符号包
 \RequirePackage[LGR,T1]{fontenc}
-%\RequirePackage{marvosym}
 
-%
-% 解决 layouts 宏包引入的 warning
-% 
-\expandafter\ifx\csname stockheight\endcsname\relax\else
-  \stockheight\paperheight
-\fi
-\expandafter\ifx\csname stockwidth\endcsname\relax\else
-  \stockwidth\paperwidth
-\fi
+% layout 宏包生成能放入浮动体的命令；文字汉化
+\def\layoutpicture{%
+  \@ifstar{\lay@getvalues\lay@layout}{\lay@layout}}
+\def\Headertext{页眉}
+\def\Bodytext{版心}
+\def\Footertext{页脚}
+\def\MarginNotestext{边注}
+\def\oneinchtext{1in}
+\def\notshown{未显示}
+
 \RequirePackage{hyperref}
 \hypersetup{colorlinks,%
   bookmarksnumbered=true,%

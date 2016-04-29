@@ -1,7 +1,15 @@
 中文版 lshort 代码用到的命令
 ===
 
-## 命令和环境
+### 约定俗成的习惯
+
+1. 命令后面用 `\␣` 加空格，如 `\LaTeX\␣`，不用 `\LaTeX{}␣`。
+2. 每章的 `\chapter` 命令后手动给 `.los` 目录写间距：
+```
+\addtocontents{los}{\protect\addvspace{10pt}}
+```
+
+### 命令和环境
 
 ```
 \cmd{cmdname}
@@ -31,13 +39,12 @@
 使用如下命令排版：
 > `\cmd{usepackage}\oarg*{\Arg{key1}=\Arg{value1},\ldots}\marg{pkgname}`
 
-
 ```
 \CTAN|link|
 ```
 生成 CTAN 资源的链接。参数 link 为链接的子目录名称，如 systems/win32/miktex，macros/contrib/... 等。
 
-## 索引
+### 索引
 
 ```
 \cmdindex{cmdname}
@@ -56,9 +63,8 @@ cmdname 和 envname 可写多个命令和环境名，以逗号分隔（唯一例
 
 ```
 \symindex{textsym}
-\accindex{textacc}
 ```
-文本符号和重音的索引项。可写多个命令，以逗号分隔。
+文本符号索引项。可写多个命令，以逗号分隔。
 
 ```
 \mathindex{mathcmd}
@@ -73,7 +79,7 @@ cmdname 和 envname 可写多个命令和环境名，以逗号分隔（唯一例
 ```
 汉字索引项，通过拼音参与排序。
 
-## 排版元素
+### 排版元素
 
 ```
 \demowidth{length}

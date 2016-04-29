@@ -89,8 +89,8 @@ Partl~\cite{pa} has proposed that \ldots
 \begin{sourcecode}[htp]
 \begin{Verbatim}
 @book{Lamport1994,
-  title = {{\LaTeX:} A Document Preparation System},
-  author = {Leslie Lamport},
+  title = {{\LaTeX}: A Document Preparation System},
+  author = {Lamport, L.},
   publisher = {Addison-Wesley},
   address = {Reading, Massachusetts},
   year = {1994},
@@ -98,8 +98,8 @@ Partl~\cite{pa} has proposed that \ldots
 }
 @book{Mittelbach2004,
   title = {The {\LaTeX} Companion},
-  author = {Frank Mittelbach and Michel Goossens and 
-  Johannes Braams and David Carlisle and Chris Rowley},
+  author = {Mittelbach, F. and Goossens, M. and 
+  Braams, J. and Carlisle, D. and Rowley, C.},
   publisher = {Addison-Wesley},
   address = {Reading, Massachusetts},
   year = {2004},
@@ -244,8 +244,8 @@ pdflatex demo
   \hline
   \multicolumn{3}{@{}l@{}}{分级索引，以 \texttt! 分隔，最多支持三级} \\
   \verb+hello+              & hello, 1             & 一级索引 \\ 
-  \verb+hello!Peter+        &\hspace*{2ex}Peter, 3 & 二级索引 \\ 
-  \verb+hello!Peter!Jack+   &\hspace*{4ex}Jack,  3 & 三级索引 \\ 
+  \verb+hello!Peter+        &\quad Peter, 3 & 二级索引 \\ 
+  \verb+hello!Peter!Jack+   &\qquad Jack,  3 & 三级索引 \\ 
   \hline
   \multicolumn{3}{@{}l@{}}{格式化索引，形式为 \Arg{alpha}\texttt @\Arg{format}} \\
   \multicolumn{3}{@{}l@{}}{\Arg{alpha}为纯字母，用来排序} \\
@@ -280,7 +280,7 @@ Test index.
 \section{使用颜色}\label{sec:color}
 
 \pinyinindex{yanse}{颜色}
-\LaTeX\ 原生不支持颜色，它依赖 \pkg{color} 宏包或者 \pkg{xcolor} 宏包，在编译过程中给 PDF 输出生成颜色的特殊指令。
+\LaTeX\ 原生不支持颜色，它依赖 \pkg{color} 宏包或者 \pkg{xcolor} 宏包，给 PDF 输出生成颜色的特殊指令。
 
 \subsection{颜色的表达方式}
 
@@ -325,7 +325,7 @@ Test index.
 \renewcommand\arraystretch{1.1}
 \begin{tabularx}{0.8\textwidth}{*{4}{>{\raggedleft\arraybackslash}X}}
  \hline
- \multicolumn{4}{c}{基本的 8 种颜色名称：} \\
+ \multicolumn{4}{c}{基本的 8 种颜色名称（后三种颜色为 CMYK 模型）} \\
  \showcolor{black} & \showcolor{red} & \showcolor{green} & \showcolor{blue} \\
  \showcolor{white} & \showcolor{cyan} & \showcolor{magenta} & \showcolor{yellow} \\
  \hline
@@ -352,8 +352,8 @@ Test index.
 \cmd{definecolor}\marg{color-name}\marg{color-mode}\marg{code}
 \end{command}
 
-如果调用 \pkg{color} 或 \pkg{xcolor} 宏包时使用 \texttt{dvipsnames} 选项，就有额外的 68 种颜色名称可用。
-\pkg{xcolor} 宏包还支持通过其它选项载入更多颜色名称。限于篇幅不展开介绍，详情请参考 \pkg{xcolor} 宏包的手册。
+如果调用 \pkg{color} 或 \pkg{xcolor} 宏包时指定 \texttt{dvipsnames} 选项，就有额外的 68 种颜色名称可用。
+\pkg{xcolor} 宏包还支持通过指定其它选项载入更多颜色名称。限于篇幅不展开介绍，详情请参考 \pkg{xcolor} 宏包的手册。
 
 \subsection{带颜色的文本和盒子}
 
@@ -392,7 +392,8 @@ Test index.
 \end{example}
 
 \cmdindex{fboxrule,fboxsep}
-\cmd{fcolorbox} 也可以像 \ref{subsec:fbox} 小节里的 \cmd{fbox} 那样调节 \cmd{fbox\-rule} 和 \cmd{fbox\-sep}。这里不再示例。
+\cmd{fcolorbox} 也可以像 \ref{subsec:fbox} 小节里的 \cmd{fbox} 那样调节 \cmd{fbox\-rule} 和 \cmd{fbox\-sep}；对于 \cmd{color\-box}，
+调整 \cmd{fbox\-sep} 是有效的。这里不再给出具体的示例。
 
 \section{使用超链接}\label{sec:hyperlinks}
 
@@ -444,14 +445,14 @@ PDF 文档格式是现今最流行的电子文档格式，而电子文档最实�
 
 \cmdindex[hyperref]{hyperref}
 使用 \pkg{hyperref} 宏包后，文档中所有的引用、参考文献、索引等等都转换为超链接。
-用户也可对某个 \cmd{label} 命令定义的标签 \Arg{label} 作超链接（注意这里的 \Arg{label} 虽然用了方括号，但是是\textbf{必填的}%
-\footnote{不带方括号的 \cmd{hyperref} 命令带四个必选参数，前三个组成特殊格式的超链接，最后一个同 \Arg{text}。}）：
+用户也可对某个 \cmd{label} 命令定义的标签 \Arg{label} 作超链接（注意这里的 \Arg{label} 虽然是可选参数的形式，但通常是\textbf{必填的}%
+\footnote{不带可选参数的 \cmd{hyperref} 命令带四个必选参数，前三个组成特殊格式的超链接，最后一个同 \Arg{text}。}）：
 \begin{command}
 \cmd{hyperref}\oarg{label}\marg{text}
 \end{command}
 
-默认的超链接在文字外边加上一个带颜色的方框（在打印 PDF 时边框不会打印），可使用 \texttt{color\-links} 选项修改为将文字本身加上颜色，
-或修改 \texttt{pdf\-border} 选项的参数；\texttt{hide\-links} 则令超链接既不变色也不加框。
+默认的超链接在文字外边加上一个带颜色的方框（在打印 PDF 时边框不会打印），可指定 \texttt{color\-links} 选项修改为将文字本身加上颜色，
+或指定 \texttt{pdf\-border} 选项的参数；\texttt{hide\-links} 选项则令超链接既不变色也不加框。
 \begin{verbatim}
 \hypersetup{hidelinks}
 % or:
@@ -479,7 +480,7 @@ PDF 文档格式是现今最流行的电子文档格式，而电子文档最实�
 \cmdindex[hyperref]{texorpdfstring}
 章节命令里往往有 \LaTeX\ 命令甚至数学公式，而 PDF 书签是纯文本，对命令和公式的处理很困难，有出错的风险。
 \pkg{hyperref} 宏包已经为我们处理了许多常见命令，如 \cmd{LaTeX} 和字体命令 \cmd{textbf} 等，
-其它一些情况就要使用在 \cmd{section} 等命令中使用如下命令，分别提供 \LaTeX\ 代码和 PDF 书签可用的纯文本：
+对于未被处理的命令或数学公式，就要在章节标题中使用如下命令，分别提供 \LaTeX\ 代码和 PDF 书签可用的纯文本：
 \begin{command}
 \cmd{texorpdfstring}\marg{\LaTeX\ code}\marg{PDF bookmark text}
 \end{command}
@@ -512,9 +513,9 @@ PDF 文档格式是现今最流行的电子文档格式，而电子文档最实�
  \texttt{bookmarksnumbered=}\Arg{true\textnormal|false} 
                               & \textit{false}  & 书签是否带章节编号 \\
  \texttt{CJKbookmarks=}\Arg{true\textnormal|false} 
-                              & \textit{false}   & 使用 \pkg{CJK} 宏包/ \pkg{GBK} 编码时必须指定的选项，
+                              & \textit{false}   & 使用 \pkg{CJK} 宏包/ GBK 编码排版中文时必须指定的选项，
                                                  在第一次编译后需要将生成的 \texttt{.out} 文件用工具处理编码 \\
- \texttt{unicode}             &                  & 使用 \pkg{CJKutf8} 宏包/ \pkg{UTF-8} 编码时必须指定的选项 \\
+ \texttt{unicode}             &                  & 使用 \pkg{CJKutf8} 宏包/ UTF-8 编码排版中文时必须指定的选项 \\
  \hline
  \texttt{pdftitle=}\Arg{string} 
                               & 空               & 标题 \\
