@@ -7,11 +7,11 @@
 %
 % 基本工具宏包
 % 
-\RequirePackage{colortbl,xcolor,tabularx,multirow,booktabs,ulem}
-\RequirePackage{graphicx,float,subfig}
-\RequirePackage{hologo,verbatim,fancyvrb,layout,multicol}
-\RequirePackage{makeidx}
 \RequirePackage{amsmath,amsthm}
+\RequirePackage{hologo,ulem,verbatim,fancyvrb,layout,multicol}
+\RequirePackage{colortbl,tabularx,multirow,booktabs}
+\RequirePackage{graphicx,xcolor,float,subfig}
+\RequirePackage{makeidx}
 \RequirePackage[inner=1in,outer=1.5in,vmargin=1in,marginparwidth=1in]{geometry}
 \RequirePackage{tikz}
 
@@ -28,8 +28,10 @@
 \RequirePackage{amssymb,latexsym,textcomp,mathrsfs,euscript,yhmath} % 与默认字体不冲突的一些符号包
 \RequirePackage[LGR,T1]{fontenc}
 
-% layout 宏包生成能放入浮动体的命令，固定为奇数页面；文字汉化
+% layout 宏包生成能放入浮动体的命令，手动指定奇偶页的 layout
 \input lshort-zh-cn-layout
+\oddsidelayouttrue
+% layout 文字汉化
 \def\Headertext{页眉}
 \def\Bodytext{版心}
 \def\Footertext{页脚}
@@ -37,6 +39,7 @@
 \def\oneinchtext{1in}
 \def\notshown{未显示}
 
+% hyperref 基本设定
 \RequirePackage{hyperref}
 \hypersetup{colorlinks,%
   bookmarksnumbered=true,%
@@ -54,7 +57,7 @@
 \addtolength{\headheight}{1.6pt}
 \newdimen\headwidth \headwidth\textwidth
 \newdimen\headrulewidth \headrulewidth=0.4pt
-\def\ps@fancyplain{%
+\def\ps@fancy{%
   \let\@oddfoot\@empty\let\@evenfoot\@empty
   \def\@evenhead{\vbox to \headheight{%
     \hb@xt@\headwidth{\bfseries\thepage\hfil\leftmark}%
@@ -67,7 +70,7 @@
   \def\sectionmark##1{\markright{\S\thesection\quad ##1}}
 }
 %\let\ps@plain\ps@fancyplain
-\pagestyle{fancyplain}
+\pagestyle{fancy}
 
 %
 % 不依赖 tocbibind 的参考文献/索引修改
@@ -200,10 +203,10 @@
 \newwrite\example@out
 \newlength\savefboxrule
 \newlength\savefboxsep
-\def\example@name{lshort-example.aux}
+\edef\example@name{\jobname-example.aux}
 \newenvironment{example}%
 {\begingroup\@bsphack
-  \immediate\openout\example@out \example@name
+  \immediate\openout\example@out=\example@name
   \let\do\@makeother\dospecials\catcode`\^^M\active
   \def\verbatim@processline{\immediate\write\example@out{\the\verbatim@line}}%
   \verbatim@start}%

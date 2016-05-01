@@ -1,21 +1,54 @@
 \expandafter\ifx\csname ver@layout.sty\endcsname\relax
-  \@latex@warning@no@line{Package `layout' not loaded. Command \string\layoutpicture{} will have no effect.}
+  \typeout{Package `layout' not loaded. Command \string\layoutpicture{} will have no effect.}
   \def\layoutpicture{\@ifstar\@empty\@empty}
+%  \let\oddsidelayouttrue\relax \let\oddsidelayoutfalse\relax
   \expandafter\endinput
 \fi
 
+\newif\ifoddsidelayout
+
 \newcommand\lay@layoutpic{%
-  \ref@marginwidth=\cnt@oddsidemargin
-  \ref@marginpar=\oneinch
-  \advance\ref@marginpar by \ref@hoffset
-  \advance\ref@marginpar by \cnt@oddsidemargin
-  \ref@margin\ref@marginpar
-  \if@reversemargin
-    \advance\ref@marginpar by -\cnt@marginparsep
-    \advance\ref@marginpar by -\cnt@marginparwidth
+  \if@twoside
+    \ifoddsidelayout
+      \ref@marginwidth=\cnt@oddsidemargin
+      \ref@marginpar=\oneinch
+      \advance\ref@marginpar by \ref@hoffset
+      \advance\ref@marginpar by \cnt@oddsidemargin
+      \ref@margin\ref@marginpar
+      \if@reversemargin
+        \advance\ref@marginpar by -\cnt@marginparsep
+        \advance\ref@marginpar by -\cnt@marginparwidth
+      \else
+        \advance\ref@marginpar by \cnt@textwidth
+        \advance\ref@marginpar by \cnt@marginparsep
+      \fi
+    \else
+      \ref@marginwidth=\cnt@evensidemargin
+      \ref@marginpar=\oneinch
+      \advance\ref@marginpar by \ref@hoffset
+      \advance\ref@marginpar by \cnt@evensidemargin
+      \ref@margin\ref@marginpar
+      \if@reversemargin
+        \advance\ref@marginpar by \cnt@textwidth
+        \advance\ref@marginpar by \cnt@marginparsep
+      \else
+        \advance\ref@marginpar by -\cnt@marginparsep
+        \advance\ref@marginpar by -\cnt@marginparwidth
+      \fi
+    \fi
   \else
-    \advance\ref@marginpar by \cnt@textwidth
-    \advance\ref@marginpar by \cnt@marginparsep
+    \ref@marginwidth=\cnt@oddsidemargin
+    \ref@marginpar=\oneinch
+    \advance\ref@marginpar by \ref@hoffset
+    \advance\ref@marginpar by \cnt@oddsidemargin
+    \ref@margin\ref@marginpar
+    \if@reversemargin
+      \advance\ref@marginpar by -\cnt@marginparsep
+      \advance\ref@marginpar by -\cnt@marginparwidth
+    \else
+      \advance\ref@marginpar by \cnt@textwidth
+      \advance\ref@marginpar by \cnt@marginparsep
+    \fi
   \fi
   \setlength{\unitlength}{.5pt}
   \begin{picture}(\cnt@paperwidth,\cnt@paperheight)
@@ -25,14 +58,14 @@
     \put(0,\cnt@voffset){\dashbox{10}(\cnt@paperwidth,0){\mbox{}}}
     \put(\cnt@hoffset,0){\dashbox{10}(0,\cnt@paperheight){\mbox{}}}
     \put(\ref@margin,\ref@head){%
-      \begingroup\color{gray}\framebox(\cnt@textwidth,\cnt@headheight)%
+      \begingroup\color{lightgray}\framebox(\cnt@textwidth,\cnt@headheight)%
         {\tiny\sffamily\Headertext}\endgroup}
     \put(\ref@margin,\ref@body){%
       \framebox(\cnt@textwidth,\cnt@textheight){\sffamily\Bodytext}}
     \put(\ref@margin,\ref@foot){%
-      \begingroup\color{gray}\framebox(\cnt@textwidth,\fheight){\tiny\sffamily\Footertext}\endgroup}
+      \begingroup\color{lightgray}\framebox(\cnt@textwidth,\fheight){\tiny\sffamily\Footertext}\endgroup}
     \put(\ref@marginpar,\ref@body){%
-      \begingroup\color{gray}\framebox(\cnt@marginparwidth,\cnt@textheight)%
+      \begingroup\color{lightgray}\framebox(\cnt@marginparwidth,\cnt@textheight)%
                {\small\sffamily\shortstack{\MarginNotestext}}\endgroup}
     \thinlines
     \SetToHalf\PositionX\cnt@textwidth
@@ -72,12 +105,32 @@
     \Identify{10}
     \InsideHArrow\cnt@marginparwidth
     \advance\PositionY by 30
-    \if@reversemargin
-      \OutsideHArrow\ref@margin\cnt@marginparsep{20}
-      \PositionX = \ref@margin
+    \if@twoside
+      \if@reversemargin
+        \ifoddsidelayout
+          \OutsideHArrow\ref@margin\cnt@marginparsep{20}
+          \PositionX = \ref@margin
+        \else
+          \OutsideHArrow\ref@marginpar\cnt@marginparsep{20}
+          \PositionX = \ref@marginpar
+        \fi
+      \else
+        \ifoddsidelayout
+          \OutsideHArrow\ref@marginpar\cnt@marginparsep{20}
+          \PositionX = \ref@marginpar
+        \else
+          \OutsideHArrow\ref@margin\cnt@marginparsep{20}
+          \PositionX = \ref@margin
+        \fi
+      \fi
     \else
-      \OutsideHArrow\ref@marginpar\cnt@marginparsep{20}
-      \PositionX = \ref@marginpar
+      \if@reversemargin
+        \OutsideHArrow\ref@margin\cnt@marginparsep{20}
+        \PositionX = \ref@margin
+      \else
+        \OutsideHArrow\ref@marginpar\cnt@marginparsep{20}
+        \PositionX = \ref@marginpar
+      \fi
     \fi
     \advance\PositionX by -\cnt@marginparsep
     \advance\PositionX by -30
@@ -132,25 +185,25 @@
     \advance\PositionY by -30
     \Identify{6}
   \end{picture}
-  \vspace*{\bigskipamount}
+  \vskip\medskipamount
   \begingroup\footnotesize\ttfamily
     \begin{tabular}{@{}rl@{\hspace{20pt}}rl}
-      1 & \oneinchtext\ + \LayOutbs\texttt{hoffset} & 
-      2 & \oneinchtext\ + \LayOutbs\texttt{voffset} \\
-      3 & \Show{cnt}{oddsidemargin} & 
-      4 & \Show{cnt}{topmargin} \\
-      5 & \Show{cnt}{headheight} & 
-      6 & \Show{cnt}{headsep} \\
-      7 & \Show{cnt}{textheight} & 
-      8 & \Show{cnt}{textwidth} \\
-      9 & \Show{cnt}{marginparsep}&
-      10& \Show{cnt}{marginparwidth} \\
-      11& \Show{cnt}{footskip}   &   
-        & \Show{cnt}{marginparpush} \rlap{(\notshown)}\\
-        & \Show{ref}{hoffset}    &   
-        & \Show{ref}{voffset} \\
-        & \Show{cnt}{paperwidth} &   
-        & \Show{cnt}{paperheight} \\
+      1 & \oneinchtext\ + \LayOutbs\texttt{hoffset}
+        & 2 & \oneinchtext\ + \LayOutbs\texttt{voffset} \\
+      3 & \if@twoside
+            \ifoddsidelayout \Show{cnt}{oddsidemargin}
+            \else \Show{cnt}{evensidemargin}
+            \fi
+          \else
+            \Show{cnt}{oddsidemargin}
+          \fi                    & 4 & \Show{cnt}{topmargin} \\
+      5 & \Show{cnt}{headheight} & 6 & \Show{cnt}{headsep} \\
+      7 & \Show{cnt}{textheight} & 8 & \Show{cnt}{textwidth} \\
+      9 & \Show{cnt}{marginparsep}&10& \Show{cnt}{marginparwidth} \\
+      11& \Show{cnt}{footskip}   &   & \Show{cnt}{marginparpush}
+       \rlap{(\notshown)}\\
+        & \Show{ref}{hoffset}    &   & \Show{ref}{voffset} \\
+        & \Show{cnt}{paperwidth} &   & \Show{cnt}{paperheight} \\
     \end{tabular}
   \endgroup
 }

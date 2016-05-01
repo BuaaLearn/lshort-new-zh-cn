@@ -412,10 +412,10 @@ between lines in a paragraph.
 \cmdindex{bigskip,medskip,smallskip}
 另外 \LaTeX\ 还提供了\cmd{bigskip}, \cmd{medskip}, \cmd{smallskip} 来增加预定义长度的垂直间距。
 \begin{example}
-\parbox[t]{3em}{文字\par 文字}
-\parbox[t]{3em}{文字\smallskip 文字}
-\parbox[t]{3em}{文字\medskip 文字}
-\parbox[t]{3em}{文字\bigskip 文字}
+\parbox[t]{3em}{TeX\par TeX}
+\parbox[t]{3em}{TeX\par\smallskip TeX}
+\parbox[t]{3em}{TeX\par\medskip TeX}
+\parbox[t]{3em}{TeX\par\bigskip TeX}
 \end{example}
 
 \section{页面和分栏}\label{sec:page-columns}
@@ -569,7 +569,7 @@ between lines in a paragraph.
 \begin{table}[htp]
 \centering
 \caption{\LaTeX\ 预定义的页眉页脚样式}\label{tbl:pagestyle}
-\begin{tabular}{cp{20em}}
+\begin{tabularx}{0.8\textwidth}{lX}
  \hline
  \texttt{empty}  & 页眉页脚为空 \\
  \texttt{plain}  & 页眉为空，页脚为页码。（article 和 report 文档类默认；book 文档类的每章第一页也为 plain 格式） \\
@@ -577,16 +577,16 @@ between lines in a paragraph.
  \texttt{headings}  & 页眉为章节标题和页码，页脚为空。（book 文档类默认） \\
  \texttt{myheadings}  & 页眉为页码及 \cmd{markboth} 和 \cmd{markright} 命令手动指定的内容，页脚为空。\\
  \hline
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 \clsindex{article,report,book}
 其中 \texttt{headings} 的情况较为复杂：
 \begin{description}
-  \item[\cls{article} 文档类，\texttt{twoside} 选项：] 偶数页页眉为页码和节标题，奇数页页眉为小节标题和页码；
-  \item[\cls{book/report} 文档类，\texttt{twoside} 选项：] 偶数页页眉为页码和章标题，奇数页页眉为节标题和页码；
-  \item[\cls{article} 文档类，\texttt{oneside} 选项：] 页眉为节标题和页码；
-  \item[\cls{book/report} 文档类，\texttt{oneside} 选项：] 页眉为章标题和页码。
+  \item[\cls{article} 文档类，\texttt{twoside} 选项：] 偶数页为页码和节标题，奇数页为小节标题和页码；
+  \item[\cls{article} 文档类，\texttt{oneside} 选项：] 同 \texttt{twoside} 选项的奇数页页眉；
+  \item[\cls{book/report} 文档类，\texttt{twoside} 选项：] 偶数页为页码和章标题，奇数页为节标题和页码；
+  \item[\cls{book/report} 文档类，\texttt{oneside} 选项：] 同 \texttt{twoside} 选项的奇数页页眉。
 \end{description}
 
 \subsection{手动更改页眉页脚的内容}\label{subsec:marks}
