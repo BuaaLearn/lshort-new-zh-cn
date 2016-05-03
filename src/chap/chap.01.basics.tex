@@ -29,7 +29,7 @@
 \LaTeX\ 的最初开发者为 Leslie Lamport 博士\cite{manual}。\LaTeX\ 使用 \TeX\ 程序作为自己的排版引擎。
 当下 \LaTeX\ 主要的维护者为 Frank Mittelbach。
 
-\LaTeX\ 读作``Lah-tech''或者``Lay-tech''，近似于汉字“拉泰赫”或“雷泰赫”。\LaTeX\ 在 ASCII 字符环境写作 \texttt{LaTeX}。
+\LaTeX\ 读作 ``Lah-tech'' 或者 ``Lay-tech'' ，近似于汉字“拉泰赫”或“雷泰赫”。\LaTeX\ 在 ASCII 字符环境写作 \texttt{LaTeX}。
 当前的 \LaTeX\ 版本为 \LaTeXe\ ，意思是超出了第二版，接近但没达到第三版，在 ASCII 字符环境写作 \texttt{LaTeX2e}。
 
 \subsection{\LaTeX 的优缺点}\label{subec:advs}
@@ -266,17 +266,18 @@ xelatex helloworld.tex
 \begin{table}[htp]
 \caption{\LaTeX\ 提供的基础文档类}\label{tbl:ltx-classes}
 \hrule
-\begin{flushleft}
 \begin{description}
-  \item [\normalfont\texttt{article}] 文章格式的文档类，广泛用于科技论文、报告、说明文档等。
-  \item [\normalfont\texttt{report}] 长篇报告格式的文档类，具有章节结构，用于综述、长篇论文、简单的书籍等。
-  \item [\normalfont\texttt{book}] 书籍文档类，包含章节结构和前言、正文、后记等结构。
-  \item [\normalfont\texttt{proc}] 基于 article 文档类的一个简单的学术文档模板。
-  \item [\normalfont\texttt{slides}] 幻灯格式的文档类，使用无衬线字体。
-  \item [\normalfont\texttt{minimal}] 一个极其精简的文档类，只设定了纸张大小和字号，
+  \item [\texttt{article}] 文章格式的文档类，广泛用于科技论文、报告、说明文档等。
+  \item [\texttt{report}] 长篇报告格式的文档类，具有章节结构，用于综述、长篇论文、简单的书籍等。
+  \item [\texttt{book}] 书籍文档类，包含章节结构和前言、正文、后记等结构。
+\end{description}
+\hrule
+\begin{description}
+  \item [\texttt{proc}] 基于 \cls{article} 文档类的一个简单的学术文档模板。
+  \item [\texttt{slides}] 幻灯格式的文档类，使用无衬线字体。
+  \item [\texttt{minimal}] 一个极其精简的文档类，只设定了纸张大小和字号，
   用作代码测试的最小工作示例（Minimal Working Example）。
 \end{description}
-\end{flushleft}
 \hrule
 \end{table}
 
@@ -292,21 +293,20 @@ xelatex helloworld.tex
 \begin{table}[htp]
 \caption{\LaTeX\ 的三个标准文档类可指定的选项}\label{tbl:ltx-options}
 \hrule
-\begin{flushleft}
 \begin{description}
-\item[\texttt{10pt}, \texttt{11pt}, \texttt{12pt}] \quad 指定文档的基本字号。缺省为 \texttt{10pt}。
+\item[\texttt{10pt, 11pt, 12pt}] \quad 指定文档的基本字号。缺省为 \texttt{10pt}。
 
-\item[\texttt{a4paper}, \texttt{letterpaper}, \ldots] \quad 指定纸张大小，默认为美式纸张 \texttt{letterpaper}。
+\item[\texttt{a4paper, letterpaper, \ldots}] \quad 指定纸张大小，默认为美式纸张 \texttt{letterpaper}。
 可指定选项还包括 \texttt{a5paper}，\texttt{b5paper}，\texttt{executivepaper} 和 \texttt{legalpaper}。
 
 \item[\texttt{fleqn}] \quad 令行间公式左对齐（缺省为居中）。
 
 \item[\texttt{leqno}] \quad 将公式编号放在左边（缺省为右边）。
 
-\item[\texttt{titlepage}, \texttt{notitlepage}] 指定标题命令 \cmd{maketitle} 是否单独成页。
+\item[\texttt{titlepage, notitlepage}] 指定标题命令 \cmd{maketitle} 是否生成单独的标题页。
 \cls{article} 缺省为 \texttt{notitlepage}，\cls{report} 和 \cls{book} 缺省为 \texttt{titlepage}。
 
-\item[\texttt{onecolumn}, \texttt{twocolumn}] \quad 指定单栏/双栏排版。
+\item[\texttt{onecolumn, twocolumn}] \quad 指定单栏/双栏排版。
 
 \item[\texttt{twoside, oneside}] \quad 指定单面/双面排版。双面排版时，奇偶页的页眉页脚、页边距不同。
 \cls{article} 和 \cls{report} 缺省为单面排版，\cls{book} 缺省为双面。
@@ -316,7 +316,6 @@ xelatex helloworld.tex
 \item[\texttt{openright, openany}] \quad 指定新的一章 \cmd{chapter} 是在奇数页（右侧）开头，还是直接紧跟着上一页开头。
 \cls{report} 缺省为 \texttt{openany}，\cls{book} 缺省为 \texttt{openright}。【对 \cls{article} 无效】
 \end{description}
-\end{flushleft}
 \hrule
 \end{table}
 
