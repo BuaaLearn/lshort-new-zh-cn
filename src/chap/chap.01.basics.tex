@@ -211,12 +211,12 @@ latex helloworld.tex
 此时命令行界面会闪过许多信息。如果一切正常，再行检查目录，会发现生成了 \texttt{hello\-world.dvi} 以及其它文件。
 这个扩展名为 DVI 的文件就是编译输出的文档。
 
-Linux 下可以使用命令行程序 \texttt{xdvi} 打开这个文件：
+Linux 系统下，可以在命令行调用 \texttt{xdvi} 程序打开这个文档：
 \begin{verbatim}
 xdvi helloworld.dvi
 \end{verbatim}
 
-Windows 下大多预装了 yap 软件（Mik\TeX) 或 dviout 软件（\TeX\ Live），可以双击 \texttt{hello\-world.dvi} 打开它。
+Windows 系统下大多预装了 yap 软件（Mik\TeX) 或 dviout 软件（\TeX\ Live），可以双击 \texttt{hello\-world.dvi} 打开它。
 
 \index{dvipdfmx@\texttt{dvipdfmx} 命令}
 要进一步生成现今流行的 PDF 文档格式，我们还需要用额外的命令将 DVI 转为 PDF：

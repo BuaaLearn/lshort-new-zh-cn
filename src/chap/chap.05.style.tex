@@ -335,7 +335,7 @@ But remember I am a liar.}\par
 \pkgindex{indentfirst}
 \LaTeX\ 还默认\textbf{在 \cmd{chapter}、\cmd{section} 等章节命令之后的第一段不缩进}%
 \footnote{\pkg{ctex} 宏包默认按照中文习惯保持第一段的首行缩进。}。
-如果如果不习惯这种设定，可以调用 \pkg{indent\-first} 宏包：
+如果不习惯这种设定，可以调用 \pkg{indent\-first} 宏包：
 \begin{verbatim}
 \usepackage{indentfirst}
 \end{verbatim}
@@ -349,7 +349,7 @@ But remember I am a liar.}\par
 \subsection{水平间距}\label{subsec:hspace}
 
 \cmdindex{hspace}
-\LaTeX 默认为单词之间增添了水平间距。我们如果需要人为设置额外的间距，需要用到如下命令：
+\LaTeX 默认为单词之间增添了水平间距。如果想要手动插入额外的间距，需要用到如下命令：
 \begin{command}
 \cmd{hspace}\marg{length}
 \end{command}
@@ -359,12 +359,13 @@ of 1.5 cm.
 \end{example}
 
 \cmdindex{hspace*}
-\cmd{hspace} 命令生成的间距如果位于一行的开头或末尾，则有可能被“吞掉”。这时可以使用 \cmd{hspace*} 代替 \cmd{hspace} 命令
+\cmd{hspace} 命令生成的间距如果位于一行的开头或末尾，则有可能因为断行而被“吞掉”。可使用 \cmd{hspace*} 命令代替 \cmd{hspace} 命令
 得到不会因断行而消失的水平间距。
 
 \cmdindex{stretch,fill}
 命令 \cmd{stretch}\marg{n} 生成一个特殊弹性长度，参数 \Arg{n} 为权重。它的基础长度为零，但可以无限延伸，直到占满可用的空间。
 如果同一行内出现多个 \cmd{stretch}\marg{n}，这一行的所有可用空间将按每个 \cmd{stretch} 命令给定的权重 \Arg{n} 进行分配。
+
 命令 \cmd{fill} 相当于 \cmd{stretch}\marg*{1}。
 
 \begin{example}
@@ -499,17 +500,17 @@ between lines in a paragraph.
 \subsection{页面内容的垂直对齐}\label{subsec:raggedbottom}
 
 \LaTeX\ 默认将页面内容在垂直方向分散对齐。对于有大量图表的文档，许多时候想要做到排版匀称的页面很困难，
-垂直对齐会造成某些页面的垂直间距过宽。
+垂直分散对齐会造成某些页面的垂直间距过宽，还可能报大量的 \texttt{Underfull} \cmd{vbox} 消息。
 
 \cmdindex{raggedbottom}
-\LaTeX\ 还提供了另一种策略，即将页面内容向顶部对齐，给底部留出高度不一的空白。在导言区或者适合的位置使用
+\LaTeX\ 还提供了另一种策略：将页面内容向顶部对齐，给底部留出高度不一的空白。在导言区或者适合的位置使用
 以下命令开启顶部对齐的效果：
 \begin{command}
 \cmd{raggedbottom}
 \end{command}
 
 \cmdindex{flushbottom}
-相反地，\cmd{flushbottom} 命令用于设置页面分散对齐。
+相反地，\cmd{flushbottom} 命令用于设置成默认的分散对齐。
 
 \subsection{分栏}\label{subsec:columns}
 
@@ -542,11 +543,7 @@ between lines in a paragraph.
 \pkgindex{float}
 \pkg{multicol} 宏包能够在一页之中切换单栏/多栏，也能处理跨页的分栏，且各栏的高度分布平衡。但代价是%
 \textbf{在 \env{multicols} 环境中无法正常使用 \env{table} 和 \env{figure} 等浮动体环境}，它会直接让浮动体丢失。
-浮动体只能用跨栏的 \env{table*} 和 \env{figure*} ，或者用 \pkg{float} 宏包提供的 H 选项固定浮动体的位置。
-
-\pkgindex{multitoc}
-直接在 \env{multicols} 环境里套用 \cmd{table\-of\-contents} 等命令生成目录时，无疑会将目录的标题也放进分栏里。
-有的人可能喜欢跨栏的标题，解决的方案是直接调用 \pkg{multitoc} 宏包，它能够正确地生成单栏的标题和多栏的内容，可自行调整分栏数量（默认双栏）。
+\env{multicols} 环境中只能用跨栏的 \env{table*} 和 \env{figure*} ，或者用 \pkg{float} 宏包提供的 \texttt{H} 选项固定浮动体的位置。
 
 \section{页眉页脚}\label{sec:pagestyle}
 
@@ -599,13 +596,13 @@ between lines in a paragraph.
 \cmd{markboth}\marg{left-mark}\marg{right-mark}
 \end{command}
 
-在双面排版、headings / myheadings 页眉页脚样式下，\Arg{left-mark} 和 \Arg{right-mark} 的内容分别预期出现在左页（偶数页）和右页（奇数页）。
+在双面排版、\texttt{headings / myheadings} 页眉页脚样式下，\Arg{left-mark} 和 \Arg{right-mark} 的内容分别预期出现在左页（偶数页）和右页（奇数页）。
 
 事实上 \cmd{chapter}、\cmd{section} 等命令内部也使用 \cmd{mark\-both} 或者 \cmd{mark\-right} 写页眉。
-\LaTeX\ 默认在写页眉的时候强制将英文字母变为大写。如果你不喜欢这样，可以尝试以下代码
+\LaTeX\ 默认将页眉的内容都转为大写字母。如果你不喜欢这样，可以尝试以下代码
 （相关命令的用法参照 \ref{sec:newcommands} 节）%
-\footnote{但是这不能改变页眉页脚的斜体样式（\cmd{slshape}），斜体是定义在 headings 样式里的。
-如果不喜欢斜体，办法之一是在 \cmd{mark\-both} 等命令的参数里先使用 \cmd{normal\-font} 再使用想要的字体样式命令，
+\footnote{但是这不能改变页眉的斜体样式（\cmd{slshape}），斜体是定义在 \texttt{headings} 样式里的。
+如果不喜欢斜体，可在 \cmd{mark\-both} 等命令的参数里先使用 \cmd{normal\-font} ，再使用想要的字体样式命令，
 或直接尝试使用 \pkg{fancyhdr} 宏包。}：
 \begin{verbatim}
 \renewcommand\chaptermark[1]{%

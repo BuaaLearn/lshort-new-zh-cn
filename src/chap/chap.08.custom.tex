@@ -143,7 +143,7 @@ My humble subjects \ldots
 \LaTeX\ 允许你在自己编写的宏包中调用其它宏包，命令为 \cmd{RequirePackage}，用法和 \cmd{usepackage}
 一致：
 \begin{command}
-\cmd{RequirePackage}\oarg*{\Arg{option1},\Arg{option2}}\marg{package name}
+\cmd{RequirePackage}\oarg{options}\marg{package name}
 \end{command}
 
 \subsection{编写自己的文档类}
@@ -161,7 +161,7 @@ My humble subjects \ldots
 \cmd{section} 等等许多常用的命令都是在文档类中定义的。事实上，许多时候我们只需要像调用宏包那样调用一个基本的文档类，
 省去许多不必要的麻烦。在你的文档类中调用其它文档类的命令是 \cmd{LoadClass} ，用法和 \cmd{documentclass} 十分相像：
 \begin{command}
-\cmd{LoadClass}\oarg*{\Arg{option1},\Arg{option2}}\marg{package name}
+\cmd{LoadClass}\oarg{options}\marg{package name}
 \end{command}
 
 \section{计数器}\label{sec:counters}
@@ -189,13 +189,13 @@ My humble subjects \ldots
 \cmd{stepcounter}\marg{counter name}
 \end{command}
 
-\subsection{计数器的值}\label{subsec:count-value}
+\subsection{计数器的输出格式}\label{subsec:count-value}
 
-计数器 \Arg{counter} 的数值由 \cmd{the\Arg{counter}} 表示，如我们在 \ref{sec:pagestyle} 一节见过的 \cmd{thechapter} 等。
-这个值默认以阿拉伯数字形式输出，如果想改成其它形式，需要重定义 \cmd{the\Arg{counter}}，如定义为大写字母：
-\begin{command}
-\cmd{renewcommand}\marg*{\cmd{the\Arg{counter}}}\marg*{\cmd{Alph}\marg{counter}}
-\end{command}
+计数器 \Arg{counter} 的输出格式由 \cmd{the\Arg{counter}} 表示，如我们在 \ref{sec:pagestyle} 一节见过的 \cmd{thechapter} 等。
+这个值默认以阿拉伯数字形式输出，如果想改成其它形式，需要重定义 \cmd{the\Arg{counter}}，如将 equation 计数器的格式定义为大写字母：
+\begin{verbatim}
+\renewcommand\theequation{\Alph{equation}}
+\end{verbatim}
 
 \cmdindex{arabic,alph,Alph,roman,Roman,fnsymbol}
 命令 \cmd{Alph} 控制计数器 \Arg{counter} 的值以大写字母形式显示。下表列出所有可用于修改计数器格式的命令。
@@ -213,7 +213,7 @@ My humble subjects \ldots
 \end{tabular}
 \end{center}
 
-计数器的值还可以利用其它字符，甚至其它计数器的值与之组合。如标准文档类里对 \cmd{sub\-section} 相关的计数器的值给出的定义相当于：
+计数器的值还可以利用其它字符，甚至其它计数器的值与之组合。如标准文档类里对 \cmd{sub\-section} 相关的计数器的输出格式的定义相当于：
 \begin{verbatim}
 \renewcommand\thesubsection{\thesection.\arabic{subsection}}
 \end{verbatim}

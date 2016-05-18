@@ -500,9 +500,10 @@ for (int i=0; i<4; ++i)
 \end{tabular}
 \end{example}
 
-辅助格式甚至支持插入 \cmd{centering} 等命令改变 \texttt{p} 列格式的对齐方式，一般还要加额外的命令
-\cmd{array\-back\-slash} 以免出错\footnote{\cmd{centering} 等对齐命令会破坏表格环境里 \crcmd\ 换行命令的定义，
-\cmd{array\-back\-slash} 用来恢复之。}：
+辅助格式甚至支持插入 \cmd{centering} 等命令改变 \texttt{p} 列格式的对齐方式，一般还要加额外的命令\cmd{array\-back\-slash} 以免出错%
+\footnote{\cmd{centering} 等对齐命令会破坏表格环境里 \crcmd\ 换行命令的定义，
+\cmd{array\-back\-slash} 用来恢复之。如果不加 \cmd{array\-back\-slash} 命令，
+也可以用 \cmd{tabular\-newline} 命令代替原来的 \crcmd\ 实现表格换行。}：
 \begin{example}
 \begin{tabular}
 {>{\centering\arraybackslash}p{9em}}
@@ -609,6 +610,38 @@ for (int i=0; i<4; ++i)
   \cline{2-3}
     & First & Second \\ \hline
   A & 1     & 2 \\ \hline
+\end{tabular}
+\end{example}
+
+\subsection{嵌套表格}\label{subsec:tabular-embed}
+
+相对于合并单元格，拆分单元格对于 \LaTeX\ 来说并非易事。在单元格中嵌套一个小表格可以起到“拆分单元格”的效果。
+在以下的例子中，注意要用 \cmd{multi\-column} 命令配合 \texttt{@\{\}} 格式把单元格的额外边距去掉，使得嵌套的表格线能和外层的表格线正确相连：
+
+\begin{example}
+\begin{tabular}{|c|l|c|}
+ \hline
+ a & bbb & c \\ \hline
+ a & \multicolumn{1}{@{}l@{}|}
+ {\begin{tabular}{c|c}
+   a & b \\ \hline 
+   aa & bb \\
+  \end{tabular}}
+       & c \\ \hline
+ a & b & c \\ \hline
+\end{tabular}
+\end{example}
+
+\pkgindex{makecell}
+如果不要求画横线，并且只需要在垂直方向“拆分单元格”的话，\pkg{makecell} 宏包提供的 \cmd{make\-cell} 命令是一个简单的解决方案：
+
+\begin{example}
+\begin{tabular}{|c|c|}
+ \hline
+ a & \makecell{d1 \\ d2} \\
+ \hline
+ b & c \\
+ \hline
 \end{tabular}
 \end{example}
 
@@ -732,7 +765,7 @@ for (int i=0; i<4; ++i)
 
 \cmd{makebox} 更进一步，可以加上可选参数用于控制盒子的宽度 \Arg{width}，以及内容的对齐方式 \Arg{align}，
 可选居中 \texttt{c}（默认值）、左对齐 \texttt{l}、右对齐 \texttt{r} 和分散对齐 \texttt{s}%
-\footnote{分散对齐方式强行拉开单词的间距，往往会报 \texttt{Underfull} \cmd{hbox} 的警告。}。
+\footnote{分散对齐方式强行拉开单词的间距，往往会报 \texttt{Underfull} \cmd{hbox} 的消息。}。
 \begin{example}
 |\mbox{Test some words.}|\\
 |\makebox[10em]{Test some words.}|\\
@@ -795,7 +828,7 @@ for (int i=0; i<4; ++i)
 这也是 \env{minipage} 环境之被称为“迷你页”（Mini-page）的原因。
 而在 \cmd{parbox} 里无法正常使用 \cmd{footnote} 命令，只能在盒子里使用 \cmd{foot\-note\-mark}，在盒子外使用 \cmd{foot\-note\-text}。
 \begin{example}
-\fbox{\begin{minipage}{10em}%
+\fbox{\begin{minipage}{15em}%
   这是一个垂直盒子的测试。
   \footnote{脚注来自 minipage。}
 \end{minipage}}
