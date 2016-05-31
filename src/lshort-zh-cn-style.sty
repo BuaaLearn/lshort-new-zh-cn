@@ -77,31 +77,45 @@
 % 索引依赖 multicols 环境排版
 % 
 \renewenvironment{thebibliography}[1]
-     {\chapter{\bibname}%
-      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
-      \list{\@biblabel{\@arabic\c@enumiv}}%
-           {\settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin\labelwidth
-            \advance\leftmargin\labelsep
-            \@openbib@code
-            \usecounter{enumiv}%
-            \let\p@enumiv\@empty
-            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-      \sloppy
-      \clubpenalty4000
-      \@clubpenalty \clubpenalty
-      \widowpenalty4000%
-      \sfcode`\.\@m}
-     {\def\@noitemerr
-       {\@latex@warning{Empty `thebibliography' environment}}%
-      \endlist}
+  {\chapter{\bibname%
+    \protect\@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}}%
+  \list{\@biblabel{\@arabic\c@enumiv}}%
+   {\settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \@openbib@code
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+    \sloppy
+    \clubpenalty4000
+    \@clubpenalty \clubpenalty
+    \widowpenalty4000%
+    \sfcode`\.\@m}
+   {\def\@noitemerr
+     {\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist}
 \renewenvironment{theindex}%
-  {\chapter{\indexname}%
-   \@mkboth{\MakeUppercase{\indexname}}{\MakeUppercase{\indexname}}
+  {\chapter{\indexname%
+    \protect\@mkboth{\MakeUppercase\indexname}{\MakeUppercase\indexname}}
    \parskip\z@ \@plus .3\p@\relax
    \let\item\@idxitem
    \begin{multicols}{2}}
    {\end{multicols}}
+
+%
+% 将主目录和源代码目录合并排版
+% 不依赖 \listof，因此要补充定义 \l@sourcecode
+% 
+\renewcommand\tableofcontents%
+  {\chapter{\contentsname%
+    \protect\@mkboth{\MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+  \begin{multicols}{2}
+    \@starttoc{toc}%
+  \end{multicols}
+  \@makeschapterhead{\sourcecodename}%
+  \@starttoc{los}%
+}
 
 %
 % 令 \cleardoublepage 的偶数页页眉页脚为空
@@ -162,7 +176,7 @@
 \def\ltxcmdindex#1{\@for\@ltxcmd:=#1\do{\index{\@ltxcmd @\cmd{\@ltxcmd}}}}
 \def\ltxenvindex#1{\@for\@ltxenv:=#1\do{\index{\@ltxenv @\env{\@ltxenv} 环境}}}
 \def\pkgcmdindex[#1]#2{\@for\@pkgcmd:=#2\do{\index{\@pkgcmd @\cmd{\@pkgcmd} (\pkg{#1})}}}
-\def\pkgenvindex[#1]#2{\@for\@pkgcmd:=#2\do{\index{\@pkgcmd @\env{\@pkgcmd} 环境 (\pkg{#1})}}}
+\def\pkgenvindex[#1]#2{\@for\@pkgenv:=#2\do{\index{\@pkgenv @\env{\@pkgenv} 环境 (\pkg{#1})}}}
 % 文本和数学符号索引
 \def\symindex#1{\@for\t@xtsym:=#1\do{\index{\t@xtsym @\cmd{\t@xtsym} (\textit{符号} \expandafter\protect\csname \t@xtsym\endcsname)}}}
 \def\mathindex#1{\@for\m@thcmd:=#1\do{\index{\m@thcmd @\cmd{\m@thcmd} (\textit{数学命令})}}}
@@ -242,7 +256,7 @@
 \fvset{fontsize=\small,frame=lines}
 \newfloat{sourcecode}{tbp}{los}[chapter]
 \floatname{sourcecode}{源代码}
-\def\listofsources{\listof{sourcecode}{源代码示例列表}}
-
+\def\sourcecodename{源代码示例列表}
+\def\l@sourcecode{\@dottedtocline{1}{1.5em}{2.3em}}
 
 \endinput

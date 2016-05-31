@@ -1,10 +1,10 @@
-中文版 lshort 代码用到的命令
-===
+# 中文版 lshort 代码用到的命令
 
 ### 约定俗成的习惯
 
 1. 命令后面用 `\␣` 加空格，如 `\LaTeX\␣`，不用 `\LaTeX{}␣`。
 2. 每章的 `\chapter` 命令后手动给 `.los` 目录写间距：
+
 ```
 \addtocontents{los}{\protect\addvspace{10pt}}
 ```
@@ -35,8 +35,11 @@
 \Arg{argument}
 ```
 独立的 meta 形式 &lt;*argument*&gt;。结合 `\marg*` 和 `\oarg*` 可排版较复杂的参数形式如 key-value。比如
+
 > \usepackage[&lt;*key1*&gt;=&lt;*value1*&gt;,...]{&lt;*pkgname*&gt;}   
+
 使用如下命令排版：
+
 > `\cmd{usepackage}\oarg*{\Arg{key1}=\Arg{value1},\ldots}\marg{pkgname}`
 
 ```

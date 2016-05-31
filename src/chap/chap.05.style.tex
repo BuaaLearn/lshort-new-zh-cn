@@ -154,37 +154,46 @@ He likes {\LARGE large and
 \begin{table}[!p]
 \centering
 \caption{常见的 \LaTeX\ 字体宏包。}\label{tbl:font-pkgs}
-\begin{minipage}{\linewidth}
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}cp{0.65\linewidth}@{}}
  \hline
+ \multicolumn{2}{c}{文本/数学字体搭配的宏包} \\
+ \hline
  \pkg{lmodern}     & Latin Modern 字体，对 Computer Modern 字体的扩展  \\
+ \pkg{cmbright}    & 仿 Computer Modern 风格的无衬线字体 \\
+ \pkg{euler}       & Euler 风格数学字体，也出自于高德纳之手 \\
+ \pkg{ccfonts}     & Concrete 风格字体 \\
  \pkg{txfonts}     & Times 风格的字体宏包  \\
- \pkg{pxfonts}     & Palation 风格的字体宏包  \\
+ \pkg{pxfonts}     & Palatino 风格的字体宏包  \\
  \pkg{stix}        & Times 风格的字体宏包  \\
  \pkg{newtxtext},\pkg{newtxmath}  & \pkg{txfonts} 的改进版本，分别设置文本和数学字体  \\
  \pkg{newpxtext},\pkg{newpxmath}  & \pkg{pxfonts} 的改进版本，分别设置文本和数学字体  \\
  \pkg{mathptmx}    & \pkg{psnfss} 组件之一，Times 风格，较为陈旧，不推荐使用  \\
  \pkg{mathpazo}    & \pkg{psnfss} 组件之一，Palatino 风格，较为陈旧，不推荐使用  \\
- \pkg{ccfonts}     & Concrete 风格字体 \\
- \pkg{euler}       & Euler 风格数学字体，也出自于高德纳之手 \\
- \pkg{fourier}     & fourier 风格数学字体 \\
- \pkg{arev}        & Arev 风格的无衬线字体 \\
- \pkg{cmbright}    & 仿 Computer Modern 风格的无衬线字体 \\
+ \pkg{fourier}     & fourier 风格数学字体，配合 Utopia 正文字体 \\
+ \pkg{fouriernc}   & fourier 风格数学字体，配合 New Century Schoolbook 正文字体 \\
+ \pkg{arev}        & Arev 无衬线字体宏包，Bitstream Vera sans 风格 \\
+ \pkg{mathdesign}  & 配合 Charter/Garamond/Utopia 正文字体的数学字体宏包（Garamond 字体可能需要单独安装） \\
+ \hline
+ \multicolumn{2}{c}{文本字体宏包} \\
+ \hline
+ \pkg{dejavu}      & DejaVu 开源字体 \\
+ \pkg{droid}       & Droid 开源字体 \\
+ \pkg{inconsolata} & Inconsolata 开源等宽字体 \\
  \pkg{libertine}   & Linux Libertine 衬线字体 \\
- \pkg{droid}       & Droid Serif/Droid Sans 等 \\
- \pkg{inconsolata} & Inconsolata 一款不错的开源等宽字体 \\
  \pkg{sourcesanspro} & Source Sans Pro 开源无衬线字体 \\
  \pkg{sourcecodepro} & Source Code Pro 开源等宽字体 \\
+ \hline
+ \multicolumn{2}{c}{符号宏包} \\
+ \hline
  \pkg{mathabx}     & 数学符号宏包之一 \\
  \pkg{MnSymbol}    & 数学符号宏包之一 \\
  \pkg{fdsymbol}    & 数学符号宏包之一 \\
- \pkg{mathdesign}  & 配合 Charter/Garamond/Utopia 正文字体的数学字体宏包（Garamond 字体可能需要单独安装） \\
+ \pkg{pifont}      & Zapf Dingbats 符号字体宏包 \\
  \hline
 \end{tabular*}
-\end{minipage}
 \end{table}
 
-\subsection{\texttt{xelatex} 命令下使用 \pkg{fontspec} 宏包更改字体}\label{subsec:fontspec}
+\subsection{使用 \pkg{fontspec} 宏包更改字体 (\texttt{xelatex})}\label{subsec:fontspec}
 
 \index{xelatex@\texttt{xelatex} 命令}
 \texttt{xelatex} 编译命令能够支持直接调用系统安装的 \texttt{.ttf} 或 \texttt{.otf} 格式字体%
@@ -253,7 +262,7 @@ He likes {\LARGE large and
 表示基础长度为 \texttt{12pt}，可以伸展到 \texttt{14pt} ，也可以收缩到 \texttt{9pt}。
 也可只定义 \texttt{plus} 或者 \texttt{minus} 的部分，如 \texttt{0pt plus 5pt}。
 
-长度的数值还可以用长度变量的倍数来表达，如 \texttt{2.5}\cmd{parindent} 等。
+长度的数值还可以用长度变量本身或其倍数来表达，如 \texttt{2.5}\cmd{parindent} 等。
 
 \cmdindex{newlength,setlength,addtolength}
 \LaTeX\ 预定义了大量的长度变量用于控制版面格式。如页面宽度和高度、首行缩进、段落间距等。
@@ -319,7 +328,7 @@ But remember I am a liar.}\par
 \cmd{setlength}\marg*{\cmd{parindent}}\marg*{2em}
 \end{command}
 
-它们和设置字号的命令一样，在分段时生效。
+它们和设置行距的命令一样，在分段时生效。
 
 \cmdindex{indent,noindent}
 \LaTeX\ 默认在段落开始时缩进，长度为你用上述命令设置的 \cmd{parindent}。如果你在某一段不想使用缩进，可使用某一段开头使用
@@ -330,11 +339,11 @@ But remember I am a liar.}\par
 \begin{command}
 \cmd{indent}
 \end{command}
-命令强制开启一段首行缩进的段落。多个 \cmd{indent} 命令的效果可以累加。
+命令强制开启一段首行缩进的段落。多个 \cmd{indent} 命令可以累加缩进量。
 
 \pkgindex{indentfirst}
-\LaTeX\ 还默认\textbf{在 \cmd{chapter}、\cmd{section} 等章节命令之后的第一段不缩进}%
-\footnote{\pkg{ctex} 宏包默认按照中文习惯保持第一段的首行缩进。}。
+\LaTeX\ 还默认\textbf{在 \cmd{chapter}、\cmd{section} 等章节标题命令之后的第一段不缩进}%
+\footnote{\pkg{ctex} 宏包和文档类默认按照中文习惯保持标题后第一段的首行缩进。}。
 如果不习惯这种设定，可以调用 \pkg{indent\-first} 宏包：
 \begin{verbatim}
 \usepackage{indentfirst}
@@ -349,7 +358,7 @@ But remember I am a liar.}\par
 \subsection{水平间距}\label{subsec:hspace}
 
 \cmdindex{hspace}
-\LaTeX 默认为单词之间增添了水平间距。如果想要手动插入额外的间距，需要用到如下命令：
+\LaTeX 默认为将单词之间的“空格”转化为水平间距。如果需要在文中手动插入额外的水平间距，可使用如下命令：
 \begin{command}
 \cmd{hspace}\marg{length}
 \end{command}
@@ -359,7 +368,7 @@ of 1.5 cm.
 \end{example}
 
 \cmdindex{hspace*}
-\cmd{hspace} 命令生成的间距如果位于一行的开头或末尾，则有可能因为断行而被“吞掉”。可使用 \cmd{hspace*} 命令代替 \cmd{hspace} 命令
+\cmd{hspace} 命令生成的水平间距如果位于一行的开头或末尾，则有可能因为断行而被“吞掉”。可使用 \cmd{hspace*} 命令代替 \cmd{hspace} 命令
 得到不会因断行而消失的水平间距。
 
 \cmdindex{stretch,fill}
@@ -375,8 +384,8 @@ x\hspace{\fill}x
 \end{example}
 
 \cmdindex{quad,qquad}
-在正文中用 \cmd{hspace} 命令生成水平间距时，往往使用 \texttt{em} 作为单位，它会随字号大小而变。
-我们常用 \cmd{quad} 和 \cmd{qquad} 命令方便地生成水平间距，相当于 \cmd{hspace}\marg*{1em} 和 \cmd{hspace}\marg*{2em}：
+在正文中用 \cmd{hspace} 命令生成水平间距时，往往使用 \texttt{em} 作为单位，生成的间距随字号大小而变。
+我们在数学公式中见过 \cmd{quad} 和 \cmd{qquad} 命令，它们也可以用于文本中，分别相当于 \cmd{hspace}\marg*{1em} 和 \cmd{hspace}\marg*{2em}：
 
 \begin{example}
 {\Large big\hspace{1em}y}\\
@@ -427,7 +436,8 @@ between lines in a paragraph.
 \cmdindex{textheight,textwidth}
 控制页边距的参数由图 \ref{fig:layouts} 里给出的各种长度变量控制。
 可以用 \cmd{setlength} 命令修改这些长度变量，以达到调节页面尺寸和边距的作用；
-反之也可以利用这些长度变量来决定排版内容的尺寸，如设置图片或表格的宽度为 0.8\cmd{textwidth}。
+反之也可以利用这些长度变量来决定排版内容的尺寸，如在 \env{tabularx} 环境或 \cmd{include\-graphics} 命令的参数里，
+设置图片或表格的宽度为 0.8\cmd{textwidth}：
 
 \begin{figure}[!p]
 \centering
@@ -543,7 +553,7 @@ between lines in a paragraph.
 \pkgindex{float}
 \pkg{multicol} 宏包能够在一页之中切换单栏/多栏，也能处理跨页的分栏，且各栏的高度分布平衡。但代价是%
 \textbf{在 \env{multicols} 环境中无法正常使用 \env{table} 和 \env{figure} 等浮动体环境}，它会直接让浮动体丢失。
-\env{multicols} 环境中只能用跨栏的 \env{table*} 和 \env{figure*} ，或者用 \pkg{float} 宏包提供的 \texttt{H} 选项固定浮动体的位置。
+\env{multicols} 环境中只能用跨栏的 \env{table*} 和 \env{figure*} 环境，或者用 \pkg{float} 宏包提供的 \texttt{H} 选项固定浮动体的位置。
 
 \section{页眉页脚}\label{sec:pagestyle}
 
@@ -581,9 +591,9 @@ between lines in a paragraph.
 其中 \texttt{headings} 的情况较为复杂：
 \begin{description}
   \item[\cls{article} 文档类，\texttt{twoside} 选项：] 偶数页为页码和节标题，奇数页为小节标题和页码；
-  \item[\cls{article} 文档类，\texttt{oneside} 选项：] 同 \texttt{twoside} 选项的奇数页页眉；
+  \item[\cls{article} 文档类，\texttt{oneside} 选项：] 页眉为节标题和页码；
   \item[\cls{book/report} 文档类，\texttt{twoside} 选项：] 偶数页为页码和章标题，奇数页为节标题和页码；
-  \item[\cls{book/report} 文档类，\texttt{oneside} 选项：] 同 \texttt{twoside} 选项的奇数页页眉。
+  \item[\cls{book/report} 文档类，\texttt{oneside} 选项：] 页眉为章标题和页码。
 \end{description}
 
 \subsection{手动更改页眉页脚的内容}\label{subsec:marks}

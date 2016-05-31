@@ -1,11 +1,10 @@
+\newif\ifoddsidelayout
+
 \expandafter\ifx\csname ver@layout.sty\endcsname\relax
   \typeout{Package `layout' not loaded. Command \string\layoutpicture{} will have no effect.}
   \def\layoutpicture{\@ifstar\@empty\@empty}
-%  \let\oddsidelayouttrue\relax \let\oddsidelayoutfalse\relax
   \expandafter\endinput
 \fi
-
-\newif\ifoddsidelayout
 
 \newcommand\lay@layoutpic{%
   \if@twoside
