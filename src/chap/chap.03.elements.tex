@@ -471,6 +471,8 @@ for (int i=0; i<4; ++i)
 \end{tabular}
 \end{example}
 
+表格中每行的单元格数目不能多于列格式里 \texttt{l/c/r/p} 的总数（可以少于这个总数），否则出错。
+
 \texttt{@} 格式可在单元格前后插入任意的文本，但同时它也消除了单元格前后额外添加的间距。
 \texttt{@} 格式可以适当使用以充当“竖线”。特别地，\texttt{@}\marg*{} 可直接用来消除单元格前后的间距：
 \begin{example}
@@ -558,13 +560,15 @@ for (int i=0; i<4; ++i)
 \end{example}
 
 \pkgindex{booktabs}
-\cmdindex[booktabs]{toprule,midrule,bottomrule}
+\cmdindex[booktabs]{toprule,midrule,bottomrule,cmidrule}
 在科技论文排版中广泛应用的表格形式是三线表，形式干净简明。
 三线表由 \pkg{booktabs} 宏包支持，它提供了 \cmd{toprule}、\cmd{midrule} 和 \cmd{bottomrule} 命令用以排版三线表的三条线，
-除此之外，最好不要用其它横线以及竖线：
+以及和 \cmd{cline} 对应的 \cmd{cmidrule}。除此之外，最好不要用其它横线以及竖线：
 \begin{example}
 \begin{tabular}{cccc}
   \toprule
+   & \multicolumn{3}{c}{Numbers} \\
+  \cmidrule{2-4}
            & 1 & 2 & 3 \\
   \midrule
   Alphabet & A & B & C \\
