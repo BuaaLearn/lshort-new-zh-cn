@@ -1,5 +1,7 @@
 # The Not So Short Introduction To LaTeX (Chinese Edition), v5.05
 
+**WARNING: This repository has been moved to [CTeX-org/lshort-cn](https://www.github.com/CTeX-org/lshort-cn/ "") and is no longer active.**
+
 ## License
 
 This document is distributed under the **GNU Free Documentation License, version 1.3**.

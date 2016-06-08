@@ -53,7 +53,9 @@
 \cmd{tableofcontents}
 \end{command}
 
-正确生成目录项，一般需要多次编译源代码。
+这个命令会生成单独的一个章节，标题默认为 ``Contents'' ，可通过 \ref{sec:latex-settings} 节给出的方法定制标题。
+
+正确生成目录项，一般需要编译两次源代码。
 
 \cmdindex{addcontentsline}
 有时我们使用了 \cmd{chapter*} 或 \cmd{section*} 这样不生成目录项的命令，而又想手动生成该章节的目录，可以在标题命令后面使用：
@@ -75,9 +77,9 @@
 \cmdindex{frontmatter,mainmatter,backmatter}
 \cls{book} 文档类还提供了前言、正文、后记结构的划分命令：
 \begin{description}
-  \item[\cmd{frontmatter}] 前言部分，页码为小写罗马字母格式；其后的章节不编号（但生成页眉页脚和目录项）。
-  \item[\cmd{mainmatter}] 正文部分，页码改回数字格式，并从 1 开始计数；其后的章节正常编号。
-  \item[\cmd{backmatter}] 后记部分，页码继续正常计数，格式不变；其后的章节不编号，类似 \cmd{frontmatter} 命令。
+  \item[\cmd{frontmatter}] 前言部分，页码为小写罗马字母格式；其后的章节不编号，但生成页眉页脚和目录项。
+  \item[\cmd{mainmatter}] 正文部分，页码为阿拉伯数字格式，从 1 开始计数；其后的章节编号、页眉页脚和目录项正常。
+  \item[\cmd{backmatter}] 后记部分，页码格式不变，继续正常计数；其后的章节不编号，但生成页眉页脚和目录项。
 \end{description}
 
 \cmdindex{include}
